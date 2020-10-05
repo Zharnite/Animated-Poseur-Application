@@ -1,0 +1,76 @@
+.center{
+    display: flex;
+    justify-content: center;
+ }
+
+
+ .editscreen{
+    width: 100%;
+    display: inline-flex;
+    
+ }
+
+.animator {
+    border: 3px solid white;
+}
+
+#frame-panel{
+    display: flex;
+    gap: 10px;
+    padding: 3%;
+    height: 100px;
+    width:500px;
+    overflow-x: scroll;
+}
+
+.frame-card{
+    height: 70px;
+    width: 70px;
+}
+
+
+.toolbar {
+    height: 100%;
+    width: 60px;
+    border: 3px solid white;
+}
+
+.tool-icon{
+    height: 60px;
+    width: 100px;
+}
+
+.filebar {
+    height: 100%;
+    width: 120px;
+}
+
+#layer-menu{
+    height: 300px;
+    width: 99%;
+    overflow: scroll;
+  
+}
+
+#layer-card{
+    margin-bottom: 5px;
+    font-size: smaller;
+    display: flex;
+    gap: 10px
+   
+}
+
+.layer-card-icon{
+    width: 20px;
+    height:20px;
+}
+
+.layer-card-namefield{
+    width: 100px;
+    height: 20px;
+    border-radius: 5px;
+}
+
+#layer-controls{
+    display: inline-flex;
+}

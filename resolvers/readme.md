@@ -1,0 +1,1 @@
+This folder should contain any necessary Apollo Server resolvers.
