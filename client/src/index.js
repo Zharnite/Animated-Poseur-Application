@@ -22,8 +22,8 @@ const cache = new InMemoryCache
 	dataIdFromObject: object => `${object.__typename}:${object._id}`,
 });
 
-const CLIENT_ORIGIN = 'http://130.245.12.107:3001/graphql'; //Do I need to change this?
-const SERVER_LOCAL_DOMAIN = 'http://localhost:3001/graphql'; //Do I need to change this?
+const CLIENT_ORIGIN = 'http://130.245.12.107:3000/graphql'; //Do I need to change this?
+const SERVER_LOCAL_DOMAIN = 'http://localhost:3000/graphql'; //Do I need to change this?
 
 const client = new ApolloClient
 ({

@@ -1,4 +1,3 @@
-
 import Sketch from "react-p5";
 import React from "react";
 import FramePanel from "./FramePanel"
@@ -67,12 +66,13 @@ const changeColor = (c, cc) => {
 };
 
 
-const foo = () =>{
-
+const foo = (props) =>{
+  let animationsprite = props.animationsprite
   return(
     <div className="animatorbar">
+      
       <Sketch setup={setup} draw={draw} />
-      <FramePanel/>
+      <FramePanel animationsprite = {animationsprite}/>
       <button onClick={changeColor.bind(this, 1)}> Red </button>
       <button onClick={changeColor.bind(this, 2)}> Green </button>
       <button onClick={changeColor.bind(this, 3)}> Blue </button>

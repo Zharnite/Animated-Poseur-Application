@@ -51,7 +51,16 @@ const App = (props) => {
                       />
                     }
             /> 
-            <Route path="/edit" component={Editscreen}/> 
+            <Route  path="/edit" 
+                    name="editscreen"
+                    render={ (props) => 
+                      <Editscreen 
+                        {...props} 
+                        fetchUser={refetch} 
+                        user={user}
+                      />
+                    } 
+            /> 
     
         </Switch>
     </BrowserRouter>

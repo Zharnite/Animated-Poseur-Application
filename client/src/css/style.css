@@ -52,6 +52,11 @@ body{
     background-color: var(--swatch-complement);
 }
 
+#frame-menu{
+    border: 1px solid black;
+    
+}
+
 .frame-card{
     display:inline-block;
     background-color: white
