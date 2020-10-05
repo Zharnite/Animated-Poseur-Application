@@ -33,7 +33,7 @@ const server = new ApolloServer({
     typeDefs: typeDefs,
 	resolvers: resolvers,
 	context: ({req, res}) => ({ req, res })
-});
+}); 
 
 // since the express server has cors configured, cors on the apollo server
 // can be false; passing the same options as defined on the express instance

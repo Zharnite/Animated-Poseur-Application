@@ -23,7 +23,7 @@ module.exports = {
 			@returns {object} the user object or an object with an error message
 		**/
 		login: async (_, args, { res }) => {	
-			console.log("Hello")
+	
 			const { email, password } = args;
 
 			const user = await User.findOne({email: email});
@@ -44,12 +44,12 @@ module.exports = {
 			@returns {object} the user object or an object with an error message
 		**/
 		register: async (_, args, { res }) => {
+			console.log(args)
 			const { username, email, password} = args;
 			const alreadyRegistered = await User.findOne({email: email});
 			if(alreadyRegistered) {
 				return({msg: 'User with that email already registered.'});
 			}
-			console.log("Hit")
 			const hashed = await bcrypt.hash(password, 10);
 			const _id = new ObjectId();
 			const user = new User({
