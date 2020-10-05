@@ -1,0 +1,92 @@
+{
+    "sprite_name": "SpriteSheet",
+    "public": true,
+    "width": 64,
+    "height": 128,
+    "animation_states":[
+        {
+            "animation_states_name": "state0",
+            "frames" :[
+                    {
+                        "position" : 1,
+                        "layers":[
+                            {
+                                "layer_name": "layer 1",
+                                "isVisable": true,
+                                "isLocked": false
+                            },
+                            {
+                                "layer_name": "layer 2",
+                                "isVisable": true,
+                                "isLocked": false 
+                            }
+                        ],
+                        "data": "asdfghjkl"
+                    },
+                    {
+                        "position" : 2,
+                        "layers":[
+                            {
+                                "layer_name": "layer 1",
+                                "isVisable": true,
+                                "isLocked": false
+                            },
+                            {
+                                "layer_name": "layer 2",
+                                "isVisable": true,
+                                "isLocked": false 
+                            },
+                            {
+                                "layer_name": "layer 2",
+                                "isVisable": true,
+                                "isLocked": false 
+                            }
+                        ],
+                        "data": "qwertyuiop"
+                    }
+            ]
+        },
+        {
+            "animation_states_name": "state1",
+            "frames" :[
+                    {
+                        "position" : 1,
+                        "layers":[
+                            {
+                                "layer_name": "layer 1",
+                                "isVisable": true,
+                                "isLocked": false
+                            },
+                            {
+                                "layer_name": "layer 2",
+                                "isVisable": true,
+                                "isLocked": false 
+                            }
+                        ],
+                        "data": "asdfghjkl"
+                    },
+                    {
+                        "position" : 2,
+                        "layers":[
+                            {
+                                "layer_name": "layer 1",
+                                "isVisable": true,
+                                "isLocked": false
+                            },
+                            {
+                                "layer_name": "layer 2",
+                                "isVisable": true,
+                                "isLocked": false 
+                            },
+                            {
+                                "layer_name": "layer 2",
+                                "isVisable": true,
+                                "isLocked": false 
+                            }
+                        ],
+                        "data": "qwertyuiop"
+                    }
+            ]
+        }
+    ]
+}

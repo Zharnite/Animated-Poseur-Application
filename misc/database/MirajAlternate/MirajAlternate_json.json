@@ -1,0 +1,28 @@
+{
+  "name": "MirajAlternate",
+  "width": 128,
+  "height": 128,
+  "frameData": [
+    {
+      "offsetX": 0,
+      "offsetY": 0,
+      "state": "default",
+      "frame": 0,
+      "duration": 42
+    },
+    {
+      "offsetX": 0,
+      "offsetY": 128,
+      "state": "default",
+      "frame": 1,
+      "duration": 42
+    },
+    {
+      "offsetX": 0,
+      "offsetY": 256,
+      "state": "Wave",
+      "frame": 0,
+      "duration": 42
+    }
+  ]
+}
