@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Frame from "./Frame";
+import Frame from "./FrameCard";
 import { Dropdown, DropdownButton } from "react-bootstrap";
 
 const FramePanel = (props) => {

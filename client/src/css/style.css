@@ -28,23 +28,28 @@
   ); /* USED IN MOUSE-OVER SELECTION OF TEXT AND BORDERS */
   --my-font-family: "Robaaaoto";
   --bounceEasing: cubic-bezier(0.51, 0.92, 0.24, 1.15);
-  --canvas-height: 400px;
-  --canvas-width: 100%;
+  --canvas-height: 600px;
+  --canvas-width: 1000px;
 }
 
 body {
   background-color: var(--swatch-foundation);
 }
 
-#canvas {
+#canvas-background{
+  background-color: grey;
   height: var(--canvas-height);
   width: var(--canvas-width);
-  background-color: white;
+  
+
 }
 
-#canvas-backgound {
-  height: var(--canvas-height);
-  width: var(--canvas-width);
+#canvas{
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }
 
 #register:hover {
@@ -113,5 +118,16 @@ body {
 .swatch {
   padding: 5px;
   background-color: #ffffff;
+  height: 50px;
+  width: 50px;
+  border: solid 5px;
   cursor: pointer;
+}
+
+#cover{
+    /* position: fixed;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px; */
 }

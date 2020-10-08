@@ -38,11 +38,12 @@ let tools = [
     id: "fillcolortool",
   },
 ];
-const Toolbar = () => {
-  const [selectedTool, setSelectedTool] = useState(null);
+const Toolbar = (props) => {
+  let selectedTool = props.selectedTool;
+  let setSelectedTool = props.setSelectedTool;
+  let brushColor = props.brushColor;
   const [brushSize, setBrushSize] = useState(1);
   const [displayColorPicker, setDisplayColorPicker] = useState(false);
-  const [color, setColor] = useState([0, 0, 0]);
   console.log(tools);
 
   return (
@@ -63,7 +64,7 @@ const Toolbar = () => {
         {displayColorPicker ? (
           <div>
             <div onClick={() => setDisplayColorPicker(false)} />
-            <PhotoshopPicker color={color} />
+            <PhotoshopPicker />
           </div>
         ) : null}
       </div>

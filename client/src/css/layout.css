@@ -13,7 +13,7 @@
 }
 
 #frame-panel {
-  width: 500px;
+  width: 1000px;
 }
 
 #frame-menu {
@@ -45,7 +45,7 @@
 
 .filebar {
   height: 100%;
-  width: 120px;
+  width: 200px;
 }
 
 #layer-menu {

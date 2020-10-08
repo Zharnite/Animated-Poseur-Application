@@ -9,6 +9,9 @@ import { GET_DB_ANIMATIONSPRITE } from "../../cache/queries";
 
 function Editscreen(props) {
   console.log(props);
+  const [selectedTool, setSelectedTool] = useState(null);
+  const [brushSize, setBrushSize] = useState(1);
+  const [brushColor, setBrushColor] = useState([0, 0, 0]);
   const [animationsprite, setAnimationsprite] = useState({
     sprite_name: "SpriteSheet",
     public: true,
@@ -72,8 +75,8 @@ function Editscreen(props) {
 
   return (
     <div className="editscreen center">
-      <Toolbar />
-      <Animatorbar animationsprite={animationsprite} />
+      <Toolbar selectedTool={selectedTool} setSelectedTool={setSelectedTool} brushColor={brushColor}/>
+      <Animatorbar selectedTool={selectedTool}  animationsprite={animationsprite} />
       <Filebar />
     </div>
   );
