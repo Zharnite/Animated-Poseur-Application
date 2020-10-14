@@ -1,3 +1,4 @@
+
 .center {
   display: flex;
   justify-content: center;
@@ -74,4 +75,27 @@
 
 #layer-controls {
   display: inline-flex;
+}
+
+
+#maincanvas{
+  width: 800px;
+  height: 200px;
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  background: url("../illustration/images/canvas_background.png");
+}
+
+.canvas-layer{
+  position: absolute;
+  width: 800px;
+  height: 200px;
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }

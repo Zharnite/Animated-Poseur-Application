@@ -55,8 +55,6 @@ const RegisterModal = (props) => {
     if (data) {
       console.log(data);
       toggleLoading(false);
-      props.fetchUser();
-      props.setShowCreate(false);
     }
   };
 

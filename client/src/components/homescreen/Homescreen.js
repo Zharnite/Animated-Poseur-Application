@@ -28,7 +28,7 @@ const Homescreen = (props) => {
       <h1> HomeScreen </h1>
       <div>
         <div id="coverr"></div>
-        <PhotoshopPicker color={color} onChange ={(a) => console.log(a)} />
+        {/* <PhotoshopPicker color={color} onChange ={(a) => console.log(a)} /> */}
       </div>
       
     </div>

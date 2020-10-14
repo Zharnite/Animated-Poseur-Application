@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import LayerCard from "./LayerCard";
 
-const LayerPanel = () => {
+const LayerPanel = (props) => {
+  let layers = props.layers;
+  console.log(layers)
   const [layersList, setLayersList] = useState([
     {
       layer_name: "backround",
@@ -50,7 +52,7 @@ const LayerPanel = () => {
     <div className="layer-panel">
       <h4>Layers</h4>
       <div id="layer-menu">
-        {layersList.map((layer) => (
+        {layers.map((layer) => (
           <span>
             <LayerCard
               layer={layer}

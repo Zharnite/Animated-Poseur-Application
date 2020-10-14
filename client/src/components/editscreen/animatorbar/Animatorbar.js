@@ -1,16 +1,11 @@
 import React from "react";
 import FramePanel from "./FramePanel";
-import Canvas from "./Canvas";
+import Canvas from "./CanvasMain";
 // https://github.com/satansdeer/drawing-react-canvas
 
 let glo = null;
 let rgb = [0, 0, 0];
 let brush_size = 1;
-
-
-
-
-
 
 const Animatorbar = (props) => {
   let animationsprite = props.animationsprite;
