@@ -12,7 +12,6 @@ import { flowRight as compose, random } from "lodash";
 import { useQuery } from "@apollo/react-hooks";
 
 const App = (props) => {
-  console.log(props);
   let user = null;
   const { loading, error, data, refetch } = useQuery(GET_DB_USER);
   if (error) {
@@ -27,10 +26,14 @@ const App = (props) => {
       user = getCurrentUser;
     }
   }
+  console.log(user)
+	console.log(refetch)
 
   return (
     <BrowserRouter>
-      <Navbar />
+      <Navbar 
+        fetchUser={refetch} user={user}
+      />
       <Switch>
         <Redirect exact from="/" to={{ pathname: "/home" }} />
         <Route exact path="/home" component={Homescreen} />

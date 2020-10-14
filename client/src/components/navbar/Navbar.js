@@ -6,7 +6,8 @@ import BootNavbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import "bootstrap/dist/css/bootstrap.css";
 //traversy media
-const loggedIn = () => {
+function loggedIn(user){
+
   return (
     <NavDropdown title="Username" id="collasible-nav-dropdown">
       <NavDropdown.Item>Profile</NavDropdown.Item>
@@ -25,8 +26,10 @@ function loggedOut() {
   );
 }
 
-const Navbar = () => {
-  var loggedIn = false;
+const Navbar = (props) => {
+  let user = props.user
+  let isLoggedIn = false;
+  if(user != null) isLoggedIn = true;
   return (
     <BootNavbar
       collapseOnSelect
@@ -54,8 +57,7 @@ const Navbar = () => {
             <NavLink to="/edit">Editscreen</NavLink>
           </Nav.Link>
         </Nav>
-        {/* <Nav>{loggedIn ? loggedIn() : loggedOut()}</Nav> */}
-        <Nav>{loggedOut()}</Nav>
+        <Nav>{isLoggedIn ? loggedIn(user) : loggedOut()}</Nav>
       </BootNavbar.Collapse>
     </BootNavbar>
   );

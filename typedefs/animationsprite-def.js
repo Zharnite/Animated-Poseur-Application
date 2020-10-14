@@ -37,22 +37,31 @@ const typeDefs = gql`
     addFrame(item: FrameInput!): String
   }
   input AnimationspriteInput {
-    _id: String!
-    sprite_name: String!
-    public: Boolean!
-    width: Number!
-    height: Number!
+    _id: String
+    id: Int    
+    sprite_name: String
+    public: Boolean
+    width: Number
+    height: Number
     animation_states: [Animationstate]
   }
-  input LayerInput {
-    _id: String!
-    layer_name: String!
-    isVisable: Boolean!
-    isLocked: Boolean!
+  input AnimationstateInput{
+    animation_state_name: String
+    isSelected: Boolean
+    frames: [Frame]
   }
   type FrameInput {
-    position: Number!
-    data: String!
+    position: Number
+    duration: Number
+    isSelected: Boolean
+    layers: [Layer]
+  }
+  type Layer {
+    layer_name: String
+    isVisable: Boolean
+    isLocked: Boolean
+    isSelected: Boolean
+    data: String
   }
 `;
 

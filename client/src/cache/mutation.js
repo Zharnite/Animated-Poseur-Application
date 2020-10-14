@@ -33,4 +33,21 @@ export const LOGOUT = gql`
   }
 `;
 
-// ====================== Item Mutations ====================== //
+// ====================== Animationsprite Mutations ====================== //
+export const ADD_ANIMATIONSPRITE = gql`
+	mutation AddAnimationSprite($animationsprite: AnimationspriteInput!) {
+		addTodolist(animationsprite: $animationsprite) 
+	}
+`;
+
+export const UPDATE_ANIMATIONSPRITE = gql`
+	mutation UpdateTodolistField($_id: String!, $field: String!, $value: String!) {
+		updateTodolistField(_id: $_id, field: $field, value: $value)
+	}
+`;
+
+export const DELETE_ANIMATIONSPRITE = gql`
+	mutation DeleteTodolist($_id: String!) {
+		deleteTodolist(_id: $_id)
+	}
+`;

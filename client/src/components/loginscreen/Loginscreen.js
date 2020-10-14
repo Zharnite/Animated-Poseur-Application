@@ -9,7 +9,6 @@ import { graphql } from "@apollo/react-hoc";
 import { flowRight as compose, random } from "lodash";
 
 const Login = (props) => {
-  console.log(props);
   return (
     <div className="center">
       <Card style={{ width: "50rem" }}>
@@ -28,9 +27,9 @@ const Login = (props) => {
               <Form.Control type="password" placeholder="Password" />
             </Form.Group>
             <RegisterModal
-            // {...props}
-            // fetchUser={props.refetch}
-            // user={props.user}
+              {...props}
+              fetchUser={props.fetchUser}
+              user={props.user}
             />
             <Button variant="primary" type="submit">
               Submit

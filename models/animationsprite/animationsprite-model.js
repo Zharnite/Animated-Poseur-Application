@@ -8,6 +8,10 @@ const animationspriteSchema = new Schema(
 			type: ObjectId,
 			required: true
 		},
+		id: {
+			type: Number,
+			required: true
+		},
 		sprite_name: {
 			type: String,
 			required: true

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
+import {Link } from "react-router-dom";
+
 
 import { REGISTER } from "../../cache/mutation";
 import { graphql } from "@apollo/react-hoc";
@@ -42,10 +44,13 @@ const RegisterModal = (props) => {
     var password = document.getElementById("register-form").elements[3].value;
     var login = { username, email, password };
     console.log(login);
+    console.log(props.register);
 
     const { loading, error, data } = await props.register({
       variables: { ...login },
     });
+
+
     if (loading) {
       toggleLoading(true);
     }
@@ -54,8 +59,11 @@ const RegisterModal = (props) => {
     }
     if (data) {
       console.log(data);
-      toggleLoading(false);
+			toggleLoading(false);
+      props.fetchUser();
+      document.location.href = '/home';
     }
+
   };
 
   return (
@@ -95,9 +103,10 @@ const RegisterModal = (props) => {
             <Button variant="secondary" onClick={handleClose}>
               Cancel
             </Button>
-            <Button variant="primary" onClick={handleCreateAccount}>
-              Register
-            </Button>
+              <Button variant="primary" onClick={handleCreateAccount}>
+                Register
+              </Button>
+
           </Modal.Footer>
         </Form>
       </Modal>

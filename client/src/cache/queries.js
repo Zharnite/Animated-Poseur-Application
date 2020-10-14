@@ -15,29 +15,39 @@ export const GET_DB_USER = gql`
   }
 `;
 
+
+// ====================== AnimationSprite Queries ====================== //
 export const GET_DB_ANIMATIONSPRITE = gql`
   query GetDBAnimatationsprite {
     getCurrentAnimatationsprite {
       _id
+      id
       sprite_name
       public
       width
       height
       animation_states {
         animation_state_name
-        layers {
-          layer_name
-          isVisable
-          isLocked
-        }
-        frames {
+        isSelected
+        frames{
           position
-          data
+          duration
+          isSelected
+          layers{
+            layer_name
+            isVisable
+            isLocked
+            isSelected
+            data
+          }
         }
+  
       }
     }
   }
 `;
 
-// ====================== Item Queries ====================== //
+
+
+
 // ====================== Todolist Queries ================== //
