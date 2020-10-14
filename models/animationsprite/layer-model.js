@@ -2,10 +2,6 @@ const { model, Schema, ObjectId } = require('mongoose');
 
 const layerSchema = new Schema(
 	{
-        _id: {
-			type: ObjectId,
-			required: true
-		},
 		layer_name: {
 			type: String,
 			required: true
@@ -17,7 +13,15 @@ const layerSchema = new Schema(
         isLocked: {
 			type: Boolean,
 			required: true
-        },
+		},
+		isSelected: {
+			type: Boolean,
+			required: true
+		},
+		data : {
+			type: String,
+			required: true
+		}
 	}
 );
 

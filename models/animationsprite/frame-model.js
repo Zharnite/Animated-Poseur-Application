@@ -1,19 +1,21 @@
 const { model, Schema, ObjectId } = require('mongoose');
+import Layer from "./layer-model"
 
 const frameSchema = new Schema(
 	{
-        _id: {
-			type: ObjectId,
-			required: true
-		},
 		position:{
             type: Number,
             required: true
         },
-        data:{
+        duration:{
             type: Number,
             required: true
-        }
+        },
+        isSelected: {
+			type: Boolean,
+			required: true
+        },
+        layers: [Layer] 
 	}
 );
 

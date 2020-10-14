@@ -10,19 +10,21 @@ const typeDefs = gql`
     animation_states: [Animationstate]
   }
   type Animationstate {
-    _id: String!
     animation_state_name: String!
-    layers: [Layer]
-    layers: [Frame]
-  }
-  type Layer {
-    _id: String!
-    layer_name: String!
-    isVisable: Boolean!
-    isLocked: Boolean!
+    isSelected: Boolean!
+    frames: [Frame]
   }
   type Frame {
     position: Number!
+    duration: Number!
+    isSelected: Boolean!
+    layers: [Layer]
+  }
+  type Layer {
+    layer_name: String!
+    isVisable: Boolean!
+    isLocked: Boolean!
+    isSelected: Boolean!
     data: String!
   }
   extend type Query {
