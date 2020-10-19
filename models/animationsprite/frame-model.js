@@ -1,5 +1,6 @@
 const { model, Schema, ObjectId } = require('mongoose');
-import Layer from "./layer-model"
+const Layer = require("./layer-model").schema;
+
 
 const frameSchema = new Schema(
 	{

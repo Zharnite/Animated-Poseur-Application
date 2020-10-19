@@ -17,11 +17,11 @@ module.exports = {
 		 	@param 	 {object} req - the request object containing a user id
 			@returns {array} an array of todolist objects on success, and an empty array on failure
 		**/
-		getAllAnimationsprite: async (_, __, { req }) => {
+		getAllAnimationsprites: async (_, __, { req }) => {
 			const _id = new ObjectId(req.userId);
 			if(!_id) { return([])};
-			const todolists = await Todolist.find({owner: _id});
-			if(todolists) return (todolists);
+			const animationsprite = await Animationsprite.find({owner: _id});
+			if(animationsprite) return (animationsprite);
 
 		},
 		/** 
@@ -32,41 +32,32 @@ module.exports = {
             const { _id } = args;
             // $$$QUESTON: is _id the objectid of the user that created it?
 			const objectId = new ObjectId(_id);
-			const todolist = await Todolist.findOne({_id: objectId});
-			if(todolist) return todolist;
+			const animationsprite = await Animationsprite.findOne({_id: objectId});
+			if(animationsprite) return animationsprite;
 			else return ({});
 		},
 	},
 	Mutation: {
 		/** 
-		 	@param 	 {object} args - an empty todolist object
-			@returns {string} the objectID of the todolist or an error message
+		 	@param 	 {object} args - an empty Animationsprite object
+			@returns {string} the objectID of the Animationsprite or an error message
 		**/
 		addAnimationsprite: async (_, args) => {
-			const { todolist } = args;
+			const { animationsprite } = args;
 			const objectId = new ObjectId();
-			const { id, name, owner, items } = todolist;
-			const newList = new Todolist({
+			const { owner, name, isPublic, width, height, states } = animationsprite;
+			const newList = new Animationsprite({
 				_id: objectId,
-				id: id,
-				name: name,
 				owner: owner,
-				items: items
+				sprite_name: name,
+				public: isPublic,
+				width: width,
+            	height: height,
+				animation_states: states
 			});
 			const updated = newList.save();
 			if(updated) return objectId;
-			else return ('Could not add todolist');
-		},
-		/** 
-		 	@param 	 {object} args - a todolist objectID 
-			@returns {boolean} true on successful delete, false on failure
-		**/
-		deleteAnimationsprite: async (_, args) => {
-			const { _id } = args;
-			const objectId = new ObjectId(_id);
-			const deleted = await Todolist.deleteOne({_id: objectId});
-			if(deleted) return true;
-			else return false;
+			else return ('Could not add animationsprite');
 		},
 		/** 
 		 	@param 	 {object} args - a todolist objectID, field, and the update value
@@ -75,7 +66,7 @@ module.exports = {
 		updateAnimationspriteField: async (_, args) => {
 			const { field, value, _id } = args;
 			const objectId = new ObjectId(_id);
-			const updated = await Todolist.updateOne({_id: objectId}, {[field]: value});
+			const updated = await Animationsprite.updateOne({_id: objectId}, {[field]: value});
 			if(updated) return true;
 			else return false;
 		},

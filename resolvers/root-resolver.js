@@ -6,6 +6,6 @@
 
 // module.exports = [resolversA, resolversB];
 const userResolvers = require("./user-resolver");
-// const todolistResolvers = require('./todolist-resolvers');
+const animationspriteResolvers = require('./animationsprite-resolver');
 
-module.exports = [userResolvers];
+module.exports = [userResolvers, animationspriteResolvers];

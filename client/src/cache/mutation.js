@@ -35,19 +35,21 @@ export const LOGOUT = gql`
 
 // ====================== Animationsprite Mutations ====================== //
 export const ADD_ANIMATIONSPRITE = gql`
-	mutation AddAnimationSprite($animationsprite: AnimationspriteInput!) {
-		addTodolist(animationsprite: $animationsprite) 
+	mutation AddAnimationsprite($animationsprite: AnimationspriteInput!) {
+		addAnimationsprite(animationsprite: $animationsprite) 
 	}
 `;
 
-export const UPDATE_ANIMATIONSPRITE = gql`
-	mutation UpdateTodolistField($_id: String!, $field: String!, $value: String!) {
-		updateTodolistField(_id: $_id, field: $field, value: $value)
+export const UPDATE_ANIMATIONSPRITE_FIELD = gql`
+	mutation UpdateAnimationspriteField($_id: String!, $field: String!, $value: String!) {
+		updateAnimationspriteField(_id: $_id, field: $field, value: $value)
 	}
 `;
 
-export const DELETE_ANIMATIONSPRITE = gql`
-	mutation DeleteTodolist($_id: String!) {
-		deleteTodolist(_id: $_id)
+export const UPDATE_LOCAL_ANIMATIONSPRITE_FIELD = gql`
+	mutation UpdateAnimationspriteField($_id: String!, $field: String!, $value: String!, $opcode: Int) {
+		updateLocalAnimationspriteField(_id: $_id, field: $field, value: $value, opcode: $opcode) @client
 	}
 `;
+
+

@@ -1,6 +1,6 @@
 const { gql } = require("apollo-server");
 const userDef = require("./user-def").typeDefs;
-//const animationspriteDef = require('./animationsprite-def').typeDefs;
+const animationspriteDef = require('./animationsprite-def').typeDefs;
 
 const rootDef = gql`
   type Query {
@@ -13,5 +13,5 @@ const rootDef = gql`
 `;
 
 module.exports = {
-  typeDefs: [rootDef, userDef],
+  typeDefs: [rootDef, userDef, animationspriteDef],
 };

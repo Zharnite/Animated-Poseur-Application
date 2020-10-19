@@ -1,5 +1,6 @@
 const { model, Schema, ObjectId } = require('mongoose');
-import Frame from "./frame-model"
+const Frame = require("./frame-model").schema;
+
 const animationstateSchema = new Schema(
 	{
 		animation_state_name: {
@@ -14,5 +15,5 @@ const animationstateSchema = new Schema(
 	},
 );
 
-const AnimationState = model('animationstate', animationstateSchema);
+const AnimationState = model('Animationstate', animationstateSchema);
 module.exports = AnimationState;

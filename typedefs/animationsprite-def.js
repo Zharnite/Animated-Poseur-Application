@@ -3,10 +3,11 @@ const { gql } = require("apollo-server");
 const typeDefs = gql`
   type Animationsprite {
     _id: String!
+    owner: String!
     sprite_name: String!
     public: Boolean!
-    width: Number!
-    height: Number!
+    width: Int!
+    height: Int!
     animation_states: [Animationstate]
   }
   type Animationstate {
@@ -15,8 +16,8 @@ const typeDefs = gql`
     frames: [Frame]
   }
   type Frame {
-    position: Number!
-    duration: Number!
+    position: Int!
+    duration: Int!
     isSelected: Boolean!
     layers: [Layer]
   }
@@ -28,35 +29,34 @@ const typeDefs = gql`
     data: String!
   }
   extend type Query {
-    getAllAnimationsprite: [Animationsprite]
+    getAllAnimationsprites: [Animationsprite]
     getAnimationspriteById(_id: String!): Animationsprite
   }
   extend type Mutation {
     addAnimationsprite(animationsprite: AnimationspriteInput!): String
-    addLayer(layer: LayerInput!): String
-    addFrame(item: FrameInput!): String
+    updateAnimationspriteField(_id: String!, field: String!, value: String!): Boolean
   }
   input AnimationspriteInput {
     _id: String
-    id: Int    
+    owner: String
     sprite_name: String
     public: Boolean
-    width: Number
-    height: Number
-    animation_states: [Animationstate]
+    width: Int
+    height: Int
+    animation_states: [AnimationstateInput]
   }
   input AnimationstateInput{
     animation_state_name: String
     isSelected: Boolean
-    frames: [Frame]
+    frames: [FrameInput]
   }
-  type FrameInput {
-    position: Number
-    duration: Number
+  input FrameInput {
+    position: Int
+    duration: Int
     isSelected: Boolean
-    layers: [Layer]
+    layers: [LayerInput]
   }
-  type Layer {
+  input LayerInput {
     layer_name: String
     isVisable: Boolean
     isLocked: Boolean

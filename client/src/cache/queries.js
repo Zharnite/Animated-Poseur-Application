@@ -1,6 +1,5 @@
 import gql from "graphql-tag";
 // ====================== User Queries ====================== //
-
 export const GET_DB_USER = gql`
   query GetDBUser {
     getCurrentUser {
@@ -15,13 +14,43 @@ export const GET_DB_USER = gql`
   }
 `;
 
-
 // ====================== AnimationSprite Queries ====================== //
-export const GET_DB_ANIMATIONSPRITE = gql`
-  query GetDBAnimatationsprite {
-    getCurrentAnimatationsprite {
+
+export const GET_LOCAL_ANIMATIONSPRITES = gql`
+	{
+		getAllAnimationsprites @client  {
       _id
-      id
+      owner
+      sprite_name
+      public
+      width
+      height
+      animation_states {
+        animation_state_name
+        isSelected
+        frames{
+          position
+          duration
+          isSelected
+          layers{
+            layer_name
+            isVisable
+            isLocked
+            isSelected
+            data
+          }
+        }
+  
+      }
+		}
+	}
+`;
+
+export const GET_DB_ANIMATIONSPRITES = gql`
+  query GetDBAnimatationsprites{
+    getAllAnimationsprites{
+      _id
+      owner
       sprite_name
       public
       width
@@ -46,8 +75,3 @@ export const GET_DB_ANIMATIONSPRITE = gql`
     }
   }
 `;
-
-
-
-
-// ====================== Todolist Queries ================== //

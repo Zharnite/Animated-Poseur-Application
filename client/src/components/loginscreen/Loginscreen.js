@@ -17,8 +17,7 @@ const Login = (props) => {
     var email = document.getElementById("login-form").elements[0].value;
     var password = document.getElementById("login-form").elements[1].value;
     var login = { email, password};
-    console.log(login);
-    console.log("hansgasdgasdfasdfasdfasdfasdfasfas");
+  
 
 
     const { loading, error, data } = await props.login({ variables:{ ...login } });

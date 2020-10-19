@@ -1,6 +1,5 @@
 const { model, Schema, ObjectId } = require('mongoose');
-import AnimationState from "./animationstate-model"
-
+const AnimationState = require("./animationstate-model").schema;
 
 const animationspriteSchema = new Schema(
 	{
@@ -8,8 +7,8 @@ const animationspriteSchema = new Schema(
 			type: ObjectId,
 			required: true
 		},
-		id: {
-			type: Number,
+		owner: {
+			type: String,
 			required: true
 		},
 		sprite_name: {
@@ -33,5 +32,5 @@ const animationspriteSchema = new Schema(
 	{ timestamps: true }
 );
 
-const AnimationSprite = model('animationsprite', animationspriteSchema);
-module.exports = AnimationSprite;
+const Animationsprite = model('Animationsprite', animationspriteSchema);
+module.exports = Animationsprite;

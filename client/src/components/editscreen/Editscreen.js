@@ -5,7 +5,7 @@ import Filebar from "./filebar/Filebar.js";
 import Animatorbar from "./animatorbar/Animatorbar.js";
 import { graphql } from "@apollo/react-hoc";
 import { flowRight as compose, random } from "lodash";
-import { GET_DB_ANIMATIONSPRITE } from "../../cache/queries";
+import { GET_DB_ANIMATIONSPRITES } from "../../cache/queries";
 
 
 /*
@@ -146,5 +146,5 @@ function Editscreen(props) {
 }
 
 export default compose(
-  graphql(GET_DB_ANIMATIONSPRITE, { name: "GetDBAnimatationsprite" })
+  graphql(GET_DB_ANIMATIONSPRITES, { name: "GetDBAnimatationsprites" })
 )(Editscreen);

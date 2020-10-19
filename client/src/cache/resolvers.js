@@ -19,12 +19,19 @@ export default {
       // 3: add a todo item
       // 4: delete a todo item
       // 5: mutate non nested item field
-      const _id = getCacheKey({ __typename: "Todolist", _id: args._id });
+      const _id = getCacheKey({ __typename: "Animationsprite", _id: args._id });
       const { field, value, opcode } = args;
       let data;
       let fragment;
       let updatedItems;
       switch (opcode) {
+        case(1):
+					const addAnimationsprite = cache.readQuery({query: queries.GET_LOCAL_ANIMATIONSPRITES});
+					let updatedAnimationsprite= addAnimationsprite.getAllAnimationsprites;
+					updatedAnimationsprite.push(value);
+					data = {...addAnimationsprite, animation: updatedAnimationsprite};
+					cache.writeData({data});
+					break
       }
       return null;
     },

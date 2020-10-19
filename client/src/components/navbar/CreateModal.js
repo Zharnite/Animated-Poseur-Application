@@ -4,82 +4,153 @@ import Button from "react-bootstrap/Button";
 import BootNavbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Row";
+
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
-
-
-
 import "bootstrap/dist/css/bootstrap.css";
 
+
+import { GET_DB_ANIMATIONSPRITES } from '../../cache/queries'; 
+import { ADD_ANIMATIONSPRITE } from '../../cache/mutation'; 
+import { UPDATE_LOCAL_ANIMATIONSPRITE_FIELD } from '../../cache/mutation'; 
+import { graphql } from "@apollo/react-hoc";
+import { flowRight as compose, random } from "lodash";
+import { useQuery } from "@apollo/react-hooks";
+
+
+
+
+
 const CreateModal = (props) => {
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+    console.log(props)
+    let animationspriteList = [];
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    const { loading, error, data, refetch } = useQuery(GET_DB_ANIMATIONSPRITES);
+    if(loading) { /* Good place for a spinner or something */ }
+    if(error) { console.log(error); }
+    if(data) { 
+        //animationspriteList = data.getA
+        console.log(data)
+       
+    }
 
-  return (
 
-    <NavDropdown.Item onClick={handleShow}>
-        Create
-        <Modal
-            show={show}
-            onHide={handleClose}
-            backdrop="static"
-            keyboard={false}
-        >
-            <Form id="register-form">
-                <Modal.Header closeButton>
-                    <Modal.Title>Create New Animation Sprite</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Form.Group controlId="formTitle">
-                        <Form.Label>Title</Form.Label>
-                        <Form.Control type="title" placeholder="Title" />
-                    </Form.Group>
-                    <Form.Group controlId="formWidth">
-                        <Form.Label>Width</Form.Label>
-                        <Form.Control type="width" placeholder="250" />
-                    </Form.Group>
-                    <Form.Group controlId="formLength">
-                        <Form.Label>Length</Form.Label>
-                        <Form.Control type="length" placeholder="250" />
-                    </Form.Group>
-                    <Form.Group as={Row}>
-                        <Form.Label as="legend" row sm={2}>
-                            Privacy
-                        </Form.Label>
-                        <Row sm={10}>
-                            <Form.Check
-                            type="radio"
-                            label="private"
-                            name="formHorizontalRadios"
-                            id="formPrivate"
-                            />
-                            <Form.Check
-                            type="radio"
-                            label="public"
-                            name="formHorizontalRadios"
-                            id="formPublic"
-                            />
-                        </Row>
-                        </Form.Group>
-                    
-                </Modal.Body>
-                <Modal.Footer>
+    const handleCreateAnimationSpriteSheet = async (e) => {
+        var name = document.getElementById("create-animationsprite-form").elements[1].value;
+        var width = document.getElementById("create-animationsprite-form").elements[2].value;
+        var height = document.getElementById("create-animationsprite-form").elements[3].value;
+        
+        let animationLayers = [
+            {
+                layer_name: "layer 1",
+                isVisable: false,
+                isLocked: false,
+                isSelected: true,
+                data: ""
+            }];
+        let animationFrames = [
+            {
+                position: 1,
+                duration: 50,
+                isSelected: true,
+                layers: animationLayers
+            }];
+        let animationState = [
+            {
+                animation_state_name: "Default",
+                isSelected: true,
+                frames: animationFrames
+            }];
+        let animationsprite = {
+            _id: '',
+            owner: props.user._id,
+            sprite_name: name,
+            public: true,
+            width: 250,
+            height: 250,
+            animation_states: animationState
+
+        };
+
+        const { data } = await props.addAnimationsprite({ variables: { animationsprite: animationsprite}, refetchQueries:[{query: GET_DB_ANIMATIONSPRITES}] });
+        animationsprite._id = data.addAnimationsprite;
+        animationsprite.__typename = 'Animationsprite';
+        props.updateAnimationspriteField({variables: { _id: null, field: null, value: animationsprite, opcode: 1 }});
+        console.log(animationsprite);
+        
+
+
+    }
+
+    return (
+
+        <NavDropdown.Item onClick={handleShow}>
+            Create
+            <Modal
+                show={show}
+                onHide={handleClose}
+                backdrop="static"
+                keyboard={false}
+            >
+            <Form id="create-animationsprite-form">
+            <Modal.Header closeButton>
+                <Modal.Title>Create</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <Form.Group controlId="formBasicUsername">
+                <Form.Label>Title</Form.Label>
+                <Form.Control type="username" placeholder="Username" />
+                </Form.Group>
+                <Form.Group controlId="formBasicUsername">
+                    <Form.Label>Width</Form.Label>
+                    <Form.Control type="username" placeholder="Username" />
+                </Form.Group>
+                <Form.Group controlId="formBasicUsername">
+                    <Form.Label>Heigth</Form.Label>
+                    <Form.Control type="username" placeholder="Username" />
+                </Form.Group>
+                <Form.Group>
+                <Form.Check
+                type="radio"
+                label="public"
+                name="formHorizontalRadios"
+                id="formHorizontalRadios1"
+                />
+                </Form.Group>
+                <Form.Group>
+                <Form.Check
+                type="radio"
+                label="private"
+                name="formHorizontalRadios"
+                id="formHorizontalRadios2"
+                />
+                </Form.Group>
+
+
+            </Modal.Body>
+            <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>
-                    Cancel
+                Cancel
                 </Button>
-                    <Button variant="primary">
-                    Create
-                    </Button>
+                <Button variant="primary" onClick={handleCreateAnimationSpriteSheet}>
+                    Register
+                </Button>
 
-                </Modal.Footer>
+            </Modal.Footer>
             </Form>
-        </Modal>    
-    </NavDropdown.Item>
+            </Modal>    
+        </NavDropdown.Item>
 
   );
 };
 
-export default CreateModal;
+export default compose(
+    graphql(ADD_ANIMATIONSPRITE, {name: 'addAnimationsprite'}),
+    graphql(UPDATE_LOCAL_ANIMATIONSPRITE_FIELD, {name: 'updateAnimationspriteField'}),
+    graphql(GET_DB_ANIMATIONSPRITES, {name: 'getDbAnimationsprites'}),
+)(CreateModal);
 
 // export default RegisterModal;

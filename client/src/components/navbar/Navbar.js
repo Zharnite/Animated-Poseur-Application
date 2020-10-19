@@ -14,7 +14,7 @@ function loggedIn(user){
   return (
     <NavDropdown title={username} id="collasible-nav-dropdown" className="right">
       <NavDropdown.Item>Profile</NavDropdown.Item>
-      <CreateModal/>
+      <CreateModal user={user}/>
       <NavDropdown.Divider />
       <NavDropdown.Item>Sign Out</NavDropdown.Item>
     </NavDropdown>
