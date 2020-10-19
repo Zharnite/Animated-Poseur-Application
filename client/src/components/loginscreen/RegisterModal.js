@@ -9,29 +9,9 @@ import { REGISTER } from "../../cache/mutation";
 import { graphql } from "@apollo/react-hoc";
 import { flowRight as compose, random } from "lodash";
 
-// const handleCreateAccount = async (e) => {
-
-//   for(let field in input) {
-//     if(!input[field]) {
-//        alert('All fields must be filled out to register');
-//       // instead of alert, make another component displaying error msg and toggle it
-//       return;
-//     }
-//   }
-//   const { loading, error, data } = await props.register({ variables:	{ ...input } });
-//   if(loading) { toggleLoading(true) };
-//   if(error) {return `Error: ${error.message}`};
-//   if(data) {
-//     console.log(data);
-//     toggleLoading(false);
-//     props.fetchUser();
-//     props.setShowCreate(false);
-//   };
-
-// };
 
 const RegisterModal = (props) => {
-  console.log(props);
+  //console.log(props);
   const [show, setShow] = useState(false);
   const [loading, toggleLoading] = useState(false);
   const handleClose = () => setShow(false);
@@ -42,12 +22,12 @@ const RegisterModal = (props) => {
     var username = document.getElementById("register-form").elements[1].value;
     var email = document.getElementById("register-form").elements[2].value;
     var password = document.getElementById("register-form").elements[3].value;
-    var login = { username, email, password };
-    console.log(login);
+    var register = { username, email, password };
+    console.log(register);
     console.log(props.register);
 
     const { loading, error, data } = await props.register({
-      variables: { ...login },
+      variables: { ...register },
     });
 
 
@@ -58,8 +38,7 @@ const RegisterModal = (props) => {
       return `Error: ${error.message}`;
     }
     if (data) {
-      console.log(data);
-			toggleLoading(false);
+      toggleLoading(false);
       props.fetchUser();
       document.location.href = '/home';
     }

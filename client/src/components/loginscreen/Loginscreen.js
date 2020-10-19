@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import RegisterModal from "./RegisterModal.js";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -9,17 +9,39 @@ import { graphql } from "@apollo/react-hoc";
 import { flowRight as compose, random } from "lodash";
 
 const Login = (props) => {
+  console.log(props)
+  const [loading, toggleLoading] = useState(false);
+
+  const handleLogin = async (e) => {
+    //check if its valid input
+    var email = document.getElementById("login-form").elements[0].value;
+    var password = document.getElementById("login-form").elements[1].value;
+    var login = { email, password};
+    console.log(login);
+    console.log("hansgasdgasdfasdfasdfasdfasdfasfas");
+
+
+    const { loading, error, data } = await props.login({ variables:{ ...login } });
+    if(loading) { toggleLoading(true)};
+    if (error) {
+      return `Error: ${error.message}`;
+    }
+		if(data) {	
+      toggleLoading(false)
+      props.fetchUser();
+      document.location.href = '/home';
+		};
+
+  };
+
   return (
     <div className="center">
       <Card style={{ width: "50rem" }}>
         <Card.Body>
-          <Form>
+          <Form id="login-form">
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
               <Form.Control type="email" placeholder="Enter email" />
-              <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
-              </Form.Text>
             </Form.Group>
 
             <Form.Group controlId="formBasicPassword">
@@ -31,8 +53,8 @@ const Login = (props) => {
               fetchUser={props.fetchUser}
               user={props.user}
             />
-            <Button variant="primary" type="submit">
-              Submit
+            <Button variant="primary"  onClick={handleLogin}>
+              Login
             </Button>
           </Form>
         </Card.Body>
@@ -40,5 +62,8 @@ const Login = (props) => {
     </div>
   );
 };
+
+//charlie@email.com
+//charlie
 
 export default compose(graphql(LOGIN, { name: "login" }))(Login);

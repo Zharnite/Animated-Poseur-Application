@@ -1,7 +1,10 @@
-
 .center {
   display: flex;
   justify-content: center;
+}
+
+.right {
+ right: 100px; 
 }
 
 .editscreen {

@@ -5,13 +5,16 @@ import Nav from "react-bootstrap/Nav";
 import BootNavbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import "bootstrap/dist/css/bootstrap.css";
+import CreateModal from "./CreateModal";
+
+
 //traversy media
 function loggedIn(user){
-
+  let username = user.username;
   return (
-    <NavDropdown title="Username" id="collasible-nav-dropdown">
+    <NavDropdown title={username} id="collasible-nav-dropdown" className="right">
       <NavDropdown.Item>Profile</NavDropdown.Item>
-      <NavDropdown.Item>Create</NavDropdown.Item>
+      <CreateModal/>
       <NavDropdown.Divider />
       <NavDropdown.Item>Sign Out</NavDropdown.Item>
     </NavDropdown>

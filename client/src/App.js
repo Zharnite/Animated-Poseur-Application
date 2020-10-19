@@ -15,7 +15,7 @@ const App = (props) => {
   let user = null;
   const { loading, error, data, refetch } = useQuery(GET_DB_USER);
   if (error) {
-    console.log(error);
+    //console.log(error);
   }
   if (loading) {
     /* Good place for a spinner or something */
@@ -27,7 +27,7 @@ const App = (props) => {
     }
   }
   console.log(user)
-	console.log(refetch)
+	//console.log(refetch)
 
   return (
     <BrowserRouter>
@@ -36,7 +36,6 @@ const App = (props) => {
       />
       <Switch>
         <Redirect exact from="/" to={{ pathname: "/home" }} />
-        <Route exact path="/home" component={Homescreen} />
         <Route
           path="/home"
           name="home"
@@ -53,7 +52,14 @@ const App = (props) => {
         />
         <Route
           path="/edit"
-          name="editscreen"
+          name="edit"
+          render={(props) => (
+            <Editscreen {...props} fetchUser={refetch} user={user} />
+          )}
+        />
+        <Route
+          path="/profile"
+          name="profile"
           render={(props) => (
             <Editscreen {...props} fetchUser={refetch} user={user} />
           )}
