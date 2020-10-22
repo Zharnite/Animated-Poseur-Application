@@ -11,7 +11,7 @@ export default {
     // ====================== Item Mutation Resolvers ====================== //
 
     // ====================== Todolist Mutation Resolvers ================== //
-    updateLocalTodoField: (_root, args, { cache, getCacheKey }) => {
+    updateLocalAnimationspriteField: (_root, args, { cache, getCacheKey }) => {
       // opcodes:
       // 0: mutate non-nested list field
       // 1: add a todolist
@@ -27,7 +27,7 @@ export default {
       switch (opcode) {
         case(1):
 					const addAnimationsprite = cache.readQuery({query: queries.GET_LOCAL_ANIMATIONSPRITES});
-					let updatedAnimationsprite= addAnimationsprite.getAllAnimationsprites;
+					let updatedAnimationsprite = addAnimationsprite.getAllAnimationsprites;
 					updatedAnimationsprite.push(value);
 					data = {...addAnimationsprite, animation: updatedAnimationsprite};
 					cache.writeData({data});

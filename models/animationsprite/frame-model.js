@@ -12,10 +12,6 @@ const frameSchema = new Schema(
             type: Number,
             required: true
         },
-        isSelected: {
-			type: Boolean,
-			required: true
-        },
         layers: [Layer] 
 	}
 );

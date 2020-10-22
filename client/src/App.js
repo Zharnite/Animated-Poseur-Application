@@ -26,7 +26,7 @@ const App = (props) => {
       user = getCurrentUser;
     }
   }
-  console.log(user)
+  //console.log(user)
 	//console.log(refetch)
 
   return (

@@ -5,34 +5,34 @@ import Filebar from "./filebar/Filebar.js";
 import Animatorbar from "./animatorbar/Animatorbar.js";
 import { graphql } from "@apollo/react-hoc";
 import { flowRight as compose, random } from "lodash";
-import { GET_DB_ANIMATIONSPRITES } from "../../cache/queries";
+import { GET_ANIMATIONSPRITES_BY_ID } from "../../cache/queries";
 
 
 /*
 * @param: Object animationsprite (JSON)
 * @returns: array of selected animation-state, frame, and layer
 */
-function findSelectedComponents(animationsprite){
-  let animation_state = animationsprite.animation_states;
-  console.log(animation_state)
-  let animation_state_index = animation_state.findIndex( (state) => state.selected);
-  if(animation_state_index == -1) animation_state_index = 0;
-  const selected_animation_state = animation_state[animation_state_index];
+// function findSelectedComponents(animationsprite){
+//   let animation_state = animationsprite.animation_states;
+//   console.log(animation_state)
+//   let animation_state_index = animation_state.findIndex( (state) => state.selected);
+//   if(animation_state_index == -1) animation_state_index = 0;
+//   const selected_animation_state = animation_state[animation_state_index];
 
-  let frames = selected_animation_state.frames
-  console.log(frames)
-  let frames_index = frames.findIndex( (frame) => frame.selected);
-  if(frames_index == -1) frames_index = 0;
-  const selected_frame = frames[frames_index];
+//   let frames = selected_animation_state.frames
+//   console.log(frames)
+//   let frames_index = frames.findIndex( (frame) => frame.selected);
+//   if(frames_index == -1) frames_index = 0;
+//   const selected_frame = frames[frames_index];
 
-  let layers = selected_frame.layers
-  console.log(layers)
-  let layers_index = layers.findIndex( (layer) => layer.selected);
-  if(layers_index == -1) layers_index = 0;
-  const selected_layer = layers[layers_index];
+//   let layers = selected_frame.layers
+//   console.log(layers)
+//   let layers_index = layers.findIndex( (layer) => layer.selected);
+//   if(layers_index == -1) layers_index = 0;
+//   const selected_layer = layers[layers_index];
 
-  return [selected_animation_state, selected_frame, selected_layer]
-}
+//   return [selected_animation_state, selected_frame, selected_layer]
+// }
 
 function findSelectedFrame(animation_state){
   let frames = animation_state.frames
@@ -132,6 +132,14 @@ function Editscreen(props) {
   const [selectedLayer, setSelectedLayer] = useState(null);
   const [selectedLayerName, setSelectedLayerName] = useState(null);
 
+  const { loading, error, data, refetch } = useQuery(GET_ANIMATIONSPRITES_BY_ID);
+    if(loading) { /* Good place for a spinner or something */ }
+    if(error) { console.log(error); }
+    if(data) { 
+
+       
+    }
+
 
 
 
@@ -146,5 +154,5 @@ function Editscreen(props) {
 }
 
 export default compose(
-  graphql(GET_DB_ANIMATIONSPRITES, { name: "GetDBAnimatationsprites" })
+  graphql(GET_ANIMATIONSPRITES_BY_ID, { name: "GetDBAnimatationspriteByID" })
 )(Editscreen);

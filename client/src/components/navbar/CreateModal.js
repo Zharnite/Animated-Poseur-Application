@@ -20,10 +20,8 @@ import { useQuery } from "@apollo/react-hooks";
 
 
 
-
-
 const CreateModal = (props) => {
-    console.log(props)
+    //console.log(props)
     let animationspriteList = [];
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -32,57 +30,37 @@ const CreateModal = (props) => {
     if(loading) { /* Good place for a spinner or something */ }
     if(error) { console.log(error); }
     if(data) { 
-        //animationspriteList = data.getA
-        console.log(data)
+        animationspriteList = data.getAllAnimationsprites;
+        console.log(data);
+        console.log(animationspriteList);
        
     }
+    const auth = props.user === null ? false : true;
+    if(auth) { refetch() }
 
 
     const handleCreateAnimationSpriteSheet = async (e) => {
         var name = document.getElementById("create-animationsprite-form").elements[1].value;
         var width = document.getElementById("create-animationsprite-form").elements[2].value;
         var height = document.getElementById("create-animationsprite-form").elements[3].value;
-        
-        let animationLayers = [
-            {
-                layer_name: "layer 1",
-                isVisable: false,
-                isLocked: false,
-                isSelected: true,
-                data: ""
-            }];
-        let animationFrames = [
-            {
-                position: 1,
-                duration: 50,
-                isSelected: true,
-                layers: animationLayers
-            }];
-        let animationState = [
-            {
-                animation_state_name: "Default",
-                isSelected: true,
-                frames: animationFrames
-            }];
         let animationsprite = {
             _id: '',
             owner: props.user._id,
             sprite_name: name,
-            public: true,
+            isPublic: true,
             width: 250,
             height: 250,
-            animation_states: animationState
 
         };
 
         const { data } = await props.addAnimationsprite({ variables: { animationsprite: animationsprite}, refetchQueries:[{query: GET_DB_ANIMATIONSPRITES}] });
+        console.log(data)
         animationsprite._id = data.addAnimationsprite;
         animationsprite.__typename = 'Animationsprite';
         props.updateAnimationspriteField({variables: { _id: null, field: null, value: animationsprite, opcode: 1 }});
         console.log(animationsprite);
+
         
-
-
     }
 
     return (

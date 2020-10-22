@@ -15,13 +15,9 @@ const layerSchema = new Schema(
 			type: Boolean,
 			required: true
 		},
-		isSelected: {
-			type: Boolean,
-			required: true
-		},
 		data : {
 			type: String,
-			required: true
+			required: false
 		}
 	}
 );

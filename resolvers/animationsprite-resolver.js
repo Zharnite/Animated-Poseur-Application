@@ -1,5 +1,11 @@
 const ObjectId = require('mongoose').Types.ObjectId;
 const Animationsprite = require('../models/animationsprite/animationsprite-model');
+const Animationstate = require('../models/animationsprite/animationstate-model');
+const Layer = require('../models/animationsprite/layer-model');
+const Frame = require('../models/animationsprite/frame-model');
+const { Schema } = require('mongoose');
+
+
 
 // The underscore param, "_", is a wildcard that can represent any value;
 // here it is a stand-in for the parent parameter, which can be read about in
@@ -43,19 +49,38 @@ module.exports = {
 			@returns {string} the objectID of the Animationsprite or an error message
 		**/
 		addAnimationsprite: async (_, args) => {
+			console.log("addAnimationsprite =>");
 			const { animationsprite } = args;
+			console.log(animationsprite);
 			const objectId = new ObjectId();
-			const { owner, name, isPublic, width, height, states } = animationsprite;
-			const newList = new Animationsprite({
+			const { owner, sprite_name, isPublic, width, height} = animationsprite;
+			
+			const layer = new Layer({
+				layer_name: "layer1",
+                isVisable: false,
+                isLocked: false,
+                data: ""
+			});
+			const frame = new Frame({
+				position: 1,
+                duration: 50,
+                layers: [layer]
+			});
+			const state = new Animationstate({
+				animation_state_name: "default",
+				frames: [frame]
+			});	
+			const sprite = new Animationsprite({
 				_id: objectId,
 				owner: owner,
-				sprite_name: name,
-				public: isPublic,
+				sprite_name: sprite_name,
+				isPublic: isPublic,
 				width: width,
             	height: height,
-				animation_states: states
+				animation_states: [state]
 			});
-			const updated = newList.save();
+			const updated = sprite.save();
+			console.log("---------------------------------------");
 			if(updated) return objectId;
 			else return ('Could not add animationsprite');
 		},

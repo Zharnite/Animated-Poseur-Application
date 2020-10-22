@@ -7,10 +7,6 @@ const animationstateSchema = new Schema(
 			type: String,
 			required: true
 		},
-		isSelected: {
-			type: Boolean,
-			required: true
-        },
         frames: [Frame] 
 	},
 );

@@ -5,28 +5,25 @@ const typeDefs = gql`
     _id: String!
     owner: String!
     sprite_name: String!
-    public: Boolean!
+    isPublic: Boolean!
     width: Int!
     height: Int!
     animation_states: [Animationstate]
   }
   type Animationstate {
     animation_state_name: String!
-    isSelected: Boolean!
     frames: [Frame]
   }
   type Frame {
     position: Int!
     duration: Int!
-    isSelected: Boolean!
     layers: [Layer]
   }
   type Layer {
     layer_name: String!
     isVisable: Boolean!
     isLocked: Boolean!
-    isSelected: Boolean!
-    data: String!
+    data: String
   }
   extend type Query {
     getAllAnimationsprites: [Animationsprite]
@@ -40,27 +37,24 @@ const typeDefs = gql`
     _id: String
     owner: String
     sprite_name: String
-    public: Boolean
+    isPublic: Boolean
     width: Int
     height: Int
     animation_states: [AnimationstateInput]
   }
   input AnimationstateInput{
     animation_state_name: String
-    isSelected: Boolean
     frames: [FrameInput]
   }
   input FrameInput {
     position: Int
     duration: Int
-    isSelected: Boolean
     layers: [LayerInput]
   }
   input LayerInput {
     layer_name: String
     isVisable: Boolean
     isLocked: Boolean
-    isSelected: Boolean
     data: String
   }
 `;

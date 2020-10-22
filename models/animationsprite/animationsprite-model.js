@@ -15,7 +15,7 @@ const animationspriteSchema = new Schema(
 			type: String,
 			required: true
         },
-        public: {
+        isPublic: {
 			type: Boolean,
 			required: true
         },

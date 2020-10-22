@@ -40,6 +40,13 @@ export const ADD_ANIMATIONSPRITE = gql`
 	}
 `;
 
+export const ADD_LOCAL_ANIMATIONSPRITE = gql`
+  mutation AddLocalAnimationsprite($animationsprite: AnimationspriteInput!) {
+    addLocalAnimationsprite(animationsprite: $animationsprite) @client
+  }
+`;
+
+
 export const UPDATE_ANIMATIONSPRITE_FIELD = gql`
 	mutation UpdateAnimationspriteField($_id: String!, $field: String!, $value: String!) {
 		updateAnimationspriteField(_id: $_id, field: $field, value: $value)
