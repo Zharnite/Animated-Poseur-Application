@@ -35,7 +35,8 @@ module.exports = {
 			@returns {object} a todolist on success and an empty object on failure
 		**/
 		getAnimationspriteById: async (_, args) => {
-            const { _id } = args;
+			console.log("getAnimationspriteById")
+			const { _id } = args;
             // $$$QUESTON: is _id the objectid of the user that created it?
 			const objectId = new ObjectId(_id);
 			const animationsprite = await Animationsprite.findOne({_id: objectId});

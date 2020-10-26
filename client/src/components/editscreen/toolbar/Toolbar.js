@@ -44,7 +44,7 @@ const Toolbar = (props) => {
   let brushColor = props.brushColor;
   const [brushSize, setBrushSize] = useState(1);
   const [displayColorPicker, setDisplayColorPicker] = useState(false);
-  console.log(tools);
+  //console.log(tools);
 
   return (
     <div className="toolbar">

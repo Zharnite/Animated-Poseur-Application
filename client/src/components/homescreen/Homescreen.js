@@ -10,10 +10,10 @@ const Homescreen = () => {
   return (
     <div className="homescreen">
       <h1> HomeScreen </h1>
-      <div>
+      {/* <div>
         <div id="coverr"></div>
         {/* <PhotoshopPicker color={color} onChange ={(a) => console.log(a)} /> */}
-      </div>
+      {/* </div>  */}
       
     </div>
   );

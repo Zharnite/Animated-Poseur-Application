@@ -64,16 +64,15 @@ export const GET_DB_ANIMATIONSPRITES = gql`
             data
           }
         }
-  
       }
     }
   }
 `;
 
-export const GET_ANIMATIONSPRITES_BY_ID = gql`
+export const GET_ANIMATIONSPRITE_BY_ID = gql`
 query GetAnimationspriteById($_id: String!) {
   getAnimationspriteById(_id: $_id) {
-    _id
+      _id
       owner
       sprite_name
       isPublic
@@ -81,16 +80,13 @@ query GetAnimationspriteById($_id: String!) {
       height
       animation_states {
         animation_state_name
-        isSelected
         frames{
           position
           duration
-          isSelected
           layers{
             layer_name
             isVisable
             isLocked
-            isSelected
             data
           }
         }

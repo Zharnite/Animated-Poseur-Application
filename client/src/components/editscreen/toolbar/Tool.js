@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { SketchPicker } from "react-color";
 
 const Tool = (props) => {
-  console.log(props);
+  //console.log(props);
   let tool = props.tool;
   let selectedToolID = props.selectedTool;
   let setSelectedTool = props.setSelectedTool;
-  console.log();
+  //onsole.log();
   let classname = "tool-icon";
 
   if (selectedToolID != null && selectedToolID == tool.id) {

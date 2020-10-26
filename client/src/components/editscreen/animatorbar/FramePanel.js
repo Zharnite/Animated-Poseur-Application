@@ -3,16 +3,16 @@ import Frame from "./FrameCard";
 import { Dropdown, DropdownButton } from "react-bootstrap";
 
 const FramePanel = (props) => {
-  let animationsprite = props.animationsprite;
-  let animation_states = animationsprite.animation_states;
-  console.log(props);
+  // let animationsprite = props.animationsprite;
+  // let animation_states = animationsprite.animation_states;
+  //console.log(props);
   return (
     <div id="frame-panel">
-      <div id="frame-menu">
+      {/* <div id="frame-menu">
         {animation_states[0].frames.map((currentFrame) => (
           <Frame frame={currentFrame} />
         ))}
-      </div>
+      </div> */}
       <DropdownButton id="dropdown-basic-button" title="States">
         <Dropdown.Item href="#/action-1">Original</Dropdown.Item>
       </DropdownButton>
