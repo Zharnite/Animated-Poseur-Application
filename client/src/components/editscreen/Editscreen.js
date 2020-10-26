@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import reactCSS from "reactcss";
 import Toolbar from "./toolbar/Toolbar.js";
 import Filebar from "./filebar/Filebar.js";
@@ -45,17 +45,24 @@ function findSelectedFrame(animation_state){
 
 function Editscreen(props) {
   //let [selectedAnimationStateJSON, selectedFrameJSON, selectedLayerJSON] = findSelectedComponents(animationsprite);
-  console.log(props);
+  const auth = props.user === null ? false : true;
+  //console.log(props);
   let optionalPath = props.match.params.id;
-  var spriteID = optionalPath.substring(1,optionalPath.length)
-  console.log(spriteID);
-  const [brushSize, setBrushSize] = useState(1);
-  const [brushColor, setBrushColor] = useState([0, 0, 0]);
-  
-  const [selectedTool, setSelectedTool] = useState(null);
-  const [selectedLayer, setSelectedLayer] = useState(null);
-  const [animationsprite, setAnimationsprite] = useState(
-    {  
+  let _id = optionalPath.substring(1,optionalPath.length)
+  console.log(_id)
+  //const { loading, error, data, refetch } = useQuery(GET_ANIMATIONSPRITE_BY_ID, {variables: { _id },});
+  // if(loading) { console.log("Loading"); }
+  // if(error) { console.log("Editscreen => " + error); }
+  // if(data) { 
+  //   console.log(data)
+  //   //let sprite = data.GetDBAnimatationspriteByID
+  //   //setSelectedLayer(data.GetDBAnimatationspriteByID);
+  //   //setCurrentStateFrameLayer({"state" : sprite.animation_states[0], "frame" : sprite.animation_states[0].frames[0], "layer" : sprite.animation_states[0].frames[0].layers[0]});
+  // }
+  // const [animationsprite, setAnimationsprite] = useState(null);
+  // const [currentStateFrameLayer, setCurrentStateFrameLayer] = useState(null);
+  const [animationsprite, setAnimationsprite] = useState({
+     
       "_id": "5f96e8ffcadaf904cae9c34b",
       "owner": "5f8cf080c3f2491bf2c4ff08",
       "sprite_name": "tytytyty",
@@ -75,52 +82,48 @@ function Editscreen(props) {
                   "isVisable": false,
                   "isLocked": false,
                   "data": ""
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-  );
-  const [currentStateFrameLayer, setCurrentStateFrameLayer] = useState( 
-    {"state" : animationsprite.animation_states[0], "frame" : animationsprite.animation_states[0].frames[0], "layer" : animationsprite.animation_states[0].frames[0].layers[0]});
- 
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    });
+  const [currentStateFrameLayerTool, setCurrentStateFrameLayerTool] = useState({state : animationsprite.animation_states[0], frame : animationsprite.animation_states[0].frames[0], layer : null, tool:null});
 
-  const { loading, error, data, refetch } = 
-    useQuery(GET_ANIMATIONSPRITE_BY_ID,{variables: { spriteID },});
-    if(loading) { /* Good place for a spinner or something */ }
-    if(error) { console.log("Editscreen => " + error); }
-    if(data) { 
-      console.log(data)
-      //data.GetDBAnimatationspriteByID(id)
-
-    }
   
-    const setSFL=(x)=>{
-      console.log(x)
-      const {componentToUpdate, updatedComponent} = x
-      let newAnimationsprite = animationsprite;
+  const setSFL=(x)=>{
+    console.log(x)
+    const [componentToUpdate, updatedComponent] = x
+    let newAnimationsprite = animationsprite;
+    console.log(componentToUpdate);
+    console.log(updatedComponent);
 
-      switch(componentToUpdate){
-        case "STATE":
-          break;
-        case "FRAME":
-          newAnimationsprite.animation_states[0].frames[0].layers = updatedComponent
-          setAnimationsprite(newAnimationsprite);
-          break
-        case "LAYER":
-          break
-      }
 
+    switch(componentToUpdate){
+      case "STATE":
+        break;
+      case "FRAME":
+        newAnimationsprite.animation_states[0].frames[0].layers = updatedComponent
+        setAnimationsprite(newAnimationsprite);
+        break
+      case "LAYER":
+        break
+      case "TOOL":
+        console.log("Updating Tool")
+        setCurrentStateFrameLayerTool({...currentStateFrameLayerTool, tool: updatedComponent})
+        break
     }
+
+  }
+  console.log(animationsprite)
 
 
   return (
     <div className="editscreen center">
-      <Toolbar sfl={currentStateFrameLayer} selectedTool={selectedTool} setSelectedTool={setSelectedTool} brushColor={brushColor}/>
-      <Animatorbar sfl={currentStateFrameLayer} selectedTool={selectedTool}/>
-      <Filebar {...props} sfl={currentStateFrameLayer} setSFL={setSFL}/>
+      <Toolbar sflt={currentStateFrameLayerTool} setSFLT={setSFL}/>
+      <Animatorbar sfl={currentStateFrameLayerTool}/>
+      <Filebar {...props} sfl={currentStateFrameLayerTool} setSFL={setSFL}/>
     </div>
   );
 }

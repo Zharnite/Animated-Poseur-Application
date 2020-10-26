@@ -57,10 +57,6 @@ const LayerPanel = (props) => {
               layer = {layer}
               selectedLayer={selectedLayer}
               selectedLayerName={setSelectedLayer}
-              // setSelectedLayerName={(e) =>
-              //   setSelectedLayerNameHelper(e.target.value)
-              // }
-              // setSelectedLayer={(e) => setSelectedLayerHelper(layer)}
             />
           </span>
         ))}

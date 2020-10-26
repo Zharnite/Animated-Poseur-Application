@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Card from "react-bootstrap/Card";
@@ -13,7 +13,8 @@ import { useQuery } from "@apollo/react-hooks";
 
 
 const App = (props) => {
-    console.log(props)
+  
+  console.log(props)
   let user = null;
     
   const handleCreateAnimationSpriteSheet = async (e) => {

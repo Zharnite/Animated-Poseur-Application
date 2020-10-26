@@ -7,14 +7,6 @@ import painttool from "../../../illustration/icons/paint-50.png";
 import erasetool from "../../../illustration/icons/erase-50.png";
 import fillcolortool from "../../../illustration/icons/fill-color-50.png";
 
-// const changeColor = (c, cc) => {
-//   console.log(c);
-//   console.log(cc);
-//   if(c == 1) rgb = [200,0,0]
-//   if(c == 2) rgb = [0,255,0]
-//   if(c == 3) rgb = [24,100,255]
-//   if(c == 4) rgb = [0,0,0]
-// };
 
 let tools = [
   {
@@ -39,24 +31,17 @@ let tools = [
   },
 ];
 const Toolbar = (props) => {
-  let selectedTool = props.selectedTool;
-  let setSelectedTool = props.setSelectedTool;
-  let brushColor = props.brushColor;
-  const [brushSize, setBrushSize] = useState(1);
-  const [displayColorPicker, setDisplayColorPicker] = useState(false);
-  //console.log(tools);
-
+  
   return (
     <div className="toolbar">
       {tools.map((tool) => (
         <Tool
           tool={tool}
-          setSelectedTool={() => setSelectedTool(tool.id)}
-          selectedTool={selectedTool}
+          {...props}
         />
       ))}
 
-      <div>
+      {/* <div>
         <div
           className="swatch"
           onClick={() => setDisplayColorPicker(!displayColorPicker)}
@@ -67,7 +52,7 @@ const Toolbar = (props) => {
             <PhotoshopPicker />
           </div>
         ) : null}
-      </div>
+      </div> */}
     </div>
   );
 };

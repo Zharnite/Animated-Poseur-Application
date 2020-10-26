@@ -19,7 +19,7 @@ const App = (props) => {
   console.log(props);
   const { loading, error, data, refetch } = useQuery(GET_DB_USER);
   if (error) {
-    //console.log(error);
+    console.log(error);
   }
   if (loading) {
     /* Good place for a spinner or something */
@@ -30,8 +30,6 @@ const App = (props) => {
       user = getCurrentUser;
     }
   }
-  console.log(user)
-  console.log(refetch)
   let transactionStack = new jsTPS();
   return (
       <div>
