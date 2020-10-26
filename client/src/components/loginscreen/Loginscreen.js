@@ -26,7 +26,9 @@ const Login = (props) => {
 		if(data) {	
       toggleLoading(false)
       props.fetchUser();
-      document.location.href = '/home';
+      props.history.push({
+        pathname: '/home',
+      })
 		};
 
   };

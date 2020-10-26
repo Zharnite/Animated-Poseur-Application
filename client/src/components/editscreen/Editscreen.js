@@ -6,6 +6,7 @@ import Animatorbar from "./animatorbar/Animatorbar.js";
 import { graphql } from "@apollo/react-hoc";
 import { flowRight as compose, random } from "lodash";
 import { GET_ANIMATIONSPRITES_BY_ID } from "../../cache/queries";
+import { useQuery } from "@apollo/react-hooks";
 
 
 /*
@@ -43,8 +44,8 @@ function findSelectedFrame(animation_state){
 
 
 function Editscreen(props) {
-  let [selectedAnimationStateJSON, selectedFrameJSON, selectedLayerJSON] = findSelectedComponents(animationsprite);
-
+  //let [selectedAnimationStateJSON, selectedFrameJSON, selectedLayerJSON] = findSelectedComponents(animationsprite);
+  console.log(props);
   const [selectedTool, setSelectedTool] = useState(null);
   const [brushSize, setBrushSize] = useState(1);
   const [brushColor, setBrushColor] = useState([0, 0, 0]);
@@ -148,7 +149,7 @@ function Editscreen(props) {
     <div className="editscreen center">
       <Toolbar animationsprite={animationsprite} selectedTool={selectedTool} setSelectedTool={setSelectedTool} brushColor={brushColor}/>
       <Animatorbar selectedTool={selectedTool}  animationsprite={animationsprite} />
-      <Filebar selectedFrameJSON={selectedFrameJSON}/>
+      <Filebar />
     </div>
   );
 }
@@ -156,3 +157,6 @@ function Editscreen(props) {
 export default compose(
   graphql(GET_ANIMATIONSPRITES_BY_ID, { name: "GetDBAnimatationspriteByID" })
 )(Editscreen);
+
+
+//5f9108f9119cad1334c6624d

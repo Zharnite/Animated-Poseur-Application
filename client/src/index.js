@@ -9,6 +9,13 @@ import resolvers from "./cache/resolvers";
 import "./css/style.css";
 import "./css/layout.css";
 
+
+import { browserHistory } from "react-router";
+import { BrowserRouter } from "react-router-dom";
+import { createBrowserHistory } from "history";
+
+
+
 const cache = new InMemoryCache({
   // The cache object ids are generated using the objectID(a string) instead
   // of the number id so that objects are refered to consistently across the
@@ -16,9 +23,9 @@ const cache = new InMemoryCache({
   dataIdFromObject: (object) => `${object.__typename}:${object._id}`,
 });
 
-const CLIENT_ORIGIN = "http://130.245.12.107:3001/graphql"; //Do I need to change this?
-const SERVER_LOCAL_DOMAIN = "http://localhost:4000/graphql"; //Do I need to change this?
-
+const CLIENT_ORIGIN = "http://130.245.12.107:3001/graphql";
+const SERVER_LOCAL_DOMAIN = "http://localhost:4000/graphql"; 
+const history = createBrowserHistory();
 const client = new ApolloClient({
   uri: SERVER_LOCAL_DOMAIN,
   onError: ({ networkError, graphQLErrors }) => {
@@ -34,7 +41,9 @@ const client = new ApolloClient({
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <App />
+      <BrowserRouter>
+        <App history={history}/> 
+      </BrowserRouter>
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById("root")

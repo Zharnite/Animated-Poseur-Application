@@ -9,12 +9,18 @@ import CreateModal from "./CreateModal";
 
 
 //traversy media
-function loggedIn(user){
-  let username = user.username;
+function loggedIn(props){
+  let username = props.user.username;
+  console.log(props);
   return (
     <NavDropdown title={username} id="collasible-nav-dropdown" className="right">
+    <NavLink to="/create">
+        <NavDropdown.Item>
+          Create 
+          </NavDropdown.Item>
+    </NavLink>
       <NavDropdown.Item>Profile</NavDropdown.Item>
-      <CreateModal user={user}/>
+      {/* <CreateModal {...props} /> */}
       <NavDropdown.Divider />
       <NavDropdown.Item>Sign Out</NavDropdown.Item>
     </NavDropdown>
@@ -24,7 +30,7 @@ function loggedIn(user){
 function loggedOut() {
   return (
     <Nav.Link>
-      <NavLink to={"/login"}>Login</NavLink>
+      <NavLink to="/login">Login</NavLink>
     </Nav.Link>
   );
 }
@@ -32,6 +38,7 @@ function loggedOut() {
 const Navbar = (props) => {
   let user = props.user
   let isLoggedIn = false;
+  console.log(props);
   if(user != null) isLoggedIn = true;
   return (
     <BootNavbar
@@ -57,10 +64,10 @@ const Navbar = (props) => {
             <NavLink to="/community">Community</NavLink>
           </Nav.Link>
           <Nav.Link>
-            <NavLink to="/edit">Editscreen</NavLink>
+            <NavLink to="/create">Create</NavLink>
           </Nav.Link>
         </Nav>
-        <Nav>{isLoggedIn ? loggedIn(user) : loggedOut()}</Nav>
+        <Nav>{isLoggedIn ? loggedIn(props) : loggedOut()}</Nav>
       </BootNavbar.Collapse>
     </BootNavbar>
   );

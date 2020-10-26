@@ -3,6 +3,7 @@ import Navbar from "./components/navbar/Navbar.js";
 import Homescreen from "./components/homescreen/Homescreen.js";
 import Loginscreen from "./components/loginscreen/Loginscreen.js";
 import Editscreen from "./components/editscreen/Editscreen.js";
+import Createscreen from "./Createscreen"
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import { GET_DB_USER } from "./cache/queries.js";
 
@@ -10,9 +11,12 @@ import * as mutations from "./cache/mutation";
 import { graphql } from "@apollo/react-hoc";
 import { flowRight as compose, random } from "lodash";
 import { useQuery } from "@apollo/react-hooks";
+import { jsTPS } from './utils/jsTPS';
+
 
 const App = (props) => {
   let user = null;
+  console.log(props);
   const { loading, error, data, refetch } = useQuery(GET_DB_USER);
   if (error) {
     //console.log(error);
@@ -26,16 +30,16 @@ const App = (props) => {
       user = getCurrentUser;
     }
   }
-  //console.log(user)
-	//console.log(refetch)
-
+  console.log(user)
+  console.log(refetch)
+  let transactionStack = new jsTPS();
   return (
-    <BrowserRouter>
+      <div>
       <Navbar 
-        fetchUser={refetch} user={user}
+        {...props} fetchUser={refetch} user={user} tps={transactionStack}
       />
       <Switch>
-        <Redirect exact from="/" to={{ pathname: "/home" }} />
+        {/* <Redirect exact from="/" to={{ pathname: "/home" }} /> */}
         <Route
           path="/home"
           name="home"
@@ -51,7 +55,7 @@ const App = (props) => {
           )}
         />
         <Route
-          path="/edit"
+          path="/edit:id"
           name="edit"
           render={(props) => (
             <Editscreen {...props} fetchUser={refetch} user={user} />
@@ -64,8 +68,15 @@ const App = (props) => {
             <Editscreen {...props} fetchUser={refetch} user={user} />
           )}
         />
+        <Route
+          path="/create"
+          name="create"
+          render={(props) => (
+            <Createscreen {...props} fetchUser={refetch} user={user} />
+          )}
+        />
       </Switch>
-    </BrowserRouter>
+      </div>
   );
 };
 

@@ -1,9 +1,10 @@
 import React, {useState} from "react";
 
-import { flowRight as compose, random } from "lodash";
-import { PhotoshopPicker } from "react-color";
+// import { flowRight as compose, random } from "lodash";
+// import { PhotoshopPicker } from "react-color";
 
-const Homescreen = (props) => {
+const Homescreen = () => {
+  //console.log(props)
 
   // const [change, setChange] = useState({r:'0',g:'0',b:'0',a:'1'})
   return (

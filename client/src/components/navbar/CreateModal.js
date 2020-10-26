@@ -21,22 +21,22 @@ import { useQuery } from "@apollo/react-hooks";
 
 
 const CreateModal = (props) => {
-    //console.log(props)
+    console.log(props)
     let animationspriteList = [];
     const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-    const { loading, error, data, refetch } = useQuery(GET_DB_ANIMATIONSPRITES);
-    if(loading) { /* Good place for a spinner or something */ }
-    if(error) { console.log(error); }
-    if(data) { 
-        animationspriteList = data.getAllAnimationsprites;
-        console.log(data);
-        console.log(animationspriteList);
-       
+    const handleClose = () =>{
+        console.log("asdf)")
+        setShow(false);
     }
-    const auth = props.user === null ? false : true;
-    if(auth) { refetch() }
+    const handleShow = () => setShow(true);
+    // const { loading, error, data, refetch } = useQuery(GET_DB_ANIMATIONSPRITES);
+    // if(loading) { /* Good place for a spinner or something */ }
+    // if(error) { console.log(error); }
+    // if(data) { 
+    //     animationspriteList = data.getAllAnimationsprites;   
+    // }
+    // const auth = props.user === null ? false : true;
+    // if(auth) { refetch() }
 
 
     const handleCreateAnimationSpriteSheet = async (e) => {
@@ -54,11 +54,24 @@ const CreateModal = (props) => {
         };
 
         const { data } = await props.addAnimationsprite({ variables: { animationsprite: animationsprite}, refetchQueries:[{query: GET_DB_ANIMATIONSPRITES}] });
-        console.log(data)
+        console.log("=========================================")
         animationsprite._id = data.addAnimationsprite;
         animationsprite.__typename = 'Animationsprite';
         props.updateAnimationspriteField({variables: { _id: null, field: null, value: animationsprite, opcode: 1 }});
-        console.log(animationsprite);
+        
+        console.log("=========================================")
+        console.log(data)
+        console.log(data.addAnimationsprite)
+        console.log(animationsprite)
+        if(data.addAnimationsprite){
+            props.history.push({
+              pathname: '/edit:' + data.addAnimationsprite,
+              state: animationsprite
+            })
+            console.log(props.history)
+        }
+      
+        
 
         
     }
@@ -66,7 +79,7 @@ const CreateModal = (props) => {
     return (
 
         <NavDropdown.Item onClick={handleShow}>
-            Create
+            <span onClick={handleShow}>Create</span>
             <Modal
                 show={show}
                 onHide={handleClose}
@@ -74,50 +87,27 @@ const CreateModal = (props) => {
                 keyboard={false}
             >
             <Form id="create-animationsprite-form">
-            <Modal.Header closeButton>
-                <Modal.Title>Create</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                <Form.Group controlId="formBasicUsername">
-                <Form.Label>Title</Form.Label>
-                <Form.Control type="username" placeholder="Username" />
-                </Form.Group>
-                <Form.Group controlId="formBasicUsername">
-                    <Form.Label>Width</Form.Label>
+                <Modal.Header closeButton>
+                    <Modal.Title>Create</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form.Group controlId="formBasicUsername">
+                    <Form.Label>Title</Form.Label>
                     <Form.Control type="username" placeholder="Username" />
-                </Form.Group>
-                <Form.Group controlId="formBasicUsername">
-                    <Form.Label>Heigth</Form.Label>
-                    <Form.Control type="username" placeholder="Username" />
-                </Form.Group>
-                <Form.Group>
-                <Form.Check
-                type="radio"
-                label="public"
-                name="formHorizontalRadios"
-                id="formHorizontalRadios1"
-                />
-                </Form.Group>
-                <Form.Group>
-                <Form.Check
-                type="radio"
-                label="private"
-                name="formHorizontalRadios"
-                id="formHorizontalRadios2"
-                />
-                </Form.Group>
-
-
-            </Modal.Body>
-            <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                Cancel
-                </Button>
-                <Button variant="primary" onClick={handleCreateAnimationSpriteSheet}>
-                    Register
-                </Button>
-
-            </Modal.Footer>
+                    </Form.Group>
+                    <Form.Group controlId="formBasicUsername">
+                        <Form.Label>Width</Form.Label>
+                        <Form.Control type="username" placeholder="Username" />
+                    </Form.Group>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button onClick={handleClose}>
+                        Cancel
+                    </Button>
+                    <Button  onClick={handleCreateAnimationSpriteSheet}>
+                        Register
+                    </Button>
+                </Modal.Footer>
             </Form>
             </Modal>    
         </NavDropdown.Item>
