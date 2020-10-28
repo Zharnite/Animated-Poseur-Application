@@ -91,7 +91,19 @@ function Editscreen(props) {
     });
   const [currentStateFrameLayerTool, setCurrentStateFrameLayerTool] = useState({state : animationsprite.animation_states[0], frame : animationsprite.animation_states[0].frames[0], layer : null, tool:null});
 
-  
+  /*
+  * @author: Carlos Lopez
+  * @var: x (array)
+  * @description: Updates the animation sprite & sets selected components which the user may want to work with.
+  * An update corresponds to a respective states: {"SPRITE", "STATE", "FRAME", LAYER", "TOOL"}.
+  * The state determine which component of the data-structure to update. 
+  * Refer to the Animation Sprite JSON data for cleafication on data-structure.
+  * Example: if you want you update the animation sprites name, you would pass in ["SPRITE", update]
+  * Example: if you want add a frame to the current state you would pass in ["STATE", update]
+  * Example: if you want delete a layer from the current frame you would pass in ["FRAME", update]
+  * Example: if you want select a layer from the current frame you would pass in ["LAYER", update]
+  * 
+  */
   const setSFL=(x)=>{
     const [componentToUpdate, updatedComponent] = x
 
@@ -99,14 +111,14 @@ function Editscreen(props) {
       case "SPRITE":
         console.log("Updating Sprite Components")
         let updatedSprite = updatedComponent;
-        console.log(updatedSprite)
-        console.log(animationsprite)
         setAnimationsprite({...animationsprite, animation_states: updatedSprite})
         console.log(animationsprite)
         break;
       case "STATE":
         console.log("Updating State Components")
-        let updated = currentStateFrameLayerTool.frame;
+        let updatedState = currentStateFrameLayerTool.state;
+        updatedState.frames = updatedComponent;
+        setCurrentStateFrameLayerTool({...currentStateFrameLayerTool, state: updatedState})
         break;
       case "FRAME":
         console.log("Updating Frame Components")

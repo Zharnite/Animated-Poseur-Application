@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import Frame from "./FrameCard";
 import { Dropdown, DropdownButton } from "react-bootstrap";
 
+/*
+  TODO:
+    Expand addAnimationState() so that user can name it 
+*/
+
 const FramePanel = (props) => {
   
   let animationstates = props.sprite.animation_states; 
@@ -29,8 +34,28 @@ const FramePanel = (props) => {
         ]
     }
     newAnimationstates.push(newState);
-    console.log(newAnimationstates)
     props.setSFLT(["SPRITE", newAnimationstates]);
+
+  }
+
+  const addFrame = () => {
+    let newFrames = frames
+    let newframe = {
+      position: 1,
+      duration: 50,
+      layers: [
+        {
+          layer_name: "layer1",
+          isVisable: false,
+          isLocked: false,
+          data: ""
+        }
+      ]
+    }
+    newFrames.push(newframe);
+    props.setSFLT(["STATE", newFrames]);
+
+
 
   }
 
@@ -43,7 +68,7 @@ const FramePanel = (props) => {
           <Frame frame={currentFrame} />
         ))}
       </div>
-      <DropdownButton id="dropdown-basic-button" title={state.animation_state_name}>
+      <DropdownButton variant="secondary" key={"left"} id={`dropdown-button-drop-${"left"}`}  drop={"left"}title={state.animation_state_name}>
         {frames.map((frame) => (
           <Frame frame={frame} />
         ))}
@@ -52,7 +77,7 @@ const FramePanel = (props) => {
         ))}
       </DropdownButton>
       <button onClick={e => addAnimationState()}>Create State</button>
-      <button>Add frame</button>
+      <button onClick={e => addFrame()}>Add frame</button>
       <button>Play/Stop</button>
       <button>Delete State</button>
     </div>
