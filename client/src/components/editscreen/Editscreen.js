@@ -93,37 +93,47 @@ function Editscreen(props) {
 
   
   const setSFL=(x)=>{
-    console.log(x)
     const [componentToUpdate, updatedComponent] = x
-    let newAnimationsprite = animationsprite;
-    console.log(componentToUpdate);
-    console.log(updatedComponent);
-
 
     switch(componentToUpdate){
+      case "SPRITE":
+        console.log("Updating Sprite Components")
+        let updatedSprite = updatedComponent;
+        console.log(updatedSprite)
+        console.log(animationsprite)
+        setAnimationsprite({...animationsprite, animation_states: updatedSprite})
+        console.log(animationsprite)
+        break;
       case "STATE":
+        console.log("Updating State Components")
+        let updated = currentStateFrameLayerTool.frame;
         break;
       case "FRAME":
-        newAnimationsprite.animation_states[0].frames[0].layers = updatedComponent
-        setAnimationsprite(newAnimationsprite);
+        console.log("Updating Frame Components")
+        let updatedFrame = currentStateFrameLayerTool.frame;
+        updatedFrame.layers = updatedComponent;
+        setCurrentStateFrameLayerTool({...currentStateFrameLayerTool, frame: updatedFrame})
         break
       case "LAYER":
+        console.log("Setting New Layer")
+        let selectedLayer = updatedComponent;
+        setCurrentStateFrameLayerTool({...currentStateFrameLayerTool, layer: selectedLayer})
         break
       case "TOOL":
-        console.log("Updating Tool")
-        setCurrentStateFrameLayerTool({...currentStateFrameLayerTool, tool: updatedComponent})
+        console.log("Setting New Tool")
+        let selectedTool = updatedComponent;
+        setCurrentStateFrameLayerTool({...currentStateFrameLayerTool, tool: selectedTool})
         break
     }
 
   }
-  console.log(animationsprite)
 
 
   return (
     <div className="editscreen center">
       <Toolbar sflt={currentStateFrameLayerTool} setSFLT={setSFL}/>
-      <Animatorbar sfl={currentStateFrameLayerTool}/>
-      <Filebar {...props} sfl={currentStateFrameLayerTool} setSFL={setSFL}/>
+      <Animatorbar {...props} sprite={animationsprite} sflt={currentStateFrameLayerTool} setSFLT={setSFL}/>
+      <Filebar {...props} sflt={currentStateFrameLayerTool} setSFL={setSFL}/>
     </div>
   );
 }

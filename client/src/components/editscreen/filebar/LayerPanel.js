@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import LayerCard from "./LayerCard";
 
 const LayerPanel = (props) => {
-  let layers = props.sfl.frame.layers;
-  const [selectedLayer, setSelectedLayer] = useState(props.sfl.layer)
+  let layers = props.sflt.frame.layers;
+  const [selectedLayer, setSelectedLayer] = useState(props.sflt.layer)
   console.log(layers)
 
   const newLayer = {
@@ -16,7 +16,7 @@ const LayerPanel = (props) => {
   // console.log(layers)
 
   const addLayer = () => {
-    const newList =  props.sfl.frame.layers;
+    const newList =  props.sflt.frame.layers;
     const newLayerIndex = layers.length;
     const newLayer = {
       layer_name: "layer",
@@ -25,7 +25,7 @@ const LayerPanel = (props) => {
       isLocked: false,
     };
     newList.push(newLayer);
-    props.setSFL({componentToUpdate : "FRAME", updatedComponent: newList})
+    props.setSFL(["FRAME", newList])
     console.log(newList)
 
   //   setLayersList([...layersList, newLayer]);
@@ -55,8 +55,8 @@ const LayerPanel = (props) => {
           <span>
             <LayerCard
               layer = {layer}
-              selectedLayer={selectedLayer}
-              selectedLayerName={setSelectedLayer}
+              selectedLayer = {props.sflt.layer}
+              setSFL={props.setSFL}
             />
           </span>
         ))}

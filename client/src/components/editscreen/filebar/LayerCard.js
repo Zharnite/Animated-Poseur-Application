@@ -1,37 +1,18 @@
 import React, { useState } from "react";
 
 const LayerCard = (props) => {
-  const layer = props.layer;
-  const selectedLayer = props.selectedLayer;
-  const setSelectedLayer= props.setSelectedLayer;
-  // const setSelectedLayerName = props.setSelectedLayerName;
-  // const setSelectedLayer = props.setSelectedLayer;
-  //const [diplayLayerNamefield, setLayerNamefield] = useState(false);
-
-  // const showLayerNamefieldHelper = (e, index) => {
-  //   if (selectedLayer != null && index == selectedLayer.index) {
-  //     setLayerNamefield(true);
-  //   }
-  // };
-  // const hideLayerNamefieldHelper = (key) => {
-  //   console.log(key);
-  //   if (key == "Enter") {
-  //     setLayerNamefield(false);
-  //   }
-  // };
 
   let classname = "";
-  if (selectedLayer != null && layer.index == selectedLayer.index) {
+  if (props.selectedLayer != null && props.layer.index == props.selectedLayer.index) {
     classname = classname + "selected";
   }
 
   return (
-    <div id="layer-card" class={classname} onClick={setSelectedLayer}>
+    <div id="layer-card" class={classname} onClick={x => props.setSFL(["LAYER", props.layer])}>
       <span
         id="layer-card-name"
-        // onDoubleClick={(e) => showLayerNamefieldHelper(e, layer.index)}
       >
-        {layer.layer_name}
+        {props.layer.layer_name}
       </span>
       <img
         alt="L"
