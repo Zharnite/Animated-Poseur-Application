@@ -79,6 +79,7 @@ function Editscreen(props) {
               "layers": [
                 {
                   "layer_name": "layer1",
+                  "index": 0,
                   "isVisable": false,
                   "isLocked": false,
                   "data": ""

@@ -52,8 +52,8 @@
 .wcanvas-layer{
   position: absolute;
   background-color: transparent;
-  height: 500px;  
-  width: 800px;
+  /* height: 500px;  
+  width: 800px; */
 
 }
 

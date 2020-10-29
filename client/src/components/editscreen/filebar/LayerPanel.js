@@ -8,7 +8,7 @@ const LayerPanel = (props) => {
 
   const newLayer = {
         layer_name: "layer",
-        index: 0,
+        index: layers.length,
         isVisable: true,
         isLocked: false,
       };
