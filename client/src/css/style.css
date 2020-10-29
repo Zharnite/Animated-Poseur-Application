@@ -34,16 +34,25 @@ body {
   background-color: var(--swatch-foundation);
 }
 
-#canvas-background{
+#canvas-panel{
   background-color: grey;
 }
 
-#canvas{
-  padding-left: 0;
-  padding-right: 0;
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
+.wcanvas{
+
+}
+
+.wcanvas-main{
+  background: url("../illustration/images/canvas_background.png");
+  background-size: 40px;
+}
+
+.wcanvas-layers{
+  position: absolute;
+}
+
+.wcanvas-layer{
+  background-color: transparent;
 }
 
 #register:hover {
@@ -57,17 +66,19 @@ body {
 }
 
 #frame-panel {
+  position: relative;
   border: 1px solid white;
   background-color: var(--swatch-complement);
 }
 
 #frame-menu {
-  border: 1px solid black;
+  position: inherit;
+  border: 5px solid black;
 }
 
 .frame-card {
-  display: inline-block;
-  background-color: white;
+  background: url("../illustration/images/canvas_background.png");
+  background-size: 16px;
 }
 
 .toolbar {

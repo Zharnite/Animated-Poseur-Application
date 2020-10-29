@@ -4,15 +4,15 @@ import React, { useRef, useEffect, useState } from 'react';
 function canvasToolOption(selectedTool, context){
   console.log(selectedTool + " selected")
   if("erasetool" == selectedTool){
-    
-    
+    context.globalCompositeOperation = "destination-out";
+    context.strokeStyle = "rgba(0,0,0,1)";
   }
   else if("painttool" == selectedTool){
+    console.log(context)
+    context.globalCompositeOperation = "source-over";
     context.lineCap = "round"
     context.strokeStyle = "black"
     context.lineWidth = 5;
-  
-
   }
   else{
 
@@ -39,20 +39,6 @@ const App =(props)=>{
 
   }
 
-  // useEffect(() => {
-  //   const selectedTool = props.sflt.tool;
-  //   const selectedLayer = props.sflt.layer;
-  //   let canEditLayer;
-  //   selectedTool == null || selectedLayer == null? canEditLayer = false : canEditLayer = true; 
-  //   if(canEditLayer){
-  //     let canvas = document.getElementById("wlayer" + selectedLayer.index);
-  //     let context = canvas.getContext("2d");
-  //     contextRef.current = context;
-
-  //   }
-  // }, [])
-
-  
   console.log(canEditLayer);
   
 

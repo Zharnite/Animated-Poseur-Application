@@ -24,7 +24,6 @@
 }
 
 #canvas-panel{
-  background-color: grey;
   height: 600px;
   width: 1000px
 }
@@ -39,22 +38,15 @@
   position: absolute;
   height: 500px;
   width: 800px;
-  background: url("../illustration/images/canvas_background.png");
-  background-size: 40px;
   
 }
 
 .wcanvas-layers{
   position: absolute;
-
 }
 
 .wcanvas-layer{
   position: absolute;
-  background-color: transparent;
-  /* height: 500px;  
-  width: 800px; */
-
 }
 
 #frame-panel {
@@ -62,9 +54,10 @@
 }
 
 #frame-menu {
-  padding: 3%;
-  height: 120px;
-  width: 500px;
+  padding-top: 10px;
+  padding-left: 20px;
+  height: 100px;
+  width: 1000px;
   white-space: nowrap;
   overflow-x: scroll;
   transform: translateY(-5%);
@@ -75,12 +68,12 @@
   width: 70px;
   padding: 10px;
   margin-right: 30px;
+  display: inline-block;
 }
 
 .toolbar {
   height: 100%;
   width: 60px;
-  border: 3px solid white;
 }
 
 .tool-icon {

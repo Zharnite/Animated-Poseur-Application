@@ -64,14 +64,11 @@ const FramePanel = (props) => {
   return (
     <div id="frame-panel">
       <div id="frame-menu">
-        {frames.map((currentFrame) => (
-          <Frame frame={currentFrame} />
-        ))}
-      </div>
-      <DropdownButton variant="secondary" key={"left"} id={`dropdown-button-drop-${"left"}`}  drop={"left"}title={state.animation_state_name}>
         {frames.map((frame) => (
           <Frame frame={frame} />
         ))}
+      </div>
+      <DropdownButton variant="secondary" key={"left"} id={`dropdown-button-drop-${"left"}`}  drop={"left"}title={state.animation_state_name}>
         {animationstates.map((animationstate) => (
           <Dropdown.Item>{animationstate.animation_state_name}</Dropdown.Item>
         ))}
