@@ -28,8 +28,6 @@
   ); /* USED IN MOUSE-OVER SELECTION OF TEXT AND BORDERS */
   --my-font-family: "Robaaaoto";
   --bounceEasing: cubic-bezier(0.51, 0.92, 0.24, 1.15);
-  --canvas-height: 600px;
-  --canvas-width: 1000px;
 }
 
 body {
@@ -38,10 +36,6 @@ body {
 
 #canvas-background{
   background-color: grey;
-  height: var(--canvas-height);
-  width: var(--canvas-width);
-  
-
 }
 
 #canvas{
