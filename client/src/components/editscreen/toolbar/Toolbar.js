@@ -7,7 +7,6 @@ import painttool from "../../../illustration/icons/paint-50.png";
 import erasetool from "../../../illustration/icons/erase-50.png";
 import fillcolortool from "../../../illustration/icons/fill-color-50.png";
 
-
 let tools = [
   {
     src: grouptool,
@@ -31,14 +30,10 @@ let tools = [
   },
 ];
 const Toolbar = (props) => {
-  
   return (
     <div className="toolbar">
       {tools.map((tool) => (
-        <Tool
-          tool={tool}
-          {...props}
-        />
+        <Tool tool={tool} {...props} />
       ))}
 
       {/* <div>

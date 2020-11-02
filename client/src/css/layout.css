@@ -1,5 +1,4 @@
 :root {
-
   --bounceEasing: cubic-bezier(0.51, 0.92, 0.24, 1.15);
   --canvas-height: 600px;
   --canvas-width: 1000px;
@@ -11,7 +10,7 @@
 }
 
 .right {
- right: 100px; 
+  right: 100px;
 }
 
 .editscreen {
@@ -23,29 +22,28 @@
   border: 3px solid white;
 }
 
-#canvas-panel{
+#canvas-panel {
   height: 600px;
-  width: 1000px
+  width: 1000px;
 }
 
-.wcanvas{
+.wcanvas {
   position: relative;
   left: 10%;
   top: 8%;
 }
 
-.wcanvas-main{
+.wcanvas-main {
   position: absolute;
   height: 500px;
   width: 800px;
-  
 }
 
-.wcanvas-layers{
+.wcanvas-layers {
   position: absolute;
 }
 
-.wcanvas-layer{
+.wcanvas-layer {
   position: absolute;
 }
 
@@ -71,31 +69,33 @@
   display: inline-block;
 }
 
-
 .toolbar {
   height: 100%;
-  width: 60px;
 }
 
-.tool-icon {
-  height: 60px;
-  width: 100px;
+.tool-icon,
+.tool-icon_selected {
+  padding: 5px;
+  height: auto;
+  width: auto;
 }
 
 .filebar {
   height: 100%;
   width: 200px;
+  padding: 3px;
 }
 
 #layer-menu {
   height: 300px;
-  width: 90%;
+  width: 100%;
   overflow: scroll;
-  left: 10px;
   position: relative;
+  margin-bottom: 3px;
 }
 
 #layer-card {
+  padding: 3px;
   margin-bottom: 5px;
   font-size: smaller;
   display: flex;
@@ -116,4 +116,3 @@
 #layer-controls {
   display: inline-flex;
 }
-
