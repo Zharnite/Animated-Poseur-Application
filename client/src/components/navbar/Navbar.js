@@ -9,37 +9,55 @@ import CreateModal from "./CreateModal";
 
 
 //traversy media
-function loggedIn(props){
-  let username = props.user.username;
-  console.log(props);
-  return (
-    <NavDropdown title={username} id="collasible-nav-dropdown" className="right">
-    <NavLink to="/create">
-        <NavDropdown.Item>
-          Create 
-          </NavDropdown.Item>
-    </NavLink>
-      <NavDropdown.Item>Profile</NavDropdown.Item>
-      {/* <CreateModal {...props} /> */}
-      <NavDropdown.Divider />
-      <NavDropdown.Item>Sign Out</NavDropdown.Item>
-    </NavDropdown>
-  );
-};
-
-function loggedOut() {
-  return (
-    <Nav.Link>
-      <NavLink to="/login">Login</NavLink>
-    </Nav.Link>
-  );
-}
-
 const Navbar = (props) => {
   let user = props.user
   let isLoggedIn = false;
   console.log(props);
   if(user != null) isLoggedIn = true;
+  
+  const login = () =>{
+    let username = props.user.username;
+    return (<BootNavbar.Collapse id="basic-navbar-nav">
+        <Nav className="mr-auto">
+          <Nav.Link>
+            <NavLink to="/community">Community</NavLink>
+          </Nav.Link>
+          <Nav.Link>
+            <NavLink to="/create">Create</NavLink>
+          </Nav.Link>
+        </Nav>
+        <NavDropdown title={username} id="collasible-nav-dropdown" className="right">
+        <NavLink to="/create">
+        <NavDropdown.Item>
+        Create 
+        </NavDropdown.Item>
+        </NavLink>
+        <NavDropdown.Item>Profile</NavDropdown.Item>
+        {/* <CreateModal {...props} /> */}
+        <NavDropdown.Divider />
+        <NavDropdown.Item>Sign Out</NavDropdown.Item>
+        </NavDropdown>  
+      </BootNavbar.Collapse>);
+
+  }
+  
+  const logout = () =>{
+    return(
+    <BootNavbar.Collapse id="basic-navbar-nav">
+        <Nav className="mr-auto">
+          <Nav.Link>
+            <NavLink to="/community">Community</NavLink>
+          </Nav.Link>
+        </Nav>
+        <Nav.Link>
+      <NavLink to="/login">Login</NavLink>
+    </Nav.Link>
+    </BootNavbar.Collapse>
+    );
+  
+  }
+
+
   return (
     <BootNavbar
       collapseOnSelect
@@ -58,17 +76,7 @@ const Navbar = (props) => {
           The Animated Poseur
         </NavLink>
       </BootNavbar.Brand>
-      <BootNavbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
-          <Nav.Link>
-            <NavLink to="/community">Community</NavLink>
-          </Nav.Link>
-          <Nav.Link>
-            <NavLink to="/create">Create</NavLink>
-          </Nav.Link>
-        </Nav>
-        <Nav>{isLoggedIn ? loggedIn(props) : loggedOut()}</Nav>
-      </BootNavbar.Collapse>
+      {isLoggedIn ? login() : logout()}
     </BootNavbar>
   );
 };

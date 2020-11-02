@@ -17,11 +17,12 @@ const RegisterModal = (props) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+
   const handleCreateAccount = async (e) => {
     //check if its valid input
-    var username = document.getElementById("register-form").elements[1].value;
-    var email = document.getElementById("register-form").elements[2].value;
-    var password = document.getElementById("register-form").elements[3].value;
+    let username = document.getElementById("registerUsername").value;
+    let email = document.getElementById("registerEmail").value;
+    let password = document.getElementById("registerPassword").value;
     var register = { username, email, password };
     console.log(register);
     console.log(props.register);
@@ -62,18 +63,18 @@ const RegisterModal = (props) => {
             <Modal.Title>Welcome New Animator</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Form.Group controlId="formBasicUsername">
+            <Form.Group controlId="registerUsername">
               <Form.Label>Username</Form.Label>
               <Form.Control type="username" placeholder="Username" />
             </Form.Group>
-            <Form.Group controlId="formBasicEmail">
+            <Form.Group controlId="registerEmail">
               <Form.Label>Email address</Form.Label>
               <Form.Control type="email" placeholder="Enter email" />
               <Form.Text className="text-muted">
                 We'll never share your email with anyone else.
               </Form.Text>
             </Form.Group>
-            <Form.Group controlId="formBasicPassword">
+            <Form.Group controlId="registerPassword">
               <Form.Label>Password</Form.Label>
               <Form.Control type="password" placeholder="Password" />
             </Form.Group>

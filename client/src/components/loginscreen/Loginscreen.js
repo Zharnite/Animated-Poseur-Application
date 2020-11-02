@@ -13,9 +13,8 @@ const Login = (props) => {
   const [loading, toggleLoading] = useState(false);
 
   const handleLogin = async (e) => {
-    //check if its valid input
-    var email = document.getElementById("login-form").elements[0].value;
-    var password = document.getElementById("login-form").elements[1].value;
+    var email = document.getElementById("loginEmail").value;
+    var password = document.getElementById("loginPassword").value;
     var login = { email, password};
 
     const { loading, error, data } = await props.login({ variables:{ ...login } });
@@ -38,12 +37,12 @@ const Login = (props) => {
       <Card style={{ width: "50rem" }}>
         <Card.Body>
           <Form id="login-form">
-            <Form.Group controlId="formBasicEmail">
+            <Form.Group controlId="loginEmail">
               <Form.Label>Email address</Form.Label>
               <Form.Control type="email" placeholder="Enter email" />
             </Form.Group>
 
-            <Form.Group controlId="formBasicPassword">
+            <Form.Group controlId="loginPassword">
               <Form.Label>Password</Form.Label>
               <Form.Control type="password" placeholder="Password" />
             </Form.Group>

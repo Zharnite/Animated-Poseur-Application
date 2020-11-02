@@ -11,7 +11,7 @@
     79,
     79
   ); /* DOMINANT COLOR, USED FOR MOST BACKGROUNDS */
-  --swatch-secondary: rgb(92, 104, 97); 
+  --swatch-secondary: rgb(71, 71, 82); 
   --swatch-complement: ghostwhite; /* USED IN FORGROUND OF PRIMARY FOR TEXT AND BORDERS */
   --swatch-contrast: rgb(
     179,
