@@ -41,11 +41,12 @@ const FramePanel = (props) => {
   const addFrame = () => {
     let newFrames = frames
     let newframe = {
-      position: 1,
+      position: frames.length,
       duration: 50,
       layers: [
         {
-          layer_name: "layer1",
+          index: 0,
+          layer_name: "layer 1",
           isVisable: false,
           isLocked: false,
           data: ""
@@ -54,9 +55,6 @@ const FramePanel = (props) => {
     }
     newFrames.push(newframe);
     props.setSFLT(["STATE", newFrames]);
-
-
-
   }
 
 
@@ -65,7 +63,7 @@ const FramePanel = (props) => {
     <div id="frame-panel">
       <div id="frame-menu">
         {frames.map((frame) => (
-          <Frame frame={frame} />
+          <Frame selecetedFrame = {props.sflt.frame} frame={frame} setSFLT={props.setSFLT}/>
         ))}
       </div>
       <DropdownButton variant="secondary" key={"left"} id={`dropdown-button-drop-${"left"}`}  drop={"left"}title={state.animation_state_name}>

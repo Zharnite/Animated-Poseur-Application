@@ -9,58 +9,29 @@ import { GET_ANIMATIONSPRITE_BY_ID } from "../../cache/queries";
 import { useQuery } from "@apollo/react-hooks";
 
 
-/*
-* @param: Object animationsprite (JSON)
-* @returns: array of selected animation-state, frame, and layer
-*/
-// function findSelectedComponents(animationsprite){
-//   let animation_state = animationsprite.animation_states;
-//   console.log(animation_state)
-//   let animation_state_index = animation_state.findIndex( (state) => state.selected);
-//   if(animation_state_index == -1) animation_state_index = 0;
-//   const selected_animation_state = animation_state[animation_state_index];
-
-//   let frames = selected_animation_state.frames
-//   console.log(frames)
-//   let frames_index = frames.findIndex( (frame) => frame.selected);
-//   if(frames_index == -1) frames_index = 0;
-//   const selected_frame = frames[frames_index];
-
-//   let layers = selected_frame.layers
-//   console.log(layers)
-//   let layers_index = layers.findIndex( (layer) => layer.selected);
-//   if(layers_index == -1) layers_index = 0;
-//   const selected_layer = layers[layers_index];
-
-//   return [selected_animation_state, selected_frame, selected_layer]
-// }
-
-function findSelectedFrame(animation_state){
-  let frames = animation_state.frames
-  let frames_index = frames.findIndex( (state) => state.selected);
-  if(frames_index == -1) frames_index = 0;
-  return frames[frames_index];
-}
-
+//todo:
+//Learn how to switch from frame to frame without causing the application to crash
+//Learn how to merge layer data into a single image
+//
+//
 
 function Editscreen(props) {
-  //let [selectedAnimationStateJSON, selectedFrameJSON, selectedLayerJSON] = findSelectedComponents(animationsprite);
-  const auth = props.user === null ? false : true;
-  //console.log(props);
+ 
   let optionalPath = props.match.params.id;
   let _id = optionalPath.substring(1,optionalPath.length)
-  console.log(_id)
-  //const { loading, error, data, refetch } = useQuery(GET_ANIMATIONSPRITE_BY_ID, {variables: { _id },});
-  // if(loading) { console.log("Loading"); }
-  // if(error) { console.log("Editscreen => " + error); }
+  //console.log(_id)
+  // const [animationsprite, setAnimationsprite] = useState(null);
+  // const [currentStateFrameLayerTool, setCurrentStateFrameLayerTool] = useState(null);
+  // const { loading, error, data, refetch } = useQuery(GET_ANIMATIONSPRITE_BY_ID, {variables:  {_id} ,});
+  // if(loading) {  }
+  // if(error) { console.log(error); }
   // if(data) { 
   //   console.log(data)
-  //   //let sprite = data.GetDBAnimatationspriteByID
-  //   //setSelectedLayer(data.GetDBAnimatationspriteByID);
-  //   //setCurrentStateFrameLayer({"state" : sprite.animation_states[0], "frame" : sprite.animation_states[0].frames[0], "layer" : sprite.animation_states[0].frames[0].layers[0]});
+  //   let sprite = data.GetDBAnimatationspriteByID
+  //   setAnimationsprite(sprite);
+  //   setCurrentStateFrameLayerTool({state : animationsprite.animation_states[0], frame : animationsprite.animation_states[0].frames[0], layer : animationsprite.animation_states[0].frames[0].layers[0], tool:null});
   // }
-  // const [animationsprite, setAnimationsprite] = useState(null);
-  // const [currentStateFrameLayer, setCurrentStateFrameLayer] = useState(null);
+
   const [animationsprite, setAnimationsprite] = useState({
      
       "_id": "5f96e8ffcadaf904cae9c34b",
@@ -74,7 +45,7 @@ function Editscreen(props) {
           "animation_state_name": "default",
           "frames": [
             {
-              "position": 1,
+              "position": 0,
               "duration": 50,
               "layers": [
                 {
@@ -90,7 +61,7 @@ function Editscreen(props) {
         }
       ]
     });
-  const [currentStateFrameLayerTool, setCurrentStateFrameLayerTool] = useState({state : animationsprite.animation_states[0], frame : animationsprite.animation_states[0].frames[0], layer : null, tool:null});
+  const [currentStateFrameLayerTool, setCurrentStateFrameLayerTool] = useState({state : animationsprite.animation_states[0], frame : animationsprite.animation_states[0].frames[0], layer : animationsprite.animation_states[0].frames[0].layers[0], tool:null});
 
   /*
   * @author: Carlos Lopez
@@ -105,26 +76,38 @@ function Editscreen(props) {
   * Example: if you want select a layer from the current frame you would pass in ["LAYER", update]
   * 
   */
-  const setSFL=(x)=>{
+  const setSFL=(x, componentSwitch=false)=>{
     const [componentToUpdate, updatedComponent] = x
+    console.log(setSFL)
+    if(componentSwitch){
+      switch(componentToUpdate){
+        case "FRAME":
+          console.log("Switching Frames")
+          setCurrentStateFrameLayerTool({...currentStateFrameLayerTool, frame: updatedComponent})
+          setCurrentStateFrameLayerTool({...currentStateFrameLayerTool, layer: updatedComponent.layers[0]})
+          break;
+        case "STATE":
+          break;
+      }
+      return
+    }
 
     switch(componentToUpdate){
       case "SPRITE":
-        console.log("Updating Sprite Components")
+        console.log("Updating Current Sprite Components")
         let updatedSprite = updatedComponent;
         setAnimationsprite({...animationsprite, animation_states: updatedSprite})
         console.log(animationsprite)
         break;
       case "STATE":
-        console.log("Updating State Components")
+        console.log("Updating Current State Components")
         let updatedState = currentStateFrameLayerTool.state;
         updatedState.frames = updatedComponent;
         setCurrentStateFrameLayerTool({...currentStateFrameLayerTool, state: updatedState})
         break;
       case "FRAME":
-        console.log("Updating Frame Components")
-        let updatedFrame = currentStateFrameLayerTool.frame;
-        updatedFrame.layers = updatedComponent;
+        console.log("Updating Current Frame Components")
+        let updatedFrame = updatedComponent;
         setCurrentStateFrameLayerTool({...currentStateFrameLayerTool, frame: updatedFrame})
         break
       case "LAYER":
@@ -139,8 +122,8 @@ function Editscreen(props) {
         break
     }
 
+    
   }
-
 
   return (
     <div className="editscreen center">

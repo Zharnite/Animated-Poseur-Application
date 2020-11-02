@@ -71,6 +71,7 @@
   display: inline-block;
 }
 
+
 .toolbar {
   height: 100%;
   width: 60px;
@@ -88,8 +89,10 @@
 
 #layer-menu {
   height: 300px;
-  width: 99%;
+  width: 90%;
   overflow: scroll;
+  left: 10px;
+  position: relative;
 }
 
 #layer-card {

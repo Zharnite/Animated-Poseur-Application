@@ -7,19 +7,16 @@
   /* color platte: https://coolors.co/1f1f1c-4b1414-dc7864-ffbebe-93a29b */
   --swatch-foundation: rgb(31, 31, 28); /* USED FOR BODY BACKGROUND */
   --swatch-primary: rgb(
-    75,
-    20,
-    20
+    72,
+    79,
+    79
   ); /* DOMINANT COLOR, USED FOR MOST BACKGROUNDS */
-  --swatch-complement: rgb(
-    220,
-    120,
-    100
-  ); /* USED IN FORGROUND OF PRIMARY FOR TEXT AND BORDERS */
+  --swatch-secondary: rgb(92, 104, 97); 
+  --swatch-complement: ghostwhite; /* USED IN FORGROUND OF PRIMARY FOR TEXT AND BORDERS */
   --swatch-contrast: rgb(
-    220,
-    190,
-    190
+    179,
+    179,
+    179
   ); /* USED IN MOUSE-OVER SELECTION OF LARGE ELEMENTS */
   --swatch-accent: rgb(
     255,
@@ -30,12 +27,18 @@
   --bounceEasing: cubic-bezier(0.51, 0.92, 0.24, 1.15);
 }
 
+
+
 body {
   background-color: var(--swatch-foundation);
 }
 
+h1, h2, h3, h4, h5, h6, p {
+  color: var(--swatch-complement);
+}
+
 #canvas-panel{
-  background-color: grey;
+  background-color: var(--swatch-primary);
 }
 
 .wcanvas{
@@ -62,27 +65,41 @@ body {
 }
 
 .animator {
-  border: 3px solid white;
+  border: 3px solid var(--swatch-complement);
 }
 
 #frame-panel {
   position: relative;
-  border: 1px solid white;
-  background-color: var(--swatch-complement);
+  border: 1px solid var(--swatch-complement);
+  background-color: var(--swatch-primary);
 }
 
 #frame-menu {
   position: inherit;
-  border: 5px solid black;
+  border: 5px solid var(--swatch-complement);
 }
 
 .frame-card {
   background: url("../illustration/images/canvas_background.png");
   background-size: 16px;
+  cursor: pointer;
 }
 
+.frame-card_selected {
+  height: 70px;
+  width: 70px;
+  padding: 10px;
+  margin-right: 30px;
+  display: inline-block;
+  border: var(--swatch-complement) solid 3px;
+  background: url("../illustration/images/canvas_background.png");
+  background-size: 16px;
+  cursor: pointer;
+}
+
+
 .toolbar {
-  border: 3px solid white;
+  border: 3px solid var(--swatch-complement);
   background-color: var(--swatch-primary);
 }
 
@@ -91,12 +108,13 @@ body {
 }
 
 .filebar {
-  border: 3px solid white;
+  border: 3px solid var(--swatch-complement);
   background-color: var(--swatch-primary);
 }
 
 #layer-menu {
-  background-color: var(--swatch-complement);
+  background-color: var(--swatch-secondary);
+  border: 1px solid var(--swatch-complement);
 }
 
 #layer-card {

@@ -16,7 +16,7 @@ import { jsTPS } from './utils/jsTPS';
 
 const App = (props) => {
   let user = null;
-  console.log(props);
+  //console.log(props);
   const { loading, error, data, refetch } = useQuery(GET_DB_USER);
   if (error) {
     console.log(error);

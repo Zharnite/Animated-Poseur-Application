@@ -30,7 +30,7 @@ function prelim(a, b, c){
 function App(props) {
   let selectedTool = props.sflt; 
   let layers = props.sflt.frame.layers; 
-  console.log(props)
+  //console.log(props)
   
   // const [layersList, setLayerList] = useState([
   //   {pos: 0, data:"image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAgAElEQVR4nO19a5Dc1nUmJEqWrF1LsrUSLdqiSIqcBrrJeTaAHrvWUaLXABjq4UiWtHrYejqyXokkkhL1mDIdPWxvmSq7TC5tUdNADyk5VfHWrqviSu1uxeuUY8Urb+JS1nYS2Wx0zwx7RLIBDBnrxemzP4CLe+7FBbpnOJyh6LlVt8jpbqCBe77zne+ce3FbkpbaUltqS22pLbWlttSW2lJbakttqS21pbbUltpSW2rz0968ZsVFE8Pyd2qWMlM1ZQi7Ev5ryOCaeahZSlAblh9Z7GtdavPcfnP5mnNcS9numgq4Zh6qZj40vhV1M+pWHupmvlUfkkcW+5qX2jy28eH8E7XhwrvucAGYbuVj47ukW3mom4WjNaPw9GJf91KbZRsfkj9fM5R9hNpdU4a6lZ+pWfJM+HeeZYCMXjeUyUlDvnex7+n3rv3m8jXnTFi5F+pm7p2qkaOxmtC1lYf6sDJTN5WgbsrTNSPXCj+nCGgdGdqQoWqshaq5DqgGiOK/ocSdHOeaeXCHu5x/vfaiSxZ7TH4vWn0o91DNyB2qGrnIWErksSE1V6182M1c1GWoWrnI0+n7rpmPgeJaBXCH14c9pnsZyHcQRmCNH53PzEPNklsTG+VnFntsTupWt3JbXDP3NqZo1yrEvTocGY546VAEkBgQ5Bgs7KJzmDjG59luKFAdyoXntQrRuWTgQ4G7JAiPT3vzmhUX1ayul4jwio0ee30+8tQcR+OUuqsGNi4Vca6FmIOAwsSsQnt8PnNd2AkTRIByh/PP7/vCpWcu9nidVG3cUu5zh/NT1IuVxMBXjS6oGjlWuBFDmpSuq3GIkKFqRQAwIrDEaR/5rAxVKxSHDFgMBC5DDlnFKkT/5g7VN657cLHH7KRpE5b8TN2UW7GHYq+OhVkXVI0uanyrEHaTGpYFAGIAbE…"},

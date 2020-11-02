@@ -3,7 +3,12 @@ import React, { useRef, useEffect, useState } from 'react';
   
 function canvasToolOption(selectedTool, context){
   console.log(selectedTool + " selected")
-  if("erasetool" == selectedTool){
+  
+  if("grouptool" == selectedTool){
+    
+    
+  }
+  else if("erasetool" == selectedTool){
     context.globalCompositeOperation = "destination-out";
     context.strokeStyle = "rgba(0,0,0,1)";
   }
@@ -16,6 +21,7 @@ function canvasToolOption(selectedTool, context){
   }
   else{
 
+
   }
 
   
@@ -25,6 +31,7 @@ function canvasToolOption(selectedTool, context){
 
 const App =(props)=>{
   const [isDrawing, setIsDrawing] = useState(false)
+  const canvasRef = useRef(null)
   const contextRef = useRef(null)
 
   const selectedTool = props.sflt.tool;
@@ -35,11 +42,12 @@ const App =(props)=>{
     let canvas = document.getElementById("wlayer" + selectedLayer.index);
     let context = canvas.getContext("2d");
     canvasToolOption(selectedTool, context)
+    canvasRef.current = canvas;
     contextRef.current = context;
 
   }
 
-  console.log(canEditLayer);
+  //console.log(canEditLayer);
   
 
   const startDrawing = (event) => {
@@ -60,6 +68,9 @@ const App =(props)=>{
     }
     contextRef.current.closePath()
     setIsDrawing(false)
+    let newLayer = props.sflt.layer;
+    newLayer.data = canvasRef.current.toDataURL();
+    props.setSFLT(["LAYER", newLayer])
   }
 
   const draw = (event) => {

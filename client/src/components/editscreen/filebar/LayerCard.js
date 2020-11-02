@@ -3,7 +3,10 @@ import React, { useState } from "react";
 const LayerCard = (props) => {
 
   let classname = "";
-  if (props.selectedLayer != null && props.layer.index == props.selectedLayer.index) {
+  console.log(props.layer === props.selectedLayer)
+  console.log(props.layer)
+  console.log(props.selectedLayer)
+  if (props.selectedLayer != null && props.layer === props.selectedLayer) {
     classname = classname + "selected";
   }
 

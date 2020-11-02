@@ -4,7 +4,7 @@ import LayerCard from "./LayerCard";
 const LayerPanel = (props) => {
   let layers = props.sflt.frame.layers;
   const [selectedLayer, setSelectedLayer] = useState(props.sflt.layer)
-  console.log(layers)
+  //console.log(layers)
 
   const newLayer = {
         layer_name: "layer",
@@ -25,7 +25,10 @@ const LayerPanel = (props) => {
       isLocked: false,
     };
     newList.push(newLayer);
-    props.setSFL(["FRAME", newList])
+
+    const newFrame = props.sflt.frame;
+    newFrame.layers = newList
+    props.setSFL(["FRAME", newFrame])
     console.log(newList)
 
   //   setLayersList([...layersList, newLayer]);

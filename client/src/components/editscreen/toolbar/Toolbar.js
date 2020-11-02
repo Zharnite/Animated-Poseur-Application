@@ -14,16 +14,16 @@ let tools = [
     id: "grouptool",
   },
   {
-    src: colordroppertool,
-    id: "colordroppertool",
-  },
-  {
     src: painttool,
     id: "painttool",
   },
   {
     src: erasetool,
     id: "erasetool",
+  },
+  {
+    src: colordroppertool,
+    id: "colordroppertool",
   },
   {
     src: fillcolortool,
