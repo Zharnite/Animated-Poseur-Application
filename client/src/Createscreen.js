@@ -24,7 +24,7 @@ const App = (props) => {
     let animationsprite = {
         _id: '',
         owner: props.user._id,
-        sprite_name: name,
+        sprite_name: "Undefine",
         isPublic: true,
         width: 250,
         height: 250,
@@ -42,11 +42,9 @@ const App = (props) => {
     if(data.addAnimationsprite){
         props.history.push({
           pathname: '/edit:' + data.addAnimationsprite,
-          state: {animationsprite : animationsprite}
+          animationsprite
         })
-        console.log(props.history)
     }
-    console.log("=========================================")
       
     }
  

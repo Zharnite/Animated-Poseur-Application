@@ -7,11 +7,16 @@ import Card from "react-bootstrap/Card";
 import { LOGIN } from "../../cache/mutation";
 import { graphql } from "@apollo/react-hoc";
 import { flowRight as compose, random } from "lodash";
+import { Redirect } from "react-router-dom";
+
 
 const Login = (props) => {
   console.log(props)
   const [loading, toggleLoading] = useState(false);
-
+  if (props.auth) {
+    return <Redirect to="/home" />;
+  } 
+  
   const handleLogin = async (e) => {
     var email = document.getElementById("loginEmail").value;
     var password = document.getElementById("loginPassword").value;

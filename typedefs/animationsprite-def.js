@@ -30,7 +30,7 @@ const typeDefs = gql`
     getAnimationspriteById(_id: String!): Animationsprite
   }
   extend type Mutation {
-    addAnimationsprite(animationsprite: AnimationspriteInput!): String
+    addAnimationsprite(animationsprite: AnimationspriteInput!, animationstate:AnimationstateInput!,frame:FrameInput!,layer:LayerInput!): String
     updateAnimationspriteField(_id: String!, field: String!, value: String!): Boolean
   }
   input AnimationspriteInput {

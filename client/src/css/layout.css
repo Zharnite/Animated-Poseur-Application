@@ -5,7 +5,7 @@
 }
 
 .center {
-  display: flex;
+  display: grid;
   justify-content: center;
 }
 
@@ -17,6 +17,13 @@
   width: 100%;
   display: inline-flex;
 }
+
+#spritename-input{
+  height: 30px;
+  width: 100px;
+  border-radius: 100px;
+}
+
 
 .animator {
   border: 3px solid white;

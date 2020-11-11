@@ -51,37 +51,34 @@ module.exports = {
 		**/
 		addAnimationsprite: async (_, args) => {
 			console.log("addAnimationsprite =>");
-			const { animationsprite } = args;
+			const { animationsprite, animationstate, frame, layer} = args;
 			console.log(animationsprite);
 			const objectId = new ObjectId();
-			const { owner, sprite_name, isPublic, width, height} = animationsprite;
-			
-			const layer = new Layer({
-				layer_name: "layer1",
-                isVisable: false,
-                isLocked: false,
-                data: ""
+			const newLayer = new Layer({
+				layer_name: layer.layer_name,
+                isVisable: layer.isVisable,
+                isLocked: layer.isLocked,
+                data: layer.data
 			});
-			const frame = new Frame({
-				position: 1,
-                duration: 50,
-                layers: [layer]
+			const newFrame = new Frame({
+				position: frame.position,
+                duration: frame.duration,
+                layers: [newLayer]
 			});
-			const state = new Animationstate({
-				animation_state_name: "default",
-				frames: [frame]
+			const newState = new Animationstate({
+				animation_state_name: animationstate.animation_state_name,
+				frames: [newFrame]
 			});	
-			const sprite = new Animationsprite({
+			const newSprite = new Animationsprite({
 				_id: objectId,
-				owner: owner,
-				sprite_name: sprite_name,
-				isPublic: isPublic,
-				width: width,
-            	height: height,
-				animation_states: [state]
+				owner: animationsprite.owner,
+				sprite_name: animationsprite.sprite_name,
+				isPublic: animationsprite.isPublic,
+				width: animationsprite.width,
+            	height: animationsprite.height,
+				animation_states: [newState]
 			});
-			const updated = sprite.save();
-			console.log("---------------------------------------");
+			const updated = newSprite.save();
 			if(updated) return objectId;
 			else return ('Could not add animationsprite');
 		},

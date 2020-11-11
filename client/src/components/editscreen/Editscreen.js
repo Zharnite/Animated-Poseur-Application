@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import reactCSS from "reactcss";
 import Toolbar from "./toolbar/Toolbar.js";
 import Filebar from "./filebar/Filebar.js";
+import Optionbar from "./optionbar/Optionbar";
 import Animatorbar from "./animatorbar/Animatorbar.js";
 import { graphql } from "@apollo/react-hoc";
 import { flowRight as compose, random } from "lodash";
 import { GET_ANIMATIONSPRITE_BY_ID } from "../../cache/queries";
 import { useQuery } from "@apollo/react-hooks";
-
+import { Redirect } from "react-router-dom";
 
 //todo:
 //Learn how to switch from frame to frame without causing the application to crash
@@ -16,53 +17,65 @@ import { useQuery } from "@apollo/react-hooks";
 //
 
 function Editscreen(props) {
- 
+  console.log(props);
   let optionalPath = props.match.params.id;
   let _id = optionalPath.substring(1,optionalPath.length)
-  //console.log(_id)
+  console.log(_id)
   // const [animationsprite, setAnimationsprite] = useState(null);
   // const [currentStateFrameLayerTool, setCurrentStateFrameLayerTool] = useState(null);
-  // const { loading, error, data, refetch } = useQuery(GET_ANIMATIONSPRITE_BY_ID, {variables:  {_id} ,});
+  // const { loading, error, data } = useQuery(GET_ANIMATIONSPRITE_BY_ID, {variables:  {_id} ,});
+  
+  // useEffect(async () => {
+  //   const result = await get('/api/blah-blah-blah')
+
+  //   // run your query here now that the await has resolved
+  // }, [someDependency])
+
   // if(loading) {  }
   // if(error) { console.log(error); }
   // if(data) { 
   //   console.log(data)
   //   let sprite = data.GetDBAnimatationspriteByID
   //   setAnimationsprite(sprite);
-  //   setCurrentStateFrameLayerTool({state : animationsprite.animation_states[0], frame : animationsprite.animation_states[0].frames[0], layer : animationsprite.animation_states[0].frames[0].layers[0], tool:null});
+  //   if(sprite != null)setCurrentStateFrameLayerTool({state : data.GetDBAnimatationspriteByID.animation_states[0], frame : data.GetDBAnimatationspriteByID.animation_states[0].frames[0], layer : data.GetDBAnimatationspriteByID.animation_states[0].frames[0].layers[0], tool:null});
+  //   else setCurrentStateFrameLayerTool({state : {}, frame : {}, layer : {}, tool:null});
+
   // }
 
+  //const [animationsprite, setAnimationsprite] = useState(props.location.animationsprite)
   const [animationsprite, setAnimationsprite] = useState({
-     
-      "_id": "5f96e8ffcadaf904cae9c34b",
-      "owner": "5f8cf080c3f2491bf2c4ff08",
-      "sprite_name": "tytytyty",
-      "isPublic": true,
-      "width": 250,
-      "height": 250,
-      "animation_states": [
-        {
-          "animation_state_name": "default",
-          "frames": [
-            {
-              "position": 0,
-              "duration": 50,
-              "layers": [
-                {
-                  "layer_name": "layer1",
-                  "index": 0,
-                  "isVisable": false,
-                  "isLocked": false,
-                  "data": ""
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    });
+         
+    "_id": "5f96e8ffcadaf904cae9c34b",
+    "owner": "5f8cf080c3f2491bf2c4ff08",
+    "sprite_name": "tytytyty",
+    "isPublic": true,
+    "width": 250,
+    "height": 250,
+    "animation_states": [
+      {
+        "animation_state_name": "default",
+        "frames": [
+          {
+            "position": 0,
+            "duration": 50,
+            "layers": [
+              {
+                "layer_name": "layer1",
+                "index": 0,
+                "isVisable": false,
+                "isLocked": false,
+                "data": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  });
+  const [animationspriteName, setAnimationspriteName] = useState(animationsprite.sprite_name)
   const [currentStateFrameLayerTool, setCurrentStateFrameLayerTool] = useState({state : animationsprite.animation_states[0], frame : animationsprite.animation_states[0].frames[0], layer : animationsprite.animation_states[0].frames[0].layers[0], tool:null});
 
+  
   /*
   * @author: Carlos Lopez
   * @var: x (array)
@@ -122,14 +135,19 @@ function Editscreen(props) {
         break
     }
 
-    
   }
+  if (!props.auth) {
+    return <Redirect to="/login" />;
+  } 
 
   return (
-    <div className="editscreen center">
-      <Toolbar sflt={currentStateFrameLayerTool} setSFLT={setSFL}/>
-      <Animatorbar {...props} sprite={animationsprite} sflt={currentStateFrameLayerTool} setSFLT={setSFL}/>
-      <Filebar {...props} sflt={currentStateFrameLayerTool} setSFL={setSFL}/>
+    <div className="center">
+      <Optionbar animationspriteName={animationspriteName} setAnimationspriteName={setAnimationspriteName}></Optionbar>
+      <div className="editscreen center">
+        <Toolbar sflt={currentStateFrameLayerTool} setSFLT={setSFL}/>
+        <Animatorbar {...props} sprite={animationsprite} sflt={currentStateFrameLayerTool} setSFLT={setSFL}/>
+        <Filebar {...props} sflt={currentStateFrameLayerTool} setSFL={setSFL}/>
+      </div>
     </div>
   );
 }

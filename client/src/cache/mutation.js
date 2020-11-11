@@ -35,10 +35,12 @@ export const LOGOUT = gql`
 
 // ====================== Animationsprite Mutations ====================== //
 export const ADD_ANIMATIONSPRITE = gql`
-	mutation AddAnimationsprite($animationsprite: AnimationspriteInput!) {
-		addAnimationsprite(animationsprite: $animationsprite) 
+	mutation AddAnimationsprite($animationsprite:AnimationspriteInput!, $animationstate:AnimationstateInput!, $frame:FrameInput!, $layer:LayerInput!) {
+    addAnimationsprite(animationsprite: $animationsprite, animationstate: $animationstate, frame: $frame, layer: $layer)
 	}
 `;
+
+
 
 export const ADD_LOCAL_ANIMATIONSPRITE = gql`
   mutation AddLocalAnimationsprite($animationsprite: AnimationspriteInput!) {
