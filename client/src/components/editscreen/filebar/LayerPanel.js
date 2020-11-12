@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import LayerCard from "./LayerCard";
 
 const LayerPanel = (props) => {
-  let layers = props.sflt.frame.layers;
-  const [selectedLayer, setSelectedLayer] = useState(props.sflt.layer)
+  const setEditingState = props.editingStateAccess.setEditingState;
+  const editingState = props.editingStateAccess.editingState;
+
+  let layers = props.editingStateAccess.editingState.frame.layers; 
+  const [selectedLayer, setSelectedLayer] = useState(editingState.layer)
   //console.log(layers)
 
   const newLayer = {
@@ -16,7 +19,7 @@ const LayerPanel = (props) => {
   // console.log(layers)
 
   const addLayer = () => {
-    const newList =  props.sflt.frame.layers;
+    const newList =  editingState.frame.layers;
     const newLayerIndex = layers.length;
     const newLayer = {
       layer_name: "layer",
@@ -26,9 +29,9 @@ const LayerPanel = (props) => {
     };
     newList.push(newLayer);
 
-    const newFrame = props.sflt.frame;
+    const newFrame = editingState.frame;
     newFrame.layers = newList
-    props.setSFL(["FRAME", newFrame])
+    setEditingState(["FRAME", newFrame])
     console.log(newList)
 
   //   setLayersList([...layersList, newLayer]);
@@ -58,8 +61,8 @@ const LayerPanel = (props) => {
           <span>
             <LayerCard
               layer = {layer}
-              selectedLayer = {props.sflt.layer}
-              setSFL={props.setSFL}
+              selectedLayer = {editingState.layer}
+              setEditingState={setEditingState}
             />
           </span>
         ))}

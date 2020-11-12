@@ -28,8 +28,8 @@ function prelim(a, b, c){
 
 
 function App(props) {
-  let selectedTool = props.sflt; 
-  let layers = props.sflt.frame.layers; 
+  console.log(props.editingStateAccess)
+  let layers = props.editingStateAccess.editingState.frame.layers; 
   //console.log(props)
   
   // const [layersList, setLayerList] = useState([
@@ -40,12 +40,17 @@ function App(props) {
 
   // let isCanvasInteractable = prelim(selectedTool, contextRef.current, canvasRef.current ); 
   // isCanvasInteractableRef.current = isCanvasInteractable;
+
   return (
     <div id="canvas-panel">
       <div class="wcanvas">
-        <canvas class="wcanvas-main">
+        <canvas 
+          class="wcanvas-main"
+          width={""+ props.sprite.width + "px"}
+          height={""+ props.sprite.height + "px"}        
+        />
         
-        </canvas>
+        
         <div class="wcanvas-layers">
         {layers.map((layer) => (
             <CanvasLayer {...props} layer = {layer}/>

@@ -1,11 +1,11 @@
 import React, { useRef, useEffect, useState } from 'react';
 
   
-function canvasToolOption(selectedTool, context){
+function canvasToolOption(selectedTool, context, optional){
   console.log(selectedTool + " selected")
   
   if("grouptool" == selectedTool){
-    
+    return
     
   }
   else if("erasetool" == selectedTool){
@@ -16,12 +16,12 @@ function canvasToolOption(selectedTool, context){
     console.log(context)
     context.globalCompositeOperation = "source-over";
     context.lineCap = "round"
-    context.strokeStyle = "black"
+    context.strokeStyle = optional.color;
     context.lineWidth = 5;
   }
   else{
 
-
+    return
   }
 
   
@@ -34,14 +34,25 @@ const App =(props)=>{
   const canvasRef = useRef(null)
   const contextRef = useRef(null)
 
-  const selectedTool = props.sflt.tool;
-  const selectedLayer = props.sflt.layer;
+  const setEditingState = props.editingStateAccess.setEditingState;
+  const editingState = props.editingStateAccess.editingState;
+
+
+  let selectedTool = editingState.tool;
+  let selectedLayer = editingState.layer;
+  console.log(selectedTool)
+  console.log(selectedLayer)
+
+  
   let canEditLayer;
   selectedTool == null || selectedLayer == null? canEditLayer = false : canEditLayer = true; 
   if(canEditLayer){
     let canvas = document.getElementById("wlayer" + selectedLayer.index);
     let context = canvas.getContext("2d");
-    canvasToolOption(selectedTool, context)
+    let config = {
+      color: editingState.color
+    }
+    canvasToolOption(selectedTool, context, config)
     canvasRef.current = canvas;
     contextRef.current = context;
 
@@ -68,9 +79,9 @@ const App =(props)=>{
     }
     contextRef.current.closePath()
     setIsDrawing(false)
-    let newLayer = props.sflt.layer;
+    let newLayer = editingState.layer;
     newLayer.data = canvasRef.current.toDataURL();
-    props.setSFLT(["LAYER", newLayer])
+    setEditingState(["LAYER", newLayer])
   }
 
   const draw = (event) => {
@@ -90,8 +101,8 @@ const App =(props)=>{
       onMouseDown={e => startDrawing(e)}
       onMouseMove={e => draw(e)}
       onMouseUp={finishDrawing}
-      width={"800px"}
-      height={"500px"}
+      width={""+ props.sprite.width + "px"}
+      height={""+ props.sprite.height + "px"}
     />
   );
 }

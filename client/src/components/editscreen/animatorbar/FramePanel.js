@@ -8,10 +8,12 @@ import { Dropdown, DropdownButton } from "react-bootstrap";
 */
 
 const FramePanel = (props) => {
-  
+  const setEditingState = props.editingStateAccess.setEditingState;
+  const editingState = props.editingStateAccess.editingState;
+
   let animationstates = props.sprite.animation_states; 
-  let state = props.sflt.state
-  let frames = props.sflt.state.frames;
+  let state = editingState.state
+  let frames = editingState.state.frames;
 
   const addAnimationState = () =>{ 
     let newAnimationstates = animationstates;
@@ -54,7 +56,7 @@ const FramePanel = (props) => {
       ]
     }
     newFrames.push(newframe);
-    props.setSFLT(["STATE", newFrames]);
+    setEditingState(["STATE", newFrames]);
   }
 
 
@@ -63,7 +65,7 @@ const FramePanel = (props) => {
     <div id="frame-panel">
       <div id="frame-menu">
         {frames.map((frame) => (
-          <Frame selecetedFrame = {props.sflt.frame} frame={frame} setSFLT={props.setSFLT}/>
+          <Frame selecetedFrame = {editingState.frame} frame={frame} setEditingState={setEditingState}/>
         ))}
       </div>
       <DropdownButton variant="secondary" key={"left"} id={`dropdown-button-drop-${"left"}`}  drop={"left"}title={state.animation_state_name}>

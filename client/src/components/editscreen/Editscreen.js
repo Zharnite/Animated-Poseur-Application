@@ -17,10 +17,6 @@ import { Redirect } from "react-router-dom";
 //
 
 function Editscreen(props) {
-  console.log(props);
-  let optionalPath = props.match.params.id;
-  let _id = optionalPath.substring(1,optionalPath.length)
-  console.log(_id)
   // const [animationsprite, setAnimationsprite] = useState(null);
   // const [currentStateFrameLayerTool, setCurrentStateFrameLayerTool] = useState(null);
   // const { loading, error, data } = useQuery(GET_ANIMATIONSPRITE_BY_ID, {variables:  {_id} ,});
@@ -42,8 +38,10 @@ function Editscreen(props) {
 
   // }
 
+ 
+
   //const [animationsprite, setAnimationsprite] = useState(props.location.animationsprite)
-  const [animationsprite, setAnimationsprite] = useState({
+  let dummySprite ={
          
     "_id": "5f96e8ffcadaf904cae9c34b",
     "owner": "5f8cf080c3f2491bf2c4ff08",
@@ -71,11 +69,46 @@ function Editscreen(props) {
         ]
       }
     ]
-  });
+  }
+  const [animationsprite, setAnimationsprite] = useState(dummySprite);
   const [animationspriteName, setAnimationspriteName] = useState(animationsprite.sprite_name)
-  const [currentStateFrameLayerTool, setCurrentStateFrameLayerTool] = useState({state : animationsprite.animation_states[0], frame : animationsprite.animation_states[0].frames[0], layer : animationsprite.animation_states[0].frames[0].layers[0], tool:null});
+  let dummystate = {stateindex: 0, state : animationsprite.animation_states[0], frame : animationsprite.animation_states[0].frames[0], layer : animationsprite.animation_states[0].frames[0].layers[0], tool:null, color:"#000"}
+  const [editingState, setEditingState] = useState(dummystate);
+  
+  useEffect(() => {
+    console.log("useeffect", editingState)
+    //setEditingState(editingState)
+  }, [animationsprite, editingState]);
 
   
+
+
+
+  const addComponent = (componentToAdd, newComponent) =>{
+    switch(componentToAdd){
+      case "STATE":
+        console.log("Updating Current State Components", updatedComponent)
+        let updatedState = editingState.state;
+        updatedState.frames = updatedComponent;
+        setEditingState({...editingState, state: updatedState})
+        let newAnimationsprite = animationsprite;
+        newAnimationsprite.animation_states[editingState.stateindex] = 
+        //setAnimationsprite({...animationsprite, f: updatedState})
+        break;
+      case "FRAME":
+        console.log("Updating Current Frame Components", updatedComponent)
+        let updatedFrame = updatedComponent;
+        setEditingState({...editingState, frame: updatedFrame})
+        break
+      case "LAYER":
+        console.log("Updating Current Frame Components", updatedComponent)
+        let updatedFrame = updatedComponent;
+        setEditingState({...editingState, frame: updatedFrame})
+        break
+    }
+  }
+
+
   /*
   * @author: Carlos Lopez
   * @var: x (array)
@@ -89,15 +122,17 @@ function Editscreen(props) {
   * Example: if you want select a layer from the current frame you would pass in ["LAYER", update]
   * 
   */
-  const setSFL=(x, componentSwitch=false)=>{
+  const setEditingStateHelper=(x, crudType)=>{
     const [componentToUpdate, updatedComponent] = x
-    console.log(setSFL)
     if(componentSwitch){
       switch(componentToUpdate){
         case "FRAME":
           console.log("Switching Frames")
-          setCurrentStateFrameLayerTool({...currentStateFrameLayerTool, frame: updatedComponent})
-          setCurrentStateFrameLayerTool({...currentStateFrameLayerTool, layer: updatedComponent.layers[0]})
+          console.log(editingState.frame)
+          console.log(updatedComponent)
+          setEditingState({...editingState, frame: updatedComponent})
+          //setEditingState({...editingState, layer: updatedComponent.layers[0]})
+          console.log(editingState.frame)
           break;
         case "STATE":
           break;
@@ -113,40 +148,54 @@ function Editscreen(props) {
         console.log(animationsprite)
         break;
       case "STATE":
-        console.log("Updating Current State Components")
-        let updatedState = currentStateFrameLayerTool.state;
+        console.log("Updating Current State Components", updatedComponent)
+        let updatedState = editingState.state;
         updatedState.frames = updatedComponent;
-        setCurrentStateFrameLayerTool({...currentStateFrameLayerTool, state: updatedState})
+        setEditingState({...editingState, state: updatedState})
+        let newAnimationsprite = animationsprite;
+        //newAnimationsprite.animation_states[editingState.stateindex] = 
+        //setAnimationsprite({...animationsprite, f: updatedState})
         break;
       case "FRAME":
-        console.log("Updating Current Frame Components")
+        console.log("Updating Current Frame Components", updatedComponent)
         let updatedFrame = updatedComponent;
-        setCurrentStateFrameLayerTool({...currentStateFrameLayerTool, frame: updatedFrame})
+        setEditingState({...editingState, frame: updatedFrame})
         break
       case "LAYER":
         console.log("Setting New Layer")
         let selectedLayer = updatedComponent;
-        setCurrentStateFrameLayerTool({...currentStateFrameLayerTool, layer: selectedLayer})
+        setEditingState({...editingState, layer: selectedLayer})
         break
       case "TOOL":
         console.log("Setting New Tool")
         let selectedTool = updatedComponent;
-        setCurrentStateFrameLayerTool({...currentStateFrameLayerTool, tool: selectedTool})
+        setEditingState({...editingState, tool: selectedTool})
+        break
+      case "COLOR":
+        console.log("Changing Color")
+        let color = updatedComponent;
+        setEditingState({...editingState, color: color})
         break
     }
-
+    console.log(editingState);
   }
-  if (!props.auth) {
-    return <Redirect to="/login" />;
-  } 
+  let editingStateAccess = {
+    editingState: editingState,
+    setEditingState: setEditingStateHelper
+  }
+
+
+  // if (!props.auth) {
+  //   return <Redirect to="/login" />;
+  // } 
 
   return (
-    <div className="center">
+    <div className="center" onKeyPress={e => e.stopPropagation()}>
       <Optionbar animationspriteName={animationspriteName} setAnimationspriteName={setAnimationspriteName}></Optionbar>
       <div className="editscreen center">
-        <Toolbar sflt={currentStateFrameLayerTool} setSFLT={setSFL}/>
-        <Animatorbar {...props} sprite={animationsprite} sflt={currentStateFrameLayerTool} setSFLT={setSFL}/>
-        <Filebar {...props} sflt={currentStateFrameLayerTool} setSFL={setSFL}/>
+        <Toolbar editingStateAccess={editingStateAccess}/>
+        <Animatorbar {...props} sprite={animationsprite} editingStateAccess={editingStateAccess}/>
+        <Filebar {...props} editingStateAccess={editingStateAccess}/>
       </div>
     </div>
   );

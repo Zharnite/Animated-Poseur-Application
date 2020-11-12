@@ -19,11 +19,15 @@ const Frame = (props) => {
   let image = new Image()
   image = data;
   let id = "frame-card";
+  let className = "frame-card-number";
+  console.log("Frame Selected", props.selecetedFrame)
   if(props.selecetedFrame == props.frame){
-    id = id + "_selected";
+    className = className + " selected";
   }
+  
   return (
-    <div className={id} onClick={e => console.log(props.frame)}>
+    <div className={id} onClick={() => props.setEditingState(["FRAME",props.frame],true)}>
+      <div className={className}>{props.frame.position}</div>
       <div
       src={image}
       />

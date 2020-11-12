@@ -1,17 +1,13 @@
 import React, { useState } from "react";
 
 const LayerCard = (props) => {
-
   let classname = "";
-  console.log(props.layer === props.selectedLayer)
-  console.log(props.layer)
-  console.log(props.selectedLayer)
   if (props.selectedLayer != null && props.layer === props.selectedLayer) {
     classname = classname + "selected";
   }
 
   return (
-    <div id="layer-card" class={classname} onClick={x => props.setSFL(["LAYER", props.layer])}>
+    <div id="layer-card" class={classname} onClick={x => props.setEditingState(["LAYER", props.layer])}>
       <span
         id="layer-card-name"
       >

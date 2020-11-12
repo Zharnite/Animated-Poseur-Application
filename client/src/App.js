@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "./components/navbar/Navbar.js";
-import Homescreen from "./components/homescreen/Homescreen.js";
+import Homescreen from "./components/community/Communityscreen.js";
 import Loginscreen from "./components/loginscreen/Loginscreen.js";
 import Editscreen from "./components/editscreen/Editscreen.js";
 import Profilescreen from "./components/profilescreen/Profilescreen.js";

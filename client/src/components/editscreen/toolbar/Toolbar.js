@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { PhotoshopPicker } from "react-color";
+import ColorPicker from "./ColorPicker";
 import Tool from "./Tool";
 import grouptool from "../../../illustration/icons/group-objects-50.png";
 import colordroppertool from "../../../illustration/icons/color-dropper-50.png";
@@ -24,30 +24,36 @@ let tools = [
     src: colordroppertool,
     id: "colordroppertool",
   },
-  {
-    src: fillcolortool,
-    id: "fillcolortool",
-  },
 ];
+
+
 const Toolbar = (props) => {
+  const [pickerColor, setPickerColor] = useState("fff")
+  const [displayPicker, setDisplayPicker] = useState(false)
+
+  const handlePickerChange = (color, event) =>{
+    setPickerColor(color.hex)
+    console.log(color);
+    console.log(event);
+  }
+
+
+
+
+
   return (
     <div className="toolbar">
       {tools.map((tool) => (
         <Tool tool={tool} {...props} />
       ))}
+      {/* <SketchPicker className="colorpickertool" 
+        color={ pickerColor}
+        onChange={handleChange }
+        disableAlpha={true}
+      /> */}
+     <ColorPicker {...props}/>
 
-      {/* <div>
-        <div
-          className="swatch"
-          onClick={() => setDisplayColorPicker(!displayColorPicker)}
-        ></div>
-        {displayColorPicker ? (
-          <div>
-            <div onClick={() => setDisplayColorPicker(false)} />
-            <PhotoshopPicker />
-          </div>
-        ) : null}
-      </div> */}
+  
     </div>
   );
 };

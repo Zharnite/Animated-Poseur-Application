@@ -19,9 +19,10 @@
 }
 
 #spritename-input{
-  height: 30px;
-  width: 100px;
-  border-radius: 100px;
+  height: 35px;
+  width: 150px;
+  border-radius: 10px;
+  font-size: 27px;
 }
 
 
@@ -35,15 +36,13 @@
 }
 
 .wcanvas {
-  position: relative;
-  left: 10%;
-  top: 8%;
+  display: flex;
+  justify-content: center;
+  top: 25%
 }
 
 .wcanvas-main {
   position: absolute;
-  height: 500px;
-  width: 800px;
 }
 
 .wcanvas-layers {
@@ -51,7 +50,6 @@
 }
 
 .wcanvas-layer {
-  position: absolute;
 }
 
 #frame-panel {
@@ -71,9 +69,13 @@
 .frame-card {
   height: 70px;
   width: 70px;
-  padding: 10px;
   margin-right: 30px;
   display: inline-block;
+}
+
+.frame-card-number{
+  height: 25px;
+  width: 25px;
 }
 
 .toolbar {
@@ -86,6 +88,23 @@
   height: auto;
   width: auto;
 }
+
+.colorpickertool{
+  position: absolute; 
+  z-index: 99999999;
+}
+
+#color{
+  background: #000;
+  border: 3px;
+  border-radius: 3px;
+  box-shadow: 0px 5px 5px 0px rgba(0,0,0,.1);
+  display: inline-block;
+  cursor: pointer;
+  width: 50px;
+  height: 40px;
+}
+
 
 .filebar {
   height: 100%;
@@ -123,3 +142,5 @@
 #layer-controls {
   display: inline-flex;
 }
+
+
