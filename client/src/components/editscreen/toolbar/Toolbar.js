@@ -1,16 +1,22 @@
 import React, { useState } from "react";
 import ColorPicker from "./ColorPicker";
 import Tool from "./Tool";
-import grouptool from "../../../illustration/icons/group-objects-50.png";
-import colordroppertool from "../../../illustration/icons/color-dropper-50.png";
-import painttool from "../../../illustration/icons/paint-50.png";
-import erasetool from "../../../illustration/icons/erase-50.png";
+import movetool from "../../../illustration/icons/ap/move_n.png";
+import eyedroppertool from "../../../illustration/icons/ap/eyedropper_n.png";
+import painttool from "../../../illustration/icons/ap/brush_n.png";
+import erasetool from "../../../illustration/icons/ap/eraser_n.png";
 import fillcolortool from "../../../illustration/icons/fill-color-50.png";
+
+// import movetool from "../../../illustration/icons/group-objects-50.png";
+// import eyedroppertool from "../../../illustration/icons/color-dropper-50.png";
+// import painttool from "../../../illustration/icons/paint-50.png";
+// import erasetool from "../../../illustration/icons/erase-50.png";
+// import fillcolortool from "../../../illustration/icons/fill-color-50.png";
 
 let tools = [
   {
-    src: grouptool,
-    id: "grouptool",
+    src: movetool,
+    id: "movetool",
   },
   {
     src: painttool,
@@ -21,8 +27,8 @@ let tools = [
     id: "erasetool",
   },
   {
-    src: colordroppertool,
-    id: "colordroppertool",
+    src: eyedroppertool,
+    id: "eyedroppertool",
   },
 ];
 
