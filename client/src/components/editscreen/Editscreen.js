@@ -92,7 +92,7 @@ function Editscreen(props) {
         updatedState.frames = updatedComponent;
         setEditingState({...editingState, state: updatedState})
         let newAnimationsprite = animationsprite;
-        newAnimationsprite.animation_states[editingState.stateindex] = 
+        //newAnimationsprite.animation_states[editingState.stateindex] = 
         //setAnimationsprite({...animationsprite, f: updatedState})
         break;
       case "FRAME":
