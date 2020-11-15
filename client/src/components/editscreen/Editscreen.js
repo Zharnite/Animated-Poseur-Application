@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer} from "react";
+import React, { useState, useEffect} from "react";
 import reactCSS from "reactcss";
 import Toolbar from "./toolbar/Toolbar.js";
 import Filebar from "./filebar/Filebar.js";
@@ -15,31 +15,6 @@ import { Redirect } from "react-router-dom";
 //Learn how to merge layer data into a single image
 //
 //
-
-function a (){
-
-}
-
-function reducer(state, action){
-  switch (action.type){
-    case "LAYER":
-      const newLayer = {
-        layer_name: "layer",
-        index: 100,
-        isVisable: true,
-        isLocked: false,
-      };
-      console.log(state)
-      let frame = state.frame;
-      frame.layers.push(action.payload)
-      return {...state, frame:frame}
-      //setEditingState({...state, frame:component});
-      break;
-    default:
-      console.error("Error")
-  }
-}
-
 
 function Editscreen(props) {
   // const [animationsprite, setAnimationsprite] = useState(null);
@@ -106,11 +81,10 @@ function Editscreen(props) {
   };
   const [editingState, setEditingState] = useState(dummystate);
 
-  // useEffect(() => {
-  //   console.log("useeffect", editingState);
-  //   //setEditingState(editingState)
-  // }, [animationsprite, editingState]);
-  const [state, dispatch] = useReducer(reducer, editingState);
+  useEffect(() => {
+    console.log("useeffect", editingState);
+    //setEditingState(editingState)
+  }, [animationsprite, editingState]);
 
   // const addComponent = (componentToAdd, newComponent) => {
   //   let updatedFrame;
@@ -255,12 +229,6 @@ function Editscreen(props) {
 
   return (
     <div className="center">
-      <button onClick={() => dispatch({type: 'LAYER',payload: {
-      layer_name: "layer",
-      index: 2,
-      isVisable: true,
-      isLocked: false,
-    }})}>-</button>
       <Optionbar
         animationspriteName={animationspriteName}
         setAnimationspriteName={setAnimationspriteName}
