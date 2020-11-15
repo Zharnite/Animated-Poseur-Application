@@ -13,7 +13,7 @@ const Tool = (props) => {
       className={classname}
       onClick={() => setEditingState(["TOOL", props.tool.id])}
     >
-      <img src={props.tool.src} alt="icon" />
+      <img src={props.tool.src} alt="icon" className="toobar-image"/>
     </div>
   );
 };

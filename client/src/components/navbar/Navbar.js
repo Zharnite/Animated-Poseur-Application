@@ -65,7 +65,7 @@ const Navbar = (props) => {
           <BootNavbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
               <Nav.Link>
-                <NavLink to="/home">Community</NavLink>
+                <NavLink to="/home" className="navbar-text-custom">Community</NavLink>
               </Nav.Link>
             </Nav>
             <NavDropdown title={username} id="collasible-nav-dropdown" className="right">
@@ -88,11 +88,11 @@ const Navbar = (props) => {
     <BootNavbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
           <Nav.Link>
-            <NavLink to="/home">Community</NavLink>
+            <NavLink to="/home" className="navbar-text-custom">Community</NavLink>
           </Nav.Link>
         </Nav>
         <Nav.Link>
-      <NavLink to="/login">Login</NavLink>
+      <NavLink to="/login" className="navbar-text-custom">Login</NavLink>
     </Nav.Link>
     </BootNavbar.Collapse>
     );
@@ -102,12 +102,11 @@ const Navbar = (props) => {
   return (
     <BootNavbar
       collapseOnSelect
-      className="justify-content-end"
-      expand="lg"
-      bg="dark"
+      className="justify-content-end navbar-custom"
+      expand="md"
     >
       <BootNavbar.Brand>
-        <NavLink to="/">
+        <NavLink to="/" className="navbar-text-custom">
           <img
             alt="L"
             src={require("../../illustration/images/logo.png")}

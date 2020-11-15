@@ -48,7 +48,7 @@ const RegisterModal = (props) => {
 
   return (
     <div>
-      <p id="register" onClick={handleShow}>
+      <p id="register" onClick={handleShow} className="dark-font-color"> 
         Don't have an account? Register now
       </p>
 

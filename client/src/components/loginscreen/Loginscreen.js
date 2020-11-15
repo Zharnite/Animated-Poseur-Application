@@ -56,7 +56,7 @@ const Login = (props) => {
               fetchUser={props.fetchUser}
               user={props.user}
             />
-            <Button variant="primary"  onClick={handleLogin}>
+            <Button variant="primary" onClick={handleLogin}>
               Login
             </Button>
           </Form>
