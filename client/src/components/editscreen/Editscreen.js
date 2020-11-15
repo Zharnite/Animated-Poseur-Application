@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer} from "react";
 import reactCSS from "reactcss";
 import Toolbar from "./toolbar/Toolbar.js";
 import Filebar from "./filebar/Filebar.js";
@@ -15,6 +15,31 @@ import { Redirect } from "react-router-dom";
 //Learn how to merge layer data into a single image
 //
 //
+
+function a (){
+
+}
+
+function reducer(state, action){
+  switch (action.type){
+    case "LAYER":
+      const newLayer = {
+        layer_name: "layer",
+        index: 100,
+        isVisable: true,
+        isLocked: false,
+      };
+      console.log(state)
+      let frame = state.frame;
+      frame.layers.push(action.payload)
+      return {...state, frame:frame}
+      //setEditingState({...state, frame:component});
+      break;
+    default:
+      console.error("Error")
+  }
+}
+
 
 function Editscreen(props) {
   // const [animationsprite, setAnimationsprite] = useState(null);
@@ -81,10 +106,11 @@ function Editscreen(props) {
   };
   const [editingState, setEditingState] = useState(dummystate);
 
-  useEffect(() => {
-    console.log("useeffect", editingState);
-    //setEditingState(editingState)
-  }, [animationsprite, editingState]);
+  // useEffect(() => {
+  //   console.log("useeffect", editingState);
+  //   //setEditingState(editingState)
+  // }, [animationsprite, editingState]);
+  const [state, dispatch] = useReducer(reducer, editingState);
 
   // const addComponent = (componentToAdd, newComponent) => {
   //   let updatedFrame;
@@ -112,21 +138,97 @@ function Editscreen(props) {
   //   }
   // };
 
-  /*
-   * @author: Carlos Lopez
-   * @var: x (array)
-   * @description: Updates the animation sprite & sets selected components which the user may want to work with.
-   * An update corresponds to a respective states: {"SPRITE", "STATE", "FRAME", LAYER", "TOOL"}.
-   * The state determine which component of the data-structure to update.
-   * Refer to the Animation Sprite JSON data for cleafication on data-structure.
-   * Example: if you want you update the animation sprites name, you would pass in ["SPRITE", update]
-   * Example: if you want add a frame to the current state you would pass in ["STATE", update]
-   * Example: if you want delete a layer from the current frame you would pass in ["FRAME", update]
-   * Example: if you want select a layer from the current frame you would pass in ["LAYER", update]
-   *
-   */
-  const setEditingStateHelper = (x, crudType) => {
-    const [componentToUpdate, updatedComponent] = x;
+  const addToEditingStateObject = (componentToAdd, component)=>{
+    switch (componentToAdd) {
+      case "STATE":
+        console.log("Adding to States", component);
+        //animationsprite.animation_states.append( componentToAdd
+        //setEditingState({ ...editingState, state: newState});
+        break;
+      case "FRAME":
+        console.log("Adding to Frames", component);
+        //setEditingState({ ...editingState, frame: newState });
+        break;
+      case "LAYER":
+        console.log("Adding to layer: ", component);
+        // let newFrame = editingState.frame;
+        // newFrame.layers.push(component);
+        setEditingState({...editingState, frame:component});
+        break;
+    }
+  }
+
+  const switchEditingStateObject = (componentToSwitch, component) =>{
+    switch (componentToSwitch) {
+      case "LAYER":
+        console.log("Switch layer to: ", component);
+        setEditingState({ ...editingState, layer: component});
+        break;
+      case "TOOL":
+        console.log("Switching tool to : ", component);
+        setEditingState({ ...editingState, tool: component});
+        break;
+      case "COLOR":
+        console.log("Switching color to ", component);
+        setEditingState({ ...editingState, color: component});
+        console.log("Switching color to ", editingState);
+        break;
+
+    }
+    //TODO: IMPLEMENT
+  }
+
+  const updateEditingStateObject =(stateToUpdate, newState)=>{
+    switch (stateToUpdate) {
+      case "STATE":
+        console.log("Updating State", newState);
+        setEditingState({ ...editingState, state: newState});
+        break;
+      case "FRAME":
+        console.log("Updating Frame", newState);
+        setEditingState({ ...editingState, frame: newState });
+        break;
+      case "LAYER":
+        console.log("Updating Layer", newState);
+        setEditingState({ ...editingState, layer: newState });
+        break;
+    }
+    console.log(editingState);
+  };
+
+  const deleteEditingStateObject = (componentToDelete, component) =>{
+    switch (componentToDelete) {
+      case "LAYER":
+        console.log("Deleting layer: ", component);
+        let newFrame = editingState.frame;
+        newFrame.layers.splice(component.index, 1);
+        newFrame.layers.forEach((layer) => (layer.index = newFrame.layers.indexOf(layer)));
+        setEditingState({ ...editingState, frame: newFrame });
+        break;
+    }
+
+    //TODO: IMPLEMENT
+  }
+
+  const setEditingStateHelper = (asudOperation, args) => {
+    const [editingStateObjectType, editingStateObject] = args;
+    switch (asudOperation){
+      case 'ADD':
+        addToEditingStateObject(editingStateObjectType, editingStateObject);
+        break;
+      case 'SWITCH':
+        switchEditingStateObject(editingStateObjectType, editingStateObject);
+        break;
+      case 'UPDATE':
+        updateEditingStateObject(editingStateObjectType, editingStateObject);
+        break;
+      case 'DELETE':
+        deleteEditingStateObject(editingStateObjectType, editingStateObject);
+        break;
+      default:
+        console.error("Error")
+    }
+  };
     // if (componentSwitch) {
     //   switch (componentToUpdate) {
     //     case "FRAME":
@@ -142,49 +244,6 @@ function Editscreen(props) {
     //   }
     //   return;
     // }
-
-    switch (componentToUpdate) {
-      case "SPRITE":
-        console.log("Updating Current Sprite Components");
-        let updatedSprite = updatedComponent;
-        setAnimationsprite({
-          ...animationsprite,
-          animation_states: updatedSprite,
-        });
-        console.log(animationsprite);
-        break;
-      case "STATE":
-        console.log("Updating Current State Components", updatedComponent);
-        let updatedState = editingState.state;
-        updatedState.frames = updatedComponent;
-        setEditingState({ ...editingState, state: updatedState });
-        let newAnimationsprite = animationsprite;
-        //newAnimationsprite.animation_states[editingState.stateindex] =
-        //setAnimationsprite({...animationsprite, f: updatedState})
-        break;
-      case "FRAME":
-        console.log("Updating Current Frame Components", updatedComponent);
-        let updatedFrame = updatedComponent;
-        setEditingState({ ...editingState, frame: updatedFrame });
-        break;
-      case "LAYER":
-        console.log("Setting New Layer");
-        let selectedLayer = updatedComponent;
-        setEditingState({ ...editingState, layer: selectedLayer });
-        break;
-      case "TOOL":
-        console.log("Setting New Tool");
-        let selectedTool = updatedComponent;
-        setEditingState({ ...editingState, tool: selectedTool });
-        break;
-      case "COLOR":
-        console.log("Changing Color");
-        let color = updatedComponent;
-        setEditingState({ ...editingState, color: color });
-        break;
-    }
-    console.log(editingState);
-  };
   let editingStateAccess = {
     editingState: editingState,
     setEditingState: setEditingStateHelper,
@@ -195,7 +254,13 @@ function Editscreen(props) {
   // }
 
   return (
-    <div className="center" onKeyPress={(e) => e.stopPropagation()}>
+    <div className="center">
+      <button onClick={() => dispatch({type: 'LAYER',payload: {
+      layer_name: "layer",
+      index: 2,
+      isVisable: true,
+      isLocked: false,
+    }})}>-</button>
       <Optionbar
         animationspriteName={animationspriteName}
         setAnimationspriteName={setAnimationspriteName}

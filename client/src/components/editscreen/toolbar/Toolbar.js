@@ -34,19 +34,7 @@ let tools = [
 
 
 const Toolbar = (props) => {
-  const [pickerColor, setPickerColor] = useState("fff")
-  const [displayPicker, setDisplayPicker] = useState(false)
-
-  const handlePickerChange = (color, event) =>{
-    setPickerColor(color.hex)
-    console.log(color);
-    console.log(event);
-  }
-
-
-
-
-
+ 
   return (
     <div className="toolbar">
       {tools.map((tool) => (

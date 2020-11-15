@@ -40,8 +40,8 @@ const App =(props)=>{
 
   let selectedTool = editingState.tool;
   let selectedLayer = editingState.layer;
-  console.log(selectedTool)
-  console.log(selectedLayer)
+  //console.log(selectedTool)
+  //console.log(selectedLayer)
 
   
   let canEditLayer;

@@ -20,7 +20,7 @@ const Frame = (props) => {
   image = data;
   let id = "frame-card";
   let className = "frame-card-number";
-  console.log("Frame Selected", props.selecetedFrame)
+  //console.log("Frame Selected", props.selecetedFrame)
   if(props.selecetedFrame == props.frame){
     className = className + " selected";
   }

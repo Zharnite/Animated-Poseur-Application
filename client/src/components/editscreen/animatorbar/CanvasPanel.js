@@ -28,7 +28,7 @@ function prelim(a, b, c){
 
 
 function App(props) {
-  console.log(props.editingStateAccess)
+  //console.log(props.editingStateAccess)
   let layers = props.editingStateAccess.editingState.frame.layers; 
   //console.log(props)
   

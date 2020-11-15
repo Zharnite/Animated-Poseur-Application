@@ -11,7 +11,7 @@ const Tool = (props) => {
   return (
     <div
       className={classname}
-      onClick={() => setEditingState(["TOOL", props.tool.id])}
+      onClick={() => setEditingState("SWITCH", ["TOOL", props.tool.id])}
     >
       <img src={props.tool.src} alt="icon" className="toobar-image"/>
     </div>

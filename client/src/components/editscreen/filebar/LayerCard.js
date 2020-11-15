@@ -7,7 +7,7 @@ const LayerCard = (props) => {
   }
 
   return (
-    <div id="layer-card" class={classname} onClick={x => props.setEditingState(["LAYER", props.layer])}>
+    <div id="layer-card" class={classname} onClick={x => props.setEditingState("SWITCH", ["LAYER", props.layer])}>
       <span
         id="layer-card-name"
       >
