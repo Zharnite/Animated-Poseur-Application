@@ -10,31 +10,60 @@ import { GET_ANIMATIONSPRITE_BY_ID } from "../../cache/queries";
 import { useQuery } from "@apollo/react-hooks";
 import { Redirect } from "react-router-dom";
 
-//todo:
-//Learn how to switch from frame to frame without causing the application to crash
-//Learn how to merge layer data into a single image
-//
-//
+export const EditingStateContext = React.createContext();
 
-function a (){
 
+const addToEditingStateObject = (editingState, args)=>{
+  const [componentToAdd, component] = args
+  switch (componentToAdd) {
+    case "STATE":
+      console.log("Adding component to state");
+      return{...editingState, state:component}
+    case "FRAME":
+      console.log("Adding component to frame");
+      return{...editingState, frame:component}
+  }
+  return editingState;
 }
 
-function reducer(state, action){
-  switch (action.type){
+const switchEditingStateObject = (editingState, args) =>{
+  const [componentToSwitch, component] = args
+  switch (componentToSwitch) {
+    case "FRAME":
+      console.log("Switch frame");
+      return{...editingState, frame:component}
     case "LAYER":
-      const newLayer = {
-        layer_name: "layer",
-        index: 100,
-        isVisable: true,
-        isLocked: false,
-      };
-      console.log(state)
-      let frame = state.frame;
-      frame.layers.push(action.payload)
-      return {...state, frame:frame}
-      //setEditingState({...state, frame:component});
-      break;
+      console.log("Switch layer");
+      return{...editingState, layer:component}
+    case "TOOL":
+      console.log("Switch tool");
+      return{...editingState, tool:component}
+    case "COLOR":
+      console.log("Switch color");
+      return{...editingState, color:component}
+  }
+  return editingState;
+}
+
+const deleteEditingStateObject = (editingState, args) =>{
+  const [componentToDelete, component] = args;
+  switch (componentToDelete) {
+    case "FRAME":
+      console.log("Deleting component from frame");
+      return{...editingState, frame:component}
+  }
+}
+
+
+const reducer = (state, action) =>{
+  console.log(state);
+  switch (action.type){
+    case 'ADD':
+      return addToEditingStateObject(state, action.payload)
+    case 'DELETE':
+      return deleteEditingStateObject(state, action.payload)
+    case 'SWITCH':
+      return switchEditingStateObject(state, action.payload)
     default:
       console.error("Error")
   }
@@ -63,223 +92,84 @@ function Editscreen(props) {
 
   // }
 
-  //const [animationsprite, setAnimationsprite] = useState(props.location.animationsprite)
-  let dummySprite = {
-    _id: "5f96e8ffcadaf904cae9c34b",
-    owner: "5f8cf080c3f2491bf2c4ff08",
-    sprite_name: "tytytyty",
-    isPublic: true,
-    width: 250,
-    height: 250,
-    animation_states: [
-      {
-        animation_state_name: "default",
-        frames: [
-          {
-            position: 0,
-            duration: 50,
-            layers: [
-              {
-                layer_name: "layer1",
-                index: 0,
-                isVisable: false,
-                isLocked: false,
-                data: "",
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  };
-  const [animationsprite, setAnimationsprite] = useState(dummySprite);
-  const [animationspriteName, setAnimationspriteName] = useState(
-    animationsprite.sprite_name
-  );
-  let dummystate = {
+  const [animationsprite, setAnimationsprite] = useState(props.location.animationsprite)
+  // let dummySprite = {
+  //   _id: "5f96e8ffcadaf904cae9c34b",
+  //   owner: "5f8cf080c3f2491bf2c4ff08",
+  //   sprite_name: "tytytyty",
+  //   isPublic: true,
+  //   width: 250,
+  //   height: 250,
+  //   animation_states: [
+  //     {
+  //       animation_state_name: "default",
+  //       frames: [
+  //         {
+  //           position: 0,
+  //           duration: 50,
+  //           layers: [
+  //             {
+  //               layer_name: "layer1",
+  //               index: 0,
+  //               isVisable: false,
+  //               isLocked: false,
+  //               data: "",
+  //             },
+  //           ],
+  //         },
+  //       ],
+  //     },
+  //   ],
+  // };
+  // const [animationsprite, setAnimationsprite] = useState(dummySprite);
+  const [animationspriteName, setAnimationspriteName] = useState(animationsprite.sprite_name);
+  let spriteEditingState = {
     stateindex: 0,
     state: animationsprite.animation_states[0],
     frame: animationsprite.animation_states[0].frames[0],
     layer: animationsprite.animation_states[0].frames[0].layers[0],
     tool: null,
     color: "#000",
+    hello: []
   };
-  const [editingState, setEditingState] = useState(dummystate);
-
-  // useEffect(() => {
-  //   console.log("useeffect", editingState);
-  //   //setEditingState(editingState)
-  // }, [animationsprite, editingState]);
-  const [state, dispatch] = useReducer(reducer, editingState);
-
-  // const addComponent = (componentToAdd, newComponent) => {
-  //   let updatedFrame;
-  //   switch (componentToAdd) {
-  //     case "STATE":
-  //       console.log("Updating Current State Components", updatedComponent);
-  //       let updatedState = editingState.state;
-  //       updatedState.frames = updatedComponent;
-  //       setEditingState({ ...editingState, state: updatedState });
-  //       let newAnimationsprite = animationsprite;
-  //       newAnimationsprite.animation_states[
-  //         editingState.stateindex
-  //       ] = setAnimationsprite({ ...animationsprite, f: updatedState });
-  //       break;
-  //     case "FRAME":
-  //       console.log("Updating Current Frame Components", updatedComponent);
-  //       updatedFrame = updatedComponent;
-  //       setEditingState({ ...editingState, frame: updatedFrame });
-  //       break;
-  //     case "LAYER":
-  //       console.log("Updating Current Frame Components", updatedComponent);
-  //       updatedFrame = updatedComponent;
-  //       setEditingState({ ...editingState, frame: updatedFrame });
-  //       break;
-  //   }
-  // };
-
-  const addToEditingStateObject = (componentToAdd, component)=>{
-    switch (componentToAdd) {
-      case "STATE":
-        console.log("Adding to States", component);
-        //animationsprite.animation_states.append( componentToAdd
-        //setEditingState({ ...editingState, state: newState});
-        break;
-      case "FRAME":
-        console.log("Adding to Frames", component);
-        //setEditingState({ ...editingState, frame: newState });
-        break;
-      case "LAYER":
-        console.log("Adding to layer: ", component);
-        // let newFrame = editingState.frame;
-        // newFrame.layers.push(component);
-        setEditingState({...editingState, frame:component});
-        break;
-    }
-  }
-
-  const switchEditingStateObject = (componentToSwitch, component) =>{
-    switch (componentToSwitch) {
-      case "LAYER":
-        console.log("Switch layer to: ", component);
-        setEditingState({ ...editingState, layer: component});
-        break;
-      case "TOOL":
-        console.log("Switching tool to : ", component);
-        setEditingState({ ...editingState, tool: component});
-        break;
-      case "COLOR":
-        console.log("Switching color to ", component);
-        setEditingState({ ...editingState, color: component});
-        console.log("Switching color to ", editingState);
-        break;
-
-    }
-    //TODO: IMPLEMENT
-  }
-
-  const updateEditingStateObject =(stateToUpdate, newState)=>{
-    switch (stateToUpdate) {
-      case "STATE":
-        console.log("Updating State", newState);
-        setEditingState({ ...editingState, state: newState});
-        break;
-      case "FRAME":
-        console.log("Updating Frame", newState);
-        setEditingState({ ...editingState, frame: newState });
-        break;
-      case "LAYER":
-        console.log("Updating Layer", newState);
-        setEditingState({ ...editingState, layer: newState });
-        break;
-    }
-    console.log(editingState);
-  };
-
-  const deleteEditingStateObject = (componentToDelete, component) =>{
-    switch (componentToDelete) {
-      case "LAYER":
-        console.log("Deleting layer: ", component);
-        let newFrame = editingState.frame;
-        newFrame.layers.splice(component.index, 1);
-        newFrame.layers.forEach((layer) => (layer.index = newFrame.layers.indexOf(layer)));
-        setEditingState({ ...editingState, frame: newFrame });
-        break;
-    }
-
-    //TODO: IMPLEMENT
-  }
-
-  const setEditingStateHelper = (asudOperation, args) => {
-    const [editingStateObjectType, editingStateObject] = args;
-    switch (asudOperation){
-      case 'ADD':
-        addToEditingStateObject(editingStateObjectType, editingStateObject);
-        break;
-      case 'SWITCH':
-        switchEditingStateObject(editingStateObjectType, editingStateObject);
-        break;
-      case 'UPDATE':
-        updateEditingStateObject(editingStateObjectType, editingStateObject);
-        break;
-      case 'DELETE':
-        deleteEditingStateObject(editingStateObjectType, editingStateObject);
-        break;
-      default:
-        console.error("Error")
-    }
-  };
-    // if (componentSwitch) {
-    //   switch (componentToUpdate) {
-    //     case "FRAME":
-    //       console.log("Switching Frames");
-    //       console.log(editingState.frame);
-    //       console.log(updatedComponent);
-    //       setEditingState({ ...editingState, frame: updatedComponent });
-    //       //setEditingState({...editingState, layer: updatedComponent.layers[0]})
-    //       console.log(editingState.frame);
-    //       break;
-    //     case "STATE":
-    //       break;
-    //   }
-    //   return;
-    // }
-  let editingStateAccess = {
-    editingState: editingState,
-    setEditingState: setEditingStateHelper,
-  };
-
-  // if (!props.auth) {
-  //   return <Redirect to="/login" />;
-  // }
-
-  return (
-    <div className="center">
-      <button onClick={() => dispatch({type: 'LAYER',payload: {
+  //let dummyEditingState = {animationsprite:dummySprite, toolConfig: {}}
+  const [editingState, dispatch] = useReducer(reducer, spriteEditingState);
+  const addLayer = () =>{
+    let h = {...editingState.frame}
+    console.log(h)
+    const newLayer = {
       layer_name: "layer",
-      index: 2,
+      index: -1,
       isVisable: true,
       isLocked: false,
-    }})}>-</button>
-      <Optionbar
-        animationspriteName={animationspriteName}
-        setAnimationspriteName={setAnimationspriteName}
-      ></Optionbar>
+    };
+    h.layers.push(newLayer)
+    dispatch({type: 'LAYER',payload: h});
+  }
+
+  if (!props.auth) {
+    return <Redirect to="/login" />;
+  }
+
+  return (
+    <EditingStateContext.Provider value ={{editingState: editingState, editingStateDispatch:dispatch}}>
+      <div className="center">
+      <Optionbar animationspriteName={animationspriteName} setAnimationspriteName={setAnimationspriteName}/>
       <div className="editscreen center">
-        <Toolbar editingStateAccess={editingStateAccess} />
+        <Toolbar/>
         <Animatorbar
           {...props}
           sprite={animationsprite}
-          editingStateAccess={editingStateAccess}
         />
-        <Filebar {...props} editingStateAccess={editingStateAccess} />
+        <Filebar {...props} />
       </div>
     </div>
+
+    </EditingStateContext.Provider>
   );
 }
+
 
 export default compose(
   graphql(GET_ANIMATIONSPRITE_BY_ID, { name: "GetDBAnimatationspriteByID" })
 )(Editscreen);
-
-//5f9108f9119cad1334c6624d

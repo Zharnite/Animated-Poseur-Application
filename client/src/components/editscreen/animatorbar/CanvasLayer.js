@@ -1,5 +1,5 @@
-import React, { useRef, useEffect, useState } from 'react';
-
+import React, { useRef, useContext, useState } from 'react';
+import {EditingStateContext} from "../Editscreen"
   
 function canvasToolOption(selectedTool, context, optional){
   console.log(selectedTool + " selected")
@@ -29,23 +29,19 @@ function canvasToolOption(selectedTool, context, optional){
 }
 
 
-const App =(props)=>{
+const CanvasLayer =(props)=>{
   const [isDrawing, setIsDrawing] = useState(false)
   const canvasRef = useRef(null)
   const contextRef = useRef(null)
 
-  const setEditingState = props.editingStateAccess.setEditingState;
-  const editingState = props.editingStateAccess.editingState;
-
-
+  const editingStateContext = useContext(EditingStateContext);
+  const editingState = editingStateContext.editingState;
   let selectedTool = editingState.tool;
   let selectedLayer = editingState.layer;
-  //console.log(selectedTool)
-  //console.log(selectedLayer)
 
-  
   let canEditLayer;
   selectedTool == null || selectedLayer == null? canEditLayer = false : canEditLayer = true; 
+  
   if(canEditLayer){
     let canvas = document.getElementById("wlayer" + selectedLayer.index);
     let context = canvas.getContext("2d");
@@ -55,10 +51,7 @@ const App =(props)=>{
     canvasToolOption(selectedTool, context, config)
     canvasRef.current = canvas;
     contextRef.current = context;
-
   }
-
-  //console.log(canEditLayer);
   
 
   const startDrawing = (event) => {
@@ -79,9 +72,9 @@ const App =(props)=>{
     }
     contextRef.current.closePath()
     setIsDrawing(false)
-    let newLayer = editingState.layer;
-    newLayer.data = canvasRef.current.toDataURL();
-    setEditingState(["LAYER", newLayer])
+    //let newLayer = editingState.layer;
+    //newLayer.data = canvasRef.current.toDataURL();
+    //setEditingState(["LAYER", newLayer])
   }
 
   const draw = (event) => {
@@ -107,4 +100,4 @@ const App =(props)=>{
   );
 }
 
-export default App;
+export default CanvasLayer;

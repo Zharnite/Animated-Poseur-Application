@@ -66,6 +66,11 @@
   transform: translateY(-5%);
 }
 
+#frame-controls{
+  display: inline;
+  padding-left: -5px;
+}
+
 .frame-card {
   height: 70px;
   width: 70px;

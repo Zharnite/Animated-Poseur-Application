@@ -1,17 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { SketchPicker } from "react-color";
+import {EditingStateContext} from "../Editscreen"
 
 const Tool = (props) => {
-  let editingState = props.editingStateAccess.editingState;
-  let setEditingState = props.editingStateAccess.setEditingState;
+  const editingStateContext = useContext(EditingStateContext);
+  const editingState = editingStateContext.editingState;
   let classname = "tool-icon";
+
+  const switchToolHandler = () =>{
+    let dispatchObj = {type: 'SWITCH', payload: ['TOOL', props.tool.id]};
+    editingStateContext.editingStateDispatch(dispatchObj)
+  }
+
   if (editingState && editingState.tool != null && editingState.tool == props.tool.id) {
     classname = classname + "_selected";
   }
   return (
     <div
       className={classname}
-      onClick={() => setEditingState("SWITCH", ["TOOL", props.tool.id])}
+      onClick={switchToolHandler}
     >
       <img src={props.tool.src} alt="icon" className="toobar-image"/>
     </div>
