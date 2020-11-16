@@ -26,8 +26,6 @@ const addToEditingStateObject = (editingState, args)=>{
   return editingState;
 }
 
-<<<<<<< HEAD
-=======
 const switchEditingStateObject = (editingState, args) =>{
   const [componentToSwitch, component] = args
   switch (componentToSwitch) {
@@ -72,7 +70,6 @@ const reducer = (state, action) =>{
 }
 
 
->>>>>>> development
 function Editscreen(props) {
   // const [animationsprite, setAnimationsprite] = useState(null);
   // const [currentStateFrameLayerTool, setCurrentStateFrameLayerTool] = useState(null);
@@ -135,78 +132,6 @@ function Editscreen(props) {
     color: "#000",
     hello: []
   };
-<<<<<<< HEAD
-  const [editingState, setEditingState] = useState(dummystate);
-
-  useEffect(() => {
-    console.log("useeffect", editingState);
-    //setEditingState(editingState)
-  }, [animationsprite, editingState]);
-  // const addComponent = (componentToAdd, newComponent) => {
-  //   let updatedFrame;
-  //   switch (componentToAdd) {
-  //     case "STATE":
-  //       console.log("Updating Current State Components", updatedComponent);
-  //       let updatedState = editingState.state;
-  //       updatedState.frames = updatedComponent;
-  //       setEditingState({ ...editingState, state: updatedState });
-  //       let newAnimationsprite = animationsprite;
-  //       newAnimationsprite.animation_states[
-  //         editingState.stateindex
-  //       ] = setAnimationsprite({ ...animationsprite, f: updatedState });
-  //       break;
-  //     case "FRAME":
-  //       console.log("Updating Current Frame Components", updatedComponent);
-  //       updatedFrame = updatedComponent;
-  //       setEditingState({ ...editingState, frame: updatedFrame });
-  //       break;
-  //     case "LAYER":
-  //       console.log("Updating Current Frame Components", updatedComponent);
-  //       updatedFrame = updatedComponent;
-  //       setEditingState({ ...editingState, frame: updatedFrame });
-  //       break;
-  //   }
-  // };
-
-  const addToEditingStateObject = (componentToAdd, component)=>{
-    switch (componentToAdd) {
-      case "STATE":
-        console.log("Adding to States", component);
-        //animationsprite.animation_states.append( componentToAdd
-        //setEditingState({ ...editingState, state: newState});
-        break;
-      case "FRAME":
-        console.log("Adding to Frames", component);
-        //setEditingState({ ...editingState, frame: newState });
-        break;
-      case "LAYER":
-        console.log("Adding to layer: ", component);
-        // let newFrame = editingState.frame;
-        // newFrame.layers.push(component);
-        setEditingState({...editingState, frame:component});
-        break;
-    }
-  }
-
-  const switchEditingStateObject = (componentToSwitch, component) =>{
-    switch (componentToSwitch) {
-      case "LAYER":
-        console.log("Switch layer to: ", component);
-        setEditingState({ ...editingState, layer: component});
-        break;
-      case "TOOL":
-        console.log("Switching tool to : ", component);
-        setEditingState({ ...editingState, tool: component});
-        break;
-      case "COLOR":
-        console.log("Switching color to ", component);
-        setEditingState({ ...editingState, color: component});
-        console.log("Switching color to ", editingState);
-        break;
-
-    }
-    //TODO: IMPLEMENT
-=======
   //let dummyEditingState = {animationsprite:dummySprite, toolConfig: {}}
   const [editingState, dispatch] = useReducer(reducer, spriteEditingState);
   const addLayer = () =>{
@@ -220,7 +145,6 @@ function Editscreen(props) {
     };
     h.layers.push(newLayer)
     dispatch({type: 'LAYER',payload: h});
->>>>>>> development
   }
 
   if (!props.auth) {
@@ -228,17 +152,9 @@ function Editscreen(props) {
   }
 
   return (
-<<<<<<< HEAD
-    <div className="center">
-      <Optionbar
-        animationspriteName={animationspriteName}
-        setAnimationspriteName={setAnimationspriteName}
-      />
-=======
     <EditingStateContext.Provider value ={{editingState: editingState, editingStateDispatch:dispatch}}>
       <div className="center">
       <Optionbar animationspriteName={animationspriteName} setAnimationspriteName={setAnimationspriteName}/>
->>>>>>> development
       <div className="editscreen center">
         <Toolbar/>
         <Animatorbar
