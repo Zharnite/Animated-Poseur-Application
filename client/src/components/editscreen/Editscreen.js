@@ -226,19 +226,6 @@ function Editscreen(props) {
   //   return <Redirect to="/login" />;
   // }
 
-function addAction(taskText) {
-    return {
-      type: ADD,
-      payload: {
-        task: {
-          name: taskText,
-          done: false
-        }
-      }
-    };
-  }
-  
-
   return (
     <div className="center">
       <Optionbar
