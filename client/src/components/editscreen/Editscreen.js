@@ -10,12 +10,69 @@ import { GET_ANIMATIONSPRITE_BY_ID } from "../../cache/queries";
 import { useQuery } from "@apollo/react-hooks";
 import { Redirect } from "react-router-dom";
 
-//todo:
-//Learn how to switch from frame to frame without causing the application to crash
-//Learn how to merge layer data into a single image
-//
-//
+export const EditingStateContext = React.createContext();
 
+
+const addToEditingStateObject = (editingState, args)=>{
+  const [componentToAdd, component] = args
+  switch (componentToAdd) {
+    case "STATE":
+      console.log("Adding component to state");
+      return{...editingState, state:component}
+    case "FRAME":
+      console.log("Adding component to frame");
+      return{...editingState, frame:component}
+  }
+  return editingState;
+}
+
+<<<<<<< HEAD
+=======
+const switchEditingStateObject = (editingState, args) =>{
+  const [componentToSwitch, component] = args
+  switch (componentToSwitch) {
+    case "FRAME":
+      console.log("Switch frame");
+      return{...editingState, frame:component}
+    case "LAYER":
+      console.log("Switch layer");
+      return{...editingState, layer:component}
+    case "TOOL":
+      console.log("Switch tool");
+      return{...editingState, tool:component}
+    case "COLOR":
+      console.log("Switch color");
+      return{...editingState, color:component}
+  }
+  return editingState;
+}
+
+const deleteEditingStateObject = (editingState, args) =>{
+  const [componentToDelete, component] = args;
+  switch (componentToDelete) {
+    case "FRAME":
+      console.log("Deleting component from frame");
+      return{...editingState, frame:component}
+  }
+}
+
+
+const reducer = (state, action) =>{
+  console.log(state);
+  switch (action.type){
+    case 'ADD':
+      return addToEditingStateObject(state, action.payload)
+    case 'DELETE':
+      return deleteEditingStateObject(state, action.payload)
+    case 'SWITCH':
+      return switchEditingStateObject(state, action.payload)
+    default:
+      console.error("Error")
+  }
+}
+
+
+>>>>>>> development
 function Editscreen(props) {
   // const [animationsprite, setAnimationsprite] = useState(null);
   // const [currentStateFrameLayerTool, setCurrentStateFrameLayerTool] = useState(null);
@@ -38,47 +95,47 @@ function Editscreen(props) {
 
   // }
 
-  //const [animationsprite, setAnimationsprite] = useState(props.location.animationsprite)
-  let dummySprite = {
-    _id: "5f96e8ffcadaf904cae9c34b",
-    owner: "5f8cf080c3f2491bf2c4ff08",
-    sprite_name: "tytytyty",
-    isPublic: true,
-    width: 250,
-    height: 250,
-    animation_states: [
-      {
-        animation_state_name: "default",
-        frames: [
-          {
-            position: 0,
-            duration: 50,
-            layers: [
-              {
-                layer_name: "layer1",
-                index: 0,
-                isVisable: false,
-                isLocked: false,
-                data: "",
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  };
-  const [animationsprite, setAnimationsprite] = useState(dummySprite);
-  const [animationspriteName, setAnimationspriteName] = useState(
-    animationsprite.sprite_name
-  );
-  let dummystate = {
+  const [animationsprite, setAnimationsprite] = useState(props.location.animationsprite)
+  // let dummySprite = {
+  //   _id: "5f96e8ffcadaf904cae9c34b",
+  //   owner: "5f8cf080c3f2491bf2c4ff08",
+  //   sprite_name: "tytytyty",
+  //   isPublic: true,
+  //   width: 250,
+  //   height: 250,
+  //   animation_states: [
+  //     {
+  //       animation_state_name: "default",
+  //       frames: [
+  //         {
+  //           position: 0,
+  //           duration: 50,
+  //           layers: [
+  //             {
+  //               layer_name: "layer1",
+  //               index: 0,
+  //               isVisable: false,
+  //               isLocked: false,
+  //               data: "",
+  //             },
+  //           ],
+  //         },
+  //       ],
+  //     },
+  //   ],
+  // };
+  // const [animationsprite, setAnimationsprite] = useState(dummySprite);
+  const [animationspriteName, setAnimationspriteName] = useState(animationsprite.sprite_name);
+  let spriteEditingState = {
     stateindex: 0,
     state: animationsprite.animation_states[0],
     frame: animationsprite.animation_states[0].frames[0],
     layer: animationsprite.animation_states[0].frames[0].layers[0],
     tool: null,
     color: "#000",
+    hello: []
   };
+<<<<<<< HEAD
   const [editingState, setEditingState] = useState(dummystate);
 
   useEffect(() => {
@@ -149,104 +206,54 @@ function Editscreen(props) {
 
     }
     //TODO: IMPLEMENT
+=======
+  //let dummyEditingState = {animationsprite:dummySprite, toolConfig: {}}
+  const [editingState, dispatch] = useReducer(reducer, spriteEditingState);
+  const addLayer = () =>{
+    let h = {...editingState.frame}
+    console.log(h)
+    const newLayer = {
+      layer_name: "layer",
+      index: -1,
+      isVisable: true,
+      isLocked: false,
+    };
+    h.layers.push(newLayer)
+    dispatch({type: 'LAYER',payload: h});
+>>>>>>> development
   }
 
-  const updateEditingStateObject =(stateToUpdate, newState)=>{
-    switch (stateToUpdate) {
-      case "STATE":
-        console.log("Updating State", newState);
-        setEditingState({ ...editingState, state: newState});
-        break;
-      case "FRAME":
-        console.log("Updating Frame", newState);
-        setEditingState({ ...editingState, frame: newState });
-        break;
-      case "LAYER":
-        console.log("Updating Layer", newState);
-        setEditingState({ ...editingState, layer: newState });
-        break;
-    }
-    console.log(editingState);
-  };
-
-  const deleteEditingStateObject = (componentToDelete, component) =>{
-    switch (componentToDelete) {
-      case "LAYER":
-        console.log("Deleting layer: ", component);
-        let newFrame = editingState.frame;
-        newFrame.layers.splice(component.index, 1);
-        newFrame.layers.forEach((layer) => (layer.index = newFrame.layers.indexOf(layer)));
-        setEditingState({ ...editingState, frame: newFrame });
-        break;
-    }
-
-    //TODO: IMPLEMENT
+  if (!props.auth) {
+    return <Redirect to="/login" />;
   }
-
-  const setEditingStateHelper = (asudOperation, args) => {
-    const [editingStateObjectType, editingStateObject] = args;
-    switch (asudOperation){
-      case 'ADD':
-        addToEditingStateObject(editingStateObjectType, editingStateObject);
-        break;
-      case 'SWITCH':
-        switchEditingStateObject(editingStateObjectType, editingStateObject);
-        break;
-      case 'UPDATE':
-        updateEditingStateObject(editingStateObjectType, editingStateObject);
-        break;
-      case 'DELETE':
-        deleteEditingStateObject(editingStateObjectType, editingStateObject);
-        break;
-      default:
-        console.error("Error")
-    }
-  };
-    // if (componentSwitch) {
-    //   switch (componentToUpdate) {
-    //     case "FRAME":
-    //       console.log("Switching Frames");
-    //       console.log(editingState.frame);
-    //       console.log(updatedComponent);
-    //       setEditingState({ ...editingState, frame: updatedComponent });
-    //       //setEditingState({...editingState, layer: updatedComponent.layers[0]})
-    //       console.log(editingState.frame);
-    //       break;
-    //     case "STATE":
-    //       break;
-    //   }
-    //   return;
-    // }
-  let editingStateAccess = {
-    editingState: editingState,
-    setEditingState: setEditingStateHelper,
-  };
-
-  // if (!props.auth) {
-  //   return <Redirect to="/login" />;
-  // }
 
   return (
+<<<<<<< HEAD
     <div className="center">
       <Optionbar
         animationspriteName={animationspriteName}
         setAnimationspriteName={setAnimationspriteName}
       />
+=======
+    <EditingStateContext.Provider value ={{editingState: editingState, editingStateDispatch:dispatch}}>
+      <div className="center">
+      <Optionbar animationspriteName={animationspriteName} setAnimationspriteName={setAnimationspriteName}/>
+>>>>>>> development
       <div className="editscreen center">
-        <Toolbar editingStateAccess={editingStateAccess} />
+        <Toolbar/>
         <Animatorbar
           {...props}
           sprite={animationsprite}
-          editingStateAccess={editingStateAccess}
         />
-        <Filebar {...props} editingStateAccess={editingStateAccess} />
+        <Filebar {...props} />
       </div>
     </div>
+
+    </EditingStateContext.Provider>
   );
 }
+
 
 export default compose(
   graphql(GET_ANIMATIONSPRITE_BY_ID, { name: "GetDBAnimatationspriteByID" })
 )(Editscreen);
-
-//5f9108f9119cad1334c6624d

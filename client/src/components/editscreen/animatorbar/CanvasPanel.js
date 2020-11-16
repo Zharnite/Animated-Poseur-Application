@@ -1,6 +1,7 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useContext } from 'react';
 import background from '../../../illustration/images/canvas_background.png'
 import CanvasLayer from './CanvasLayer'
+import {EditingStateContext} from "../Editscreen"
 
 
 function prelim(a, b, c){
@@ -23,13 +24,11 @@ function prelim(a, b, c){
 
 }
 
-
-
-
-
-function App(props) {
+function CanvasPanel(props) {
   //console.log(props.editingStateAccess)
-  let layers = props.editingStateAccess.editingState.frame.layers; 
+  const editingStateContext = useContext(EditingStateContext);
+  const editingState = editingStateContext.editingState;
+  let layers = editingState.frame.layers; 
   //console.log(props)
   
   // const [layersList, setLayerList] = useState([
@@ -64,4 +63,4 @@ function App(props) {
   );
 }
 
-export default App;
+export default CanvasPanel;

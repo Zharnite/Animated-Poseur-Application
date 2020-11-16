@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useContext} from "react";
 import { SketchPicker } from "react-color";
-
+import {EditingStateContext} from "../Editscreen"
 
 const ColorPicker = (props) => {
+  const editingStateContext = useContext(EditingStateContext);
+  const editingState = editingStateContext.editingState;
   const [displayPicker, setDisplayPicker] = useState(false);
-  let color = props.editingStateAccess.editingState.color
-  let setEditingState = props.editingStateAccess.setEditingState;
+  let color = editingState.color
   
   const handleChangeColor = (newColor) =>{
     document.getElementById("color").style.background = newColor.hex;
-    setEditingState("SWITCH", ["COLOR", newColor.hex])
+    let dispatchObj = {type: 'SWITCH', payload: ['COLOR', newColor.hex]};
+    editingStateContext.editingStateDispatch(dispatchObj)
   }
 
   return (

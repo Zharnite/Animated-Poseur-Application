@@ -89,6 +89,7 @@ span{
 .wcanvas-main {
   background: url("../illustration/images/canvas_background.png");
   background-size: 40px;
+  position: absolute;
 }
 
 .wcanvas-layers {
@@ -96,6 +97,7 @@ span{
 }
 
 .wcanvas-layer {
+  position: absolute;
   background-color: transparent;
 }
 
