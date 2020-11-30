@@ -13,6 +13,7 @@ import { graphql } from "@apollo/react-hoc";
 import { flowRight as compose, random } from "lodash";
 import { useQuery } from "@apollo/react-hooks";
 import { jsTPS } from './utils/jsTPS';
+import Sidebar from "./components/sidebar/Sidebar.js";
 
 
 const App = (props) => {
@@ -36,41 +37,42 @@ const App = (props) => {
   console.log(auth)
 
   return (
-      <div>
-      <Navbar 
-        {...props} fetchUser={refetch} user={user} tps={transactionStack}
-      />
-      <Switch>
-        <Redirect exact from="/" to={{ pathname: "/home" }} />
-        <Route
-          path="/home"
-          name="home"
-          render={(props) => (
-            <Homescreen {...props} fetchUser={refetch} user={user} auth={auth}/>
-          )}
-        />
-        <Route
-          path="/login"
-          name="login"
-          render={(props) => (
-            <Loginscreen {...props} fetchUser={refetch} user={user} auth={auth}/>
-          )}
-        />
-        <Route
-          path="/edit:id"
-          name="edit"
-          render={(props) => (
-            <Editscreen {...props} fetchUser={refetch} user={user} auth={auth}/>
-          )}
-        />
-        <Route
-          path="/profile"
-          name="profile"
-          render={(props) => (
-            <Profilescreen {...props} fetchUser={refetch} user={user} auth={auth}/>
-          )}
-        />
-      </Switch>
+      <div className="animatedposeur">
+      {
+        auth?
+          <div className="main">
+            <Navbar 
+              {...props} fetchUser={refetch} user={user} tps={transactionStack}
+            />
+            <Sidebar {...props} fetchUser={refetch} user={user} tps={transactionStack}/>
+            <Switch>
+              <Redirect exact from="/" to={{ pathname: "/login" }} />
+              <Route
+                path="/home"
+                name="home"
+                render={(props) => (
+                  <Homescreen {...props} fetchUser={refetch} user={user} auth={auth}/>
+                )}
+              />
+              <Route
+                path="/edit:id"
+                name="edit"
+                render={(props) => (
+                  <Editscreen {...props} fetchUser={refetch} user={user} auth={auth}/>
+                )}
+              />
+              <Route
+                path="/profile"
+                name="profile"
+                render={(props) => (
+                  <Profilescreen {...props} fetchUser={refetch} user={user} auth={auth}/>
+                )}
+              />
+            </Switch>
+          </div>
+          :
+          <Loginscreen {...props} fetchUser={refetch} user={user} auth={auth}/>
+      }
       </div>
   );
 };

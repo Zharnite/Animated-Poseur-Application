@@ -48,10 +48,7 @@ const RegisterModal = (props) => {
 
   return (
     <div>
-      <p id="register" onClick={handleShow} className="dark-font-color"> 
-        Don't have an account? Register now
-      </p>
-
+      <button onClick={handleShow} className="login-btn">Register</button>
       <Modal
         show={show}
         onHide={handleClose}

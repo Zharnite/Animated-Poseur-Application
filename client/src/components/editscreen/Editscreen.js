@@ -92,36 +92,36 @@ function Editscreen(props) {
 
   // }
 
-  const [animationsprite, setAnimationsprite] = useState(props.location.animationsprite)
-  // let dummySprite = {
-  //   _id: "5f96e8ffcadaf904cae9c34b",
-  //   owner: "5f8cf080c3f2491bf2c4ff08",
-  //   sprite_name: "tytytyty",
-  //   isPublic: true,
-  //   width: 250,
-  //   height: 250,
-  //   animation_states: [
-  //     {
-  //       animation_state_name: "default",
-  //       frames: [
-  //         {
-  //           position: 0,
-  //           duration: 50,
-  //           layers: [
-  //             {
-  //               layer_name: "layer1",
-  //               index: 0,
-  //               isVisable: false,
-  //               isLocked: false,
-  //               data: "",
-  //             },
-  //           ],
-  //         },
-  //       ],
-  //     },
-  //   ],
-  // };
-  // const [animationsprite, setAnimationsprite] = useState(dummySprite);
+  //const [animationsprite, setAnimationsprite] = useState(props.location.animationsprite)
+  let dummySprite = {
+    _id: "5f96e8ffcadaf904cae9c34b",
+    owner: "5f8cf080c3f2491bf2c4ff08",
+    sprite_name: "tytytyty",
+    isPublic: true,
+    width: 250,
+    height: 250,
+    animation_states: [
+      {
+        animation_state_name: "default",
+        frames: [
+          {
+            position: 0,
+            duration: 50,
+            layers: [
+              {
+                layer_name: "layer1",
+                index: 0,
+                isVisable: false,
+                isLocked: false,
+                data: "",
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  };
+  const [animationsprite, setAnimationsprite] = useState(dummySprite);
   const [animationspriteName, setAnimationspriteName] = useState(animationsprite.sprite_name);
   let spriteEditingState = {
     stateindex: 0,
@@ -147,9 +147,9 @@ function Editscreen(props) {
     dispatch({type: 'LAYER',payload: h});
   }
 
-  if (!props.auth) {
-    return <Redirect to="/login" />;
-  }
+  // if (!props.auth) {
+  //   return <Redirect to="/login" />;
+  // }
 
   return (
     <EditingStateContext.Provider value ={{editingState: editingState, editingStateDispatch:dispatch}}>
