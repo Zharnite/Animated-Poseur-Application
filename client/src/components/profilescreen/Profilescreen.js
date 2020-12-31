@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 import { flowRight as compose, random } from "lodash";
 import Container from "react-bootstrap/Container";
+import Form from "react-bootstrap/Form";
+
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
@@ -10,6 +12,7 @@ import { graphql } from "@apollo/react-hoc";
 import { useLazyQuery } from "@apollo/react-hooks";
 import SpriteCard from "./SpriteCard"
 import { Redirect } from "react-router-dom";
+import UserInfo from "./UserInfo";
 
 
 
@@ -61,6 +64,9 @@ const Profile = (props) => {
                     ))};
                 </Row>
             </Container>
+            <UserInfo/>
+
+
 
         </div>
     );

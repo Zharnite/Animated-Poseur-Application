@@ -8,60 +8,42 @@ import { LOGIN } from "../../cache/mutation";
 import { graphql } from "@apollo/react-hoc";
 import { flowRight as compose, random } from "lodash";
 import { Redirect } from "react-router-dom";
+import logo from "../../illustration/images/logo.png";
+import LoginModal from "./LoginModal.js";
 
 
-const Login = (props) => {
+
+const LandingPage = (props) => {
   console.log(props)
   const [loading, toggleLoading] = useState(false);
   if (props.auth) {
     return <Redirect to="/home" />;
   } 
   
-  const handleLogin = async (e) => {
-    var email = document.getElementById("loginEmail").value;
-    var password = document.getElementById("loginPassword").value;
-    var login = { email, password};
-
-    const { loading, error, data } = await props.login({ variables:{ ...login } });
-    if(loading) { toggleLoading(true)};
-    if (error) {
-      return `Error: ${error.message}`;
-    }
-		if(data) {	
-      toggleLoading(false)
-      props.fetchUser();
-      props.history.push({
-        pathname: '/home',
-      })
-		};
-
-  };
-
   return (
-    <div className="center">
-      <Card style={{ width: "50rem" }}>
-        <Card.Body>
-          <Form id="login-form">
-            <Form.Group controlId="loginEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" />
-            </Form.Group>
+    <div className="login center">
+      <h1 className="login-title">Animated Poseur</h1>
+      <img 
+        className="center"
+        alt="logo"
+        src={logo}
+        width="500"
+        height="500"
+      />
+      <h6 className="dark-font-color login-a">Create and share animated sprites online </h6>
+      <div className="login-layout-btns">
 
-            <Form.Group controlId="loginPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" />
-            </Form.Group>
-            <RegisterModal
+        <LoginModal
               {...props}
               fetchUser={props.fetchUser}
               user={props.user}
-            />
-            <Button variant="primary" onClick={handleLogin}>
-              Login
-            </Button>
-          </Form>
-        </Card.Body>
-      </Card>
+        />
+        <RegisterModal
+              {...props}
+              fetchUser={props.fetchUser}
+              user={props.user}
+        />
+      </div>
     </div>
   );
 };
@@ -69,4 +51,4 @@ const Login = (props) => {
 //charlie@email.com
 //charlie
 
-export default compose(graphql(LOGIN, { name: "login" }))(Login);
+export default compose(graphql(LOGIN, { name: "login" }))(LandingPage);
